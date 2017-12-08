@@ -1,2 +1,1 @@
-# -minshop-js-sdk
-js sdk for minshop.
+# 小电商
