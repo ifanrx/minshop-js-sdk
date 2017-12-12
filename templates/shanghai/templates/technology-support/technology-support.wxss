@@ -1,0 +1,31 @@
+.technology-support {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  box-sizing: border-box;
+  height: 215rpx;
+  padding: 43rpx 0;
+  font-size: 12px;
+  font-family: PingFangSC-Regular;
+  text-align: center;
+  z-index: 1;
+  line-height: 1;
+
+  color: #bdbdbd;
+}
+
+.technology-support__icon {
+  padding: 8px 0;
+  font-size: 24px;
+}
+
+.technology-support__website {
+  line-height: 1.18;
+}
+
+.technology-support__desc {
+  color: #888888;
+  line-height: 1.5;
+}

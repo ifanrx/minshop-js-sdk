@@ -1,0 +1,207 @@
+<import src="../../templates/productCard/productCard.wxml" />
+<import src="../../templates/toast/toast.wxml"/>
+
+<!-- 搜索栏 -->
+<include src="../../templates/searchBar/searchBar.wxml" />
+<!-- /搜索栏 -->
+<view class="floor banner">
+  <!-- banner -->
+  <swiper class="banner-swiper" bindchange="swiperChange" circular="{{ bannerSwiper.circular }}" autoplay="{{ bannerSwiper.autoplay }}" interval="{{ bannerSwiper.interval }}" duration="{{ bannerSwiper.duration }}" indicator-dots="{{ false }}" indicator-color="{{ bannerSwiper.indicatorColor }}"
+    indicator-active-color="{{ bannerSwiper.indicatorActiveColor }}">
+    <swiper-item wx:for="{{ bannerList }}">
+      <navigator open-type="{{item.isVenue  ? 'switchTab' : 'navigateTo'}}" url="{{ item.URL }}" hover-class="none">
+        <image src="{{ item.image }}" class="banner-slide-image" mode="aspectFill"></image>
+      </navigator>
+    </swiper-item>
+    <view class="product-image-index" wx:if="{{bannerList.length}}">{{currentIndex}}/{{bannerList.length}}</view>
+  </swiper>
+  <!-- banner -->
+</view>
+
+<!-- 新品上架  -->
+<view class="floor new-comming" hidden="{{!selectionProductList.length}}">
+  <view class="floor-title-container">
+    <text class="floor-title">新品上架</text>
+    <navigator class="get-detail" url="../list/list?id={{ latestProductShelfId }}&name={{'新品上架'}}" hover-class="none">查看全部</navigator>
+  </view>
+  <view class="product-list row-box">
+    <view class="product-item" wx:for="{{ selectionProductList }}">
+      <template is="productCardWithStar" data="{{ ...item }}" />
+    </view>
+  </view>
+</view>
+<!-- /新品上架 -->
+
+<!-- 秒杀  -->
+<view class="floor flash-sale" wx:if="{{currentFlashSale}}">
+  <view class="floor-title-container">
+    <text class="floor-title">秒杀</text>
+    <view class="countdown-content">
+      <view class="countdown-box countdown-hr">{{clock.hr}}</view>
+      <view class="countdown-colon">:</view>
+      <view class="countdown-box countdown-min">{{clock.min}}</view>
+      <view class="countdown-colon">:</view>
+      <view class="countdown-box countdown-sec">{{clock.sec}}</view>
+    </view>
+    <navigator class="get-detail" url="../flash-sale/flash-sale" hover-class="none">查看全部</navigator>
+  </view>
+  <view class="flash-sale-list">
+    <navigator class="flash-product" wx:for="{{currentFlashSale.product}}" url="../detail/detail?id={{item.id}}" hover-class="none">
+      <image class="flash-product-image" src="{{item.cover_image}}"></image>
+      <view class="flash-product-content">
+        <view class="flash-product-name ellipsis-l1">
+          {{item.title}}
+        </view>
+        <view class="flash-product-price-content">
+          <view class="flash-product-price">￥{{item.price}}</view>
+          <view class="flash-product-origin-price">原价 <text class="line-slash">￥{{item.original_price}}</text></view>
+        </view>
+        <view class="flash-remain-content">
+          <view class="flash-remain">
+            <text wx:if="{{item.percent == 1}}">抢购进行中</text>
+            <text wx:else>仅剩{{item.percent * 100 + '%'}}</text>
+            <view class="flash-process" style="width: {{208 * item.percent}}rpx"></view>
+          </view>
+          <view class="flash-btn {{item.percent > 0 ? '' : 'flash-out'}}">抢</view>
+        </view>
+      </view>
+    </navigator>
+  </view>
+</view>
+
+<!-- 活动推荐 -->
+<view class="floor activity-list cover-scrollbar" scroll-with-animation="{{true}}" hidden="{{ !activityShelf.length }}">
+  <view class="floor-title-container">
+    <text class="floor-title">活动推荐</text>
+    <view class="activity-roll-box" wx:if="{{activityShelf.length}}">
+      <!-- <canvas canvas-id="activityIndexCanvas" id="activity-canvas" /> -->
+      <text class="current-activity-index">{{currentActIndex}}</text>
+      <text class="total-activity-nums">/{{activityShelf.length}}</text>
+    </view>
+  </view>
+  <scroll-view scroll-x="{{true}}" bindscroll="activityIndexChange" class="activity-roll">
+    <view>
+      <navigator class="activity-item" wx:for="{{ activityShelf }}" url="../activity/activity?id={{ item.id }}&name={{ item.name }}">
+        <image src="{{ item.cover_image }}" class="activity-image"></image>
+        <view class="activity-title ellipsis-l1">{{item.name}}</view>
+        <view class="activity-duration ellipsis-l1">{{item.english_name}}</view>
+      </navigator>
+    </view>
+  </scroll-view>
+</view>
+<!-- /活动推荐 -->
+
+<!-- 本周特惠  -->
+<view class="floor weekly-privilege" hidden="{{!promotionalProductList.length}}">
+  <view class="floor-title-container">
+    <text class="floor-title">本周特惠</text>
+  </view>
+  <view class="privilege-container">
+    <view class="privilege-item" wx:for="{{ promotionalProductList }}">
+      <template is="productCardWithStar" data="{{ ...item }}" />
+    </view>
+  </view>
+</view>
+<!-- /本周特惠  -->
+
+<!-- 热门品牌  -->
+<view class="floor hot-brand" hidden="{{!vendorShelf.length}}">
+  <view class="floor-title-container">
+    <text class="floor-title">热门品牌</text>
+    <navigator class="get-detail" url="../brand-list/brand-list" hover-class="none">查看全部</navigator>
+  </view>
+  <view class="row-box">
+    <navigator class="hot-brand-item" wx:for="{{ vendorShelf }}" url="../brand/brand?id={{ item.id }}&name={{ item.name }}" hover-class="none">
+      <image src="{{ item.background_image }}" class="hot-brand-image"></image>
+      <image src="{{item.cover_image}}" class="hot-brand-logo"></image>
+      <view class="cover"></view>
+      <view class="hot-brand-title ellipsis-l1">{{item.name}}</view>
+      <view class="hot-brand-desc ellipsis-l1">{{item.english_name}}</view>
+    </navigator>
+  </view>
+</view>
+<!-- /热门品牌  -->
+
+<!-- 商品分类  -->
+<view class="floor shelf-category" hidden="{{!categories.length}}">
+  <view class="floor-title-container">
+    <text class="floor-title">商品分类</text>
+    <navigator class="get-detail" open-type="switchTab" url="../category/category" hover-class="none">查看全部</navigator>
+  </view>
+  <view class="shelf-list">
+    <block wx:for="{{categories}}" wx:if="{{categories.length > 10}}">
+      <block wx:if="{{index < 9}}">
+        <view class="shelf-category-container" hover-class="none" data-index="{{index}}" bindtap="enterCategoryDetail">
+          <image src="{{item.cover_image}}"></image>
+          <view class="shelf-category-name ellipsis-l1">{{item.name}}</view>
+        </view>
+      </block>
+      <block wx:if="{{index == 9}}">
+        <view class="shelf-category-container" bindtap="toggleCategory">
+          <image class="ifanrin-down-icon {{showMoreCategory == true ? 'rotate180' : ''}} ifanrin" src=""></image>
+          <view class="shelf-category-name ellipsis-l1">查看更多</view>
+        </view>
+        <view wx:if="{{showMoreCategory == true}}" class="shelf-category-container" hover-class="none" data-index="{{index}}" bindtap="enterCategoryDetail">
+          <image src="{{item.cover_image}}"></image>
+          <view class="shelf-category-name ellipsis-l1">{{item.name}}</view>
+        </view>
+      </block>
+      <block wx:if="{{index > 9 && showMoreCategory == true}}">
+        <view class="shelf-category-container" hover-class="none" data-index="{{index}}" bindtap="enterCategoryDetail">
+          <image src="{{item.cover_image}}"></image>
+          <view class="shelf-category-name ellipsis-l1">{{item.name}}</view>
+        </view>
+      </block>
+    </block>
+    <block wx:for="{{categories}}" wx:if="{{categories.length <= 10}}">
+      <view class="shelf-category-container" hover-class="none" data-index="{{index}}" bindtap="enterCategoryDetail">
+        <image src="{{item.cover_image}}"></image>
+        <view class="shelf-category-name ellipsis-l1">{{item.name}}</view>
+      </view>
+    </block>
+  </view>
+</view>
+
+<!-- /商品分类  -->
+
+<view class="floor shelfs-container cover-scrollbar" hidden="{{ !categories.length }}">
+
+  <!-- 货架详情 -->
+  <view class="shelf-detail cover-scrollbar" wx:for="{{ categories }}" wx:for-item="shelf">
+    <view style="background-image: url({{ shelf.background_image }})" class="shelf-detail--header background-image">
+      <view class="shelf-detail-info" hover-class="none" data-index="{{index}}" bindtap="enterCategoryDetail">
+      </view>
+    </view>
+
+    <view class="product-list row-box">
+      <view class="product-item" wx:for="{{ shelfProductList[categories[index].shelves[0].id] }}">
+        <template is="productCard" data="{{ ...item }}" />
+      </view>
+
+      <!-- 查看更多 -->
+      <view wx:if="{{ !isInitShelfProductList }}" bindtap="reloadShelfProduct" class="visit-more">
+        <view class="visit-more--header">
+          <text class="visit-more__text">重新加载</text>
+        </view>
+        <text class="visit-more__dot">...</text>
+      </view>
+      <view wx:else class="visit-more" hover-class="none" data-index="{{index}}" bindtap="enterCategoryDetail">
+        <view class="visit-more--header">
+          <text class="visit-more__text">查看更多</text>
+        </view>
+        <text class="visit-more__dot">...</text>
+      </view>
+      <!-- /查看更多 -->
+    </view>
+  </view>
+  <!-- /货架详情 -->
+</view>
+
+<view wx:if="{{isShowHomeModal}}" class="home-activity-modal">
+  <view class="home-gift-box-image background-image" style="background-image:url(https://coolbuy-minapp.b0.upaiyun.com/home/home-gift-box-modal.png?t=1)"></view>
+  <view class="get-coupon" bindtap="getRedisCoupon">立即领取</view>
+  <view class="home-close-modal-btn ifanrin-delete-icon ifanrin" bindtap="hideHomeModal"></view>
+</view>
+
+<include src="../../templates/technology-support/technology-support.wxml"/>
+<template is="toast" data="{{toastModalStatus, toastModalText}}"></template>

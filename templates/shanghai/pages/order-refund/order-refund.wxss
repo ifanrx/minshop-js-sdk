@@ -1,0 +1,250 @@
+page {
+   padding-bottom: 106rpx;
+}
+
+page, refund {
+  background: #e5e5e5;
+}
+
+.plchder {
+  font-size: 26rpx;
+  color: #b8b8b8;
+}
+
+.item-info-box {
+  display: flex;
+  padding: 30rpx;
+  background: #fff;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.08);
+  border-top: 1rpx solid #e5e5e5;
+  margin-bottom: 18rpx;
+}
+
+.item-info-box image {
+  width: 130rpx;
+  height: 130rpx;
+  margin-right: 20rpx;
+}
+
+.item-info {
+  flex: 1;
+}
+
+.item-title-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8rpx;
+}
+
+.item-title {
+  display: flex;
+  font-size: 28rpx;
+  color: #2b2b2b;
+  line-height: 28rpx;
+}
+
+.item-num-box {
+  font-size: 26rpx;
+  color: #b8b8b8;
+  letter-spacing: 0;
+}
+
+.icon-x {
+  margin: 0 10rpx;
+}
+
+.item-description {
+  font-size: 26rpx;
+  color: #545454;
+  margin: 8rpx 0 25rpx;
+  line-height: 26rpx;
+  height: 26rpx;
+}
+
+.item-price-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item-price-box button {
+  border: 2rpx solid #d9d9d9;
+  border-radius: 30px;
+  width: 128rpx;
+  height: 44rpx;
+  line-height: 44rpx;
+  font-size: 24rpx;
+  color: #666;
+  background: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+.item-price-box button::after {
+  border: none;
+}
+
+.item-total-price {
+  font-size: 28rpx;
+  color: #4b4d5a;
+  letter-spacing: 0;
+  line-height: 28rpx;
+}
+
+.form-container {
+  background: #fff;
+  padding: 50rpx 30rpx 30rpx;
+}
+
+.refund-type, .refund-reason, .refund-amount, .refund-explain, .refund-proof {
+  font-size: 28rpx;
+  color: #545454;
+  margin-bottom: 30rpx;
+}
+
+.refund-type-radio {
+  font-size: 26rpx;
+  height: 36rpx;
+  line-height: 32rpx;
+  margin-right: 45rpx;
+  color: #545454;
+}
+
+.radio-group {
+  height: 36rpx;
+  line-height: 36rpx;
+  display: flex;
+  align-items: center;
+  margin-bottom: 50rpx;
+}
+
+.refund-type-radio .wx-radio-input {
+  width: 32rpx;
+  height: 32rpx;
+  line-height: 32rpx;
+  margin-right: 20rpx;
+}
+
+.reason-picker {
+  padding: 0 30rpx;
+  height: 70rpx;
+  background: #fff;
+  border: 2rpx solid #d9d9d9;
+  border-radius: 10rpx;
+  line-height: 70rpx;
+  font-size: 26rpx;
+  color: #545454;
+  margin-bottom: 50rpx;
+}
+
+.ifanrin-pulldown-icon {
+  position: relative;
+}
+
+.ifanrin-pulldown-icon::before {
+  position: absolute;
+  right: 30rpx;
+  top: 29rpx;
+  font-size: 24rpx;
+  display: block;
+}
+
+.reason-picker-grey {
+  font-size: 26rpx;
+  color: #b8b8b8;
+}
+
+.refund-amount-input {
+  height: 88rpx;
+  border: 2rpx solid #d9d9d9;
+  border-radius: 10rpx;
+  font-size: 26rpx;
+  color: #545454;
+  padding: 0 30rpx;
+  margin-bottom: 50rpx;
+}
+
+.refund-explain-text {
+  width: 100%;
+  height: 176rpx;
+  border: 2rpx solid #d9d9d9;
+  border-radius: 10rpx;
+  margin-bottom: 50rpx;
+  padding: 30rpx;
+  box-sizing: border-box;
+  font-size: 26rpx;
+}
+
+.refund-proof-tip {
+  font-size: 26rpx;
+  color: #b8b8b8;
+  margin-bottom: 23rpx;
+}
+
+.refund-proof-list {
+  margin-top: 8rpx;
+  display: flex;
+}
+
+.add-proof {
+  width: 156rpx;
+  height: 156rpx;
+  background: #fff;
+  border: 2rpx solid #d9d9d9;
+  border-radius: 10rpx;
+}
+
+.confirm {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 88rpx;
+  background: #fff;
+  border-top: 1rpx solid #d9d9d9;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.confirm-btn {
+  width: 250rpx;
+  background: #e23737;
+  color: #fff;
+  text-align: center;
+  line-height: 88rpx;
+  font-size: 30rpx;
+}
+
+.text-box {
+  position: relative;
+}
+
+.remian-length {
+  position: absolute;
+  right: 20rpx;
+  bottom: 20rpx;
+  font-size: 26rpx;
+  color: #545454;
+}
+
+.ifanrin-add-icon {
+  position: relative;
+}
+
+.ifanrin-add-icon::before {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  font-size: 32rpx;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.proof-img{
+  width: 156rpx;
+  height: 156rpx;
+  background: #FFF;
+  border: 2rpx solid #D9D9D9;
+  border-radius: 10rpx;
+  margin-right: 22rpx;
+}

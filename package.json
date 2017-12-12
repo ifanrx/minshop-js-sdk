@@ -1,7 +1,7 @@
 {
   "name": "minshop-js-sdk",
   "version": "1.0.0",
-  "main": "lib/index.js",
+  "main": "utils/index.js",
   "repository": "https://github.com/ifanrx/minshop-js-sdk",
   "author": "ifanrx",
   "license": "Apache-2.0"

@@ -1,0 +1,56 @@
+{
+  "extEnable": true,
+  "extAppid": "wx92358a8a67e6a491",
+  "pages": [
+    "pages/index/index",
+    "pages/activity/activity",
+    "pages/address-list/address-list",
+    "pages/brand/brand",
+    "pages/about-us/about-us",
+    "pages/brand-list/brand-list",
+    "pages/address-form/address-form",
+    "pages/category/category",
+    "pages/category-detail/category-detail",
+    "pages/collection/collection",
+    "pages/coupon-list/coupon-list",
+    "pages/detail/detail",
+    "pages/feedback/feedback",
+    "pages/flash-sale/flash-sale",
+    "pages/gift/gift",
+    "pages/gift-order-list/gift-order-list",
+    "pages/list/list",
+    "pages/order-list/order-list",
+    "pages/order-detail/order-detail",
+    "pages/order-refund/order-refund",
+    "pages/pay/pay",
+    "pages/payment-result/payment-result",
+    "pages/search/search",
+    "pages/shopping-cart/shopping-cart",
+    "pages/tracking-info/tracking-info",
+    "pages/user-center/user-center",
+    "pages/user-info/user-info",
+    "pages/venue/venue",
+    "pages/order-refund-state/order-refund-state"
+  ],
+  "ext": {
+    "HTTP_X_PEPE_MERCHANT_ID": 2,
+    "MERCHANT_NAME": "某商家",
+    "MERCHANT_WEBSITE": "www.examples.com",
+    "MERCHANT_DESC": "某人，某物，某商家",
+    "ENV": "production"
+  },
+  "extPages": {
+    "pages/index/index": {
+      "navigationBarTitleText": "某商家"
+    },
+    "pages/search/search": {
+      "navigationBarTitleText": "某商家"
+    },
+    "pages/gift/gift": {
+      "navigationBarTitleText": "某商家礼包"
+    }
+  },
+  "window": {
+    "navigationBarTitleText": "通用标题"
+  }
+}

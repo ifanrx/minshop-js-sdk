@@ -1,0 +1,35 @@
+<template name="giftExplainModal">
+<view
+  wx:if="{{ isShowExplainModal }}"
+  class="gift-explain-modal-mask"
+  catchtap="hideExplainModal"></view>
+<view
+  wx:if="{{ isShowExplainModal }}"
+  class="gift-explain-modal">
+  <view
+    class="ifanrin ifanrin-delete-icon gift-explain-modal__delete-icon"
+    catchtap="hideExplainModal">
+  </view>
+  <view class="gift-explain-modal--header">
+    <view class="gift-explain-modal__title">礼包说明</view>
+  </view>
+  <view class="gift-explain-modal__content">
+    <view class="gift-explain-modal__content-item">
+      <view>1.</view>
+      <view>「送礼」：将你在店内买下的商品，作为礼物，一键转发给想送的人；</view>
+    </view>
+    <view class="gift-explain-modal__content-item">
+      <view>2.</view>
+      <view>使用「送礼」功能后，系统自动生成精美的礼物领取页面，分享即可让对方领取；</view>
+    </view>
+    <view class="gift-explain-modal__content-item">
+      <view>3.</view>
+      <view>收礼人自己填写收货地址，{{ wxExt.MERCHANT_NAME }}第一时间发出礼物；</view>
+    </view>
+    <view class="gift-explain-modal__content-item">
+      <view>4.</view>
+      <view>「送礼」功能最终解释权归{{ wxExt.MERCHANT_NAME }}所有。</view>
+    </view>
+  </view>
+</view>
+</template>

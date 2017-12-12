@@ -1,0 +1,903 @@
+@import "../../templates/couponCard/couponCard.wxss";
+@import "../../templates/giftExplainModal/giftExplainModal.wxss";
+
+page {
+  background-color: #efeff4;
+  min-height: 100%;
+  line-height: 100%;
+  overflow-x: hidden;
+}
+
+.nav-tab {
+  height: 88rpx;
+}
+
+.nav-tab-container {
+  position: relative;
+  padding-top: 4rpx;
+  height: 80rpx;
+  background-color: #fff;
+  z-index: 2;
+  border-bottom: 0.5px #e5e5e5 solid;
+}
+
+.nav-tab-item {
+  display: flex;
+  justify-content: center;
+}
+
+.nav-tab-item__item-name {
+  padding-top: 0;
+  line-height: 80rpx;
+  height: 80rpx;
+  align-self: center;
+}
+
+.payment-gift-tip {
+  display: flex;
+  padding: 24rpx 88rpx;
+  font-size: 30rpx;
+  line-height: 48rpx;
+  color: #3c3b4b;
+}
+
+.payment-page {
+  background: #efeff4;
+  color: #545454;
+  text-align: left;
+  padding-bottom: 100rpx;
+}
+
+.payment-item {
+  background-color: #fff;
+  margin-bottom: 16rpx;
+  border-top: 0.5px #e5e5e5 solid;
+}
+
+.payment-item:first-of-type {
+  border-top: none;
+}
+
+.payment-item-detail {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 30rpx;
+  height: 88rpx;
+  font-size: 30rpx;
+  line-height: 88rpx;
+  color: #3c3b4b;
+  border-bottom: 1px #e5e5e5 solid;
+}
+
+.payment-item-detail--hasCoupon {
+  border-bottom: 0.5px #e5e5e5 solid;
+}
+
+.payment-item-detail__total-price, .payment-item-detail__couponAmount {
+  margin: 0 30rpx;
+  padding: 30rpx 0;
+  display: flex;
+  justify-content: space-between;
+  font-size: 30rpx;
+  line-height: 30rpx;
+  border-bottom: 0.5px #e5e5e5 solid;
+}
+
+.payment-item-detail__couponAmount:last-child {
+  margin-bottom: 0;
+  padding-bottom: 30rpx;
+}
+
+.payment-address {
+  position: relative;
+  background-color: #fff;
+  padding: 16rpx 30rpx 24rpx 88rpx;
+  border-bottom: 0.5px #e5e5e5 solid;
+  font-size: 32rpx;
+}
+
+.payment-address-message {
+  font-size: 32rpx;
+  line-height: 62rpx;
+}
+
+.address-beacon-icon {
+  height: 38rpx;
+  width: 38rpx;
+  text-align: center;
+  margin: 0 20rpx 0 -58rpx;
+  font-size: 26rpx;
+  line-height: 38rpx;
+  display: inline-block;
+  border-radius: 50%;
+  color: #fff;
+  background-color: #f8504f;
+}
+
+.address-share-icon {
+  text-align: center;
+  margin: 10rpx 20rpx 0 -58rpx;
+  font-size: 38rpx;
+  line-height: 38rpx;
+  display: inline-block;
+  color: #f6cd08;
+}
+
+.payment-address-message__name {
+  font-weight: bold;
+}
+
+.payment-address-message__phone {
+  padding-left: 22rpx;
+  font-weight: bold;
+}
+
+.payment-address-message__detail {
+  display: block;
+  font-size: 28rpx;
+  line-height: 38rpx;
+  text-align: justify;
+}
+
+.payment-change-address {
+  position: absolute;
+  right: 26rpx;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 30rpx;
+  color: #c7c7cc;
+}
+
+.payment-address__edit {
+  font-size: 26rpx;
+  margin-right: 75rpx;
+  position: relative;
+}
+
+.payment-address__edit::before {
+  font-size: 26rpx;
+  position: absolute;
+  left: -38rpx;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.payment-address__change {
+  position: relative;
+}
+
+.payment-address__change::before {
+  font-size: 26rpx;
+  position: absolute;
+  left: -38rpx;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+
+.payment-address__edit, .payment-address__change {
+  float: right;
+  display: inline-block;
+  color: #111;
+  font-size: 26rpx;
+  background-color: #fff;
+}
+
+.payment-address-options {
+  margin-top: 16rpx;
+  padding-top: 20rpx;
+  border-top: 2rpx solid #e5e5e5;
+  font-size: 28rpx;
+  color: #3c3b4b;
+}
+
+/* .payment-address__edit::after {
+  display: inline-block;
+  margin-left: 30rpx;
+  content: '';
+  margin-bottom: -3rpx;
+  height: 28rpx;
+} */
+
+.payment-product-list {
+  background: #efeff4;
+}
+
+.payment-product-item {
+  background: #fff;
+  padding: 30rpx;
+  padding-bottom: 0;
+  font-size: 0;
+  border-bottom: 1px solid #f3f3f3;
+  margin-bottom: 16rpx;
+}
+
+.payment-product-image {
+  float: left;
+  width: 160rpx;
+  height: 160rpx;
+  box-sizing: border-box;
+  border: 2rpx solid #ccc;
+}
+
+.payment-product-detail {
+  position: relative;
+  padding-left: 32rpx;
+  padding-right: 150rpx;
+  height: 160rpx;
+  overflow: hidden;
+}
+
+.payment-product-title {
+  font-size: 28rpx;
+  line-height: 30rpx;
+  max-height: 60rpx;
+  overflow: hidden;
+  color: #3c3b4b;
+  margin-bottom: 12rpx;
+}
+
+.product-contianer {
+  padding-bottom: 40rpx;
+  border-bottom:1px solid #f3f3f3;
+}
+
+.payment-product-spec {
+  color: #959595;
+  font-size: 26rpx;
+  line-height: 27rpx;
+}
+
+.payment-product-quantity {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 26rpx;
+  line-height: 1em;
+  color: #87858f;
+}
+
+.payment-product-price {
+  position: absolute;
+  left: 32rpx;
+  bottom: 0;
+  font-size: 26rpx;
+  color: #111;
+  line-height: 26rpx;
+}
+
+.payment-selected-coupon-face-value {
+  font-size: 30rpx;
+  color: #e23737;
+}
+
+.payment-selected-coupon-face-value::before {
+  content: '\00A5';
+  display: inline-block;
+  margin-right: 4rpx;
+  font-size: 30rpx;
+}
+
+.payment-available-coupon {
+  font-size: 30rpx;
+  color: #e23737;
+}
+
+.payment-show-coupon-arrow {
+  font-size: 30rpx;
+  color: #3c3b4b;
+}
+
+.payment-wechat-icon {
+  padding-right: 16rpx;
+  width: 40rpx;
+  height: 40rpx;
+  vertical-align: middle;
+}
+
+.payment-wechat-text {
+  line-height: 88rpx;
+  vertical-align: middle;
+}
+
+.payment-item-detail--right {
+  font-size: 32rpx;
+}
+
+.payment-address-select-item {
+  padding: 20rpx;
+  font-size: 28rpx;
+}
+
+.payment-user-message-container {
+  display: flex;
+  height: 98rpx;
+  font-size: 30rpx;
+  line-height: 98rpx;
+  border-bottom: 1px solid #f3f3f3;
+}
+
+.payment-user-message-lable {
+  display: inline-block;
+  font-weight: 700;
+}
+
+.payment-user-message-lable text {
+  color: #E23737;
+  vertical-align: middle;
+}
+
+.payment-user-message-input {
+  flex: 1;
+  height: 98rpx;
+  line-height: 98rpx;
+  min-height: 98rpx;
+  font-size: 30rpx;
+  z-index: 0;
+}
+
+.payment-page--foot {
+  position: fixed;
+  height: 100rpx;
+  font-size: 36rpx;
+  line-height: 100rpx;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  color: #fd544a;
+  background-color: #fff;
+}
+
+.payment-total-price {
+  float: right;
+  margin-right: 30rpx;
+}
+
+.payment-submit-btn {
+  float: right;
+  height: 100rpx;
+  line-height: 100rpx;
+  border-radius: 0;
+  font-size: 36rpx;
+  width: 240rpx;
+  color: #fff;
+  text-align: center;
+  background-color: #e23737;
+}
+
+.payment-submit-btn::after {
+  border: 0;
+}
+
+.payment-submit-btn--active::after {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.address-list-container {
+  position: fixed;
+  background-color: #fff;
+  bottom: 0;
+  width: 100%;
+  max-height: 67%;
+  overflow-y: scroll;
+  margin-bottom: 88rpx;
+  z-index: 2;
+}
+
+.has-use-wx-address {
+  margin-bottom: 176rpx;
+}
+
+.address-list {
+  font-size: 28rpx;
+  bottom: 0;
+  z-index: 9;
+  width: 100%;
+}
+
+.address-item {
+  color: #2b2b2b;
+  z-index: 2;
+  padding: 20rpx 30rpx;
+}
+
+.address-list--header {
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+
+.address-list--body {
+  line-height: 36rpx;
+}
+
+.item {
+  align-items: center;
+  border-bottom: 0.5rpx solid #e5e5e5;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.pull-right {
+  float: right;
+}
+
+.address-list__useWxAddress, .address-list__cancel-btn {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  line-height: 88rpx;
+  height: 88rpx;
+  color: #3c3b4b;
+  background-color: #fff;
+  border-top: 0.5rpx solid #e5e5e5;
+  z-index: 2;
+}
+
+.address-list__useWxAddress {
+  bottom: 88rpx;
+}
+
+.address-list__mask {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 2;
+}
+
+.address-form {
+  position: fixed;
+  width: 100%;
+  box-sizing: border-box;
+  left: 1000px;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+}
+
+.address-form__cancel {
+  margin-bottom: 16rpx;
+  background-color: #fff;
+}
+
+.address-form-section {
+  bottom: 130rpx;
+}
+
+.gift-explain-btn {
+  position: fixed;
+  right: 0;
+  top: 168rpx;
+  width: 128rpx;
+  height: 48rpx;
+  line-height: 48rpx;
+  padding: 0;
+  padding-left: 20rpx;
+  border-radius: 0;
+  border-top-left-radius: 24rpx;
+  border-bottom-left-radius: 24rpx;
+  font-size: 24rpx;
+  color: #cbcbcb;
+  background-color: #fff;
+  box-shadow: -1px 1px 4px 0px rgba(0, 0, 0, 0.13);
+}
+
+.gift-explain-btn::after {
+  border: 0;
+}
+
+.gift-explain-btn--hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.giftExplainModal-mask {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.65);
+}
+
+.gift-explain-modal {
+  top: 50%;
+  bottom: auto;
+  transform: translateY(-50%);
+}
+
+.address-create-method--mask {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.35);
+  z-index: 2;
+}
+
+.address-create-method {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 80%;
+  background-color: #fff;
+  z-index: 2;
+}
+
+.address-create-method-item {
+  text-align: center;
+  font-size: 32rpx;
+  line-height: 88rpx;
+  color: #3c3b4b;
+  border-bottom: 0.5px solid #e5e5e5;
+}
+
+.address-create-method-item:last-of-type {
+  border-bottom: none;
+}
+
+/** 优惠券弹框 **/
+
+.coupon-list-container {
+  position: fixed;
+  top: 0;
+  bottom: 100rpx;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.35);
+  z-index: 2;
+}
+
+.coupon-list {
+  position: absolute;
+  bottom: 0;
+  padding-top: 20rpx;
+  height: 56%;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+
+.coupon-list::-webkit-scrollbar {
+  display: none;
+}
+
+.coupon-select-confirm {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 100rpx;
+  background-color: #fff;
+  border-top: 1rpx solid #ccc;
+  z-index: 2;
+}
+
+.coupon-select-confirm__btn {
+  position: absolute;
+  right: 0;
+  top: -1rpx;
+  height: 101rpx;
+  line-height: 101rpx;
+  padding: 0 90rpx;
+  background-color: #fd544a;
+  color: #fff;
+  border-top: 1rpx solid #fd544a;
+}
+
+/** 优惠券弹框 **/
+
+/** 电子礼盒 **/
+
+.etc-gift-title {
+  padding: 35rpx 30rpx 30rpx;
+  font-size: 30rpx;
+  color: #000;
+  line-height: 30rpx;
+}
+
+.etc-gift-title-tip {
+  font-size: 26rpx;
+  color: #111;
+  line-height: 30rpx;
+}
+
+.etc-gift-temp-list {
+  height: 277rpx;
+  white-space: nowrap;
+  margin-bottom: 40rpx;
+}
+
+.etc-gift-temp-item {
+  vertical-align: top;
+  width: 300rpx;
+  height: 277rpx;
+  margin-right: 24rpx;
+  display: inline-block;
+}
+
+.etc-gift-temp-item:first-child {
+  margin-left: 24rpx;
+}
+
+.temp-img {
+  width: 300rpx;
+  height: 224rpx;
+  box-sizing: border-box;
+}
+
+.etc-gift-temp-selected {
+  border: 8rpx solid #cabd73;
+}
+
+.temp-name {
+  font-size: 26rpx;
+  color: #111;
+  line-height: 37rpx;
+  height: 37rpx;
+  margin-top: 16rpx;
+}
+
+.user-temp {
+  vertical-align: top;
+  width: 300rpx;
+  height: 277rpx;
+  margin: 0 24rpx 0 30rpx;
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+.add-user-temp {
+  display: inline-block;
+  border: 4rpx solid #111;
+  width: 300rpx;
+  height: 224rpx;
+  box-sizing: border-box;
+}
+
+.ifanrin-create-icon {
+  position: relative;
+}
+
+.ifanrin-create-icon::before {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  font-size: 64rpx;
+  display: block;
+  color: #111;
+}
+
+/** 用户自定义模版 **/
+
+.user-gift-temp-operate-container {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  z-index: 999;
+}
+
+.cropper {
+  border: 2rpx solid #fff;
+  background-color: transparent;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.message {
+  margin: 0 30rpx;
+  padding: 30rpx 0 30rpx 0;
+  display: flex;
+  border-top: 1rpx solid #ccc;
+  border-bottom: 1rpx solid #ccc;
+  align-items: center;
+}
+
+.message-tip {
+  font-family: PingFangSC-Regular;
+  font-size: 30rpx;
+  color: #111;
+  height: 42rpx;
+  line-height: 42rpx;
+}
+
+.message-input {
+  flex: 1;
+  font-size: 30rpx;
+  color: #111;
+  height: 42rpx;
+  line-height: 42rpx;
+  z-index: 0;
+}
+
+.plchder {
+  font-size: 26rpx;
+  color: #ccc;
+  line-height: 42rpx;
+  height: 42rpx;
+  z-index: 0;
+}
+
+.hide-gift-box {
+  display: flex;
+  padding: 30rpx 30rpx 30rpx 20rpx;
+  align-items: center;
+}
+
+.hd-gift-icon {
+  transform: scale(0.6);
+}
+
+.hd-gift-title {
+  font-size: 30rpx;
+  color: #111;
+  line-height: 30rpx;
+}
+
+.hd-gift-tip {
+  font-size: 26rpx;
+  color: #000;
+  line-height: 30rpx;
+}
+
+.operate-btn {
+  height: 45rpx;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  color: #fff;
+  margin-bottom: 40rpx;
+}
+
+.operate-btn text {
+  margin: 0 32rpx;
+  font-size: 32rpx;
+}
+
+.payment-item-right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.express-name {
+  margin-right: 10rpx;
+}
+
+.shipping-cost {
+  font-size: 30rpx;
+  color: #111;
+}
+
+.shipping-modal__cover {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000;
+  opacity: 0.2;
+  overflow: hidden;
+  z-index: 1000;
+  color: #fff;
+}
+
+.shipping-modal__box {
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 2000;
+  background: #fff;
+}
+
+.shipping-type__content {
+  box-sizing: border-box;
+  overflow-y: scroll;
+  padding: 0 48rpx;
+}
+
+.shipping-type__item {
+  font-family: PingFangSC-Regular;
+  font-size: 30rpx;
+  color: #111;
+  line-height: 42rpx;
+  margin-bottom: 64rpx;
+}
+
+.shipping-type-title {
+  position: relative;
+  width: 100%;
+  height: 186rpx;
+  font-size: 64rpx;
+  color: #111;
+  line-height: 186rpx;
+  border-bottom: 1rpx solid #ccc;
+}
+
+.close-modal-btn {
+  position: absolute;
+  right: 0;
+  top: -10rpx;
+  font-size: 45rpx;
+  width: 45rpx;
+  height: 45rpx;
+}
+
+.shipping-type-list {
+  height: 486rpx;
+  overflow-y: scroll;
+}
+
+.shipping-item {
+  height: 110rpx;
+  line-height: 110rpx;
+  border-bottom: 1rpx solid #ccc;
+}
+
+.shipping-item:last-child {
+  margin-bottom: 48rpx;
+}
+
+.item-text {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 30rpx;
+  color: #111;
+}
+
+.item-icon {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+  width: 32rpx;
+  height: 32rpx;
+  background: #fcfff4;
+  border-radius: 50%;
+  border: 2rpx solid #ccc;
+}
+
+.item-icon-checked {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 16rpx;
+  height: 16rpx;
+  background: #e23737;
+  border-radius: 50%;
+}
+
+.payment-shipping-container {
+  display: flex;
+  align-items: center;
+  font-size: 30rpx;
+  color: #111;
+  justify-content: space-between;
+  height: 98rpx;
+}
+
+.not-support-address-tip {
+  font-size: 30rpx;
+  color: red;
+}
+
+.errClass {
+  color: red;
+}

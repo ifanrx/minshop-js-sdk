@@ -1,0 +1,29 @@
+<view class="tracking-info--header">
+  <image
+    wx:if="{{ !trackingInfo.isMysterious }}"
+    class="tracking-info__image"
+    src="{{ trackingInfo.coverImage }}">
+  </image>
+  <image wx:if="{{trackingInfo.isMysterious}}" class="tracking-info__image coolbuy-icon icon-mystery" src=""></image>
+  <view class="tracking-info-content">
+    <view>
+      <text class="tracking-info-content-item">物流状态：</text><text>{{ trackingInfo.trackingInfo[0].status || '暂无物流信息' }}</text>
+    </view>
+    <view>
+      <text class="tracking-info-content-item">物流公司：</text><text>{{ trackingInfo.shipCarrier }}</text>
+    </view>
+    <view>
+      <text class="tracking-info-content-item">运单编号：</text><text>{{ trackingInfo.waybillNumber }}</text>
+    </view>
+  </view>
+</view>
+
+<view wx:if="{{ trackingInfo.trackingInfo[0].status }}" class="tracking-info--mian">
+  <view class="tracking-info__title">物流追踪</view>
+  <block wx:for="{{ trackingInfo.trackingInfo }}">
+    <view class="tracking-info__item {{ index === 0 ?'tracking-info__item--first' : ''}}">
+      <view class="tracking-info__context">{{ item.context }}</view>
+      <view class="tracking-info__time">{{ item.time }}</view>
+    </view>
+  </block>
+</view>

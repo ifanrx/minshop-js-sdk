@@ -1,0 +1,96 @@
+page {
+  background-color: #eeeff1;
+}
+
+.none-collection-tip {
+  position: fixed;
+  top: 368rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: PingFangSC-Regular;
+  font-size: 38rpx;
+  color: #959595;
+  letter-spacing: 0;
+}
+
+.none-collection-tip::before {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -130rpx;
+  font-size: 86rpx;
+}
+
+.collection-item {
+  width: 100%;
+  height: 240rpx;
+  background: #fff;
+  margin-bottom: 16rpx;
+  padding: 40rpx;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.collection-image {
+  width: 160rpx;
+  height: 160rpx;
+  box-shadow: border-box;
+  border: 2rpx solid #ccc;
+  margin-right: 32rpx;
+}
+
+.collection-product-info {
+  flex: 1;
+}
+
+.collection-product-name {
+  font-family: PingFangSC-Regular;
+font-size: 30rpx;
+color: #111111;
+letter-spacing: 0;
+line-height: 42rpx;
+margin-bottom: 12rpx;
+}
+
+.collection-product-desc {
+  font-family: PingFangSC-Regular;
+font-size: 26rpx;
+color: #959595;
+letter-spacing: 0;
+margin-bottom: 54rpx;
+}
+
+.collection-product-price {
+  font-family: PingFangSC-Regular;
+font-size: 26rpx;
+color: #111111;
+letter-spacing: 0;
+line-height: 26rpx;
+}
+
+.ifanrin-delete-icon {
+  color: #87858F;
+}
+
+.empty-tip-container {
+  margin: 234rpx auto 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon-favourite {
+  font-size: 86rpx;
+  color: #959595;
+  margin-bottom: 46rpx;
+}
+
+.empty-tip {
+  font-family: PingFangSC-Regular;
+  font-size: 38rpx;
+  color: #959595;
+  letter-spacing: 0;
+  line-height: 53rpx;
+}

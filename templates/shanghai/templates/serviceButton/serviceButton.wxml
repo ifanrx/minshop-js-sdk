@@ -1,0 +1,11 @@
+<template name="serviceButton">
+  <view class="service-button-container">
+    <contact-button 
+      class="service-button"
+      type="default-light" 
+      size="16"
+      session-from="weapp">
+    </contact-button>
+    <text class="service-button-text">客服</text>
+  </view>
+</template>

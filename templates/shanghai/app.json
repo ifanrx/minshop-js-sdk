@@ -1,0 +1,72 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/activity/activity",
+    "pages/address-list/address-list",
+    "pages/brand/brand",
+    "pages/about-us/about-us",
+    "pages/brand-list/brand-list",
+    "pages/address-form/address-form",
+    "pages/category/category",
+    "pages/category-detail/category-detail",
+    "pages/collection/collection",
+    "pages/coupon-list/coupon-list",
+    "pages/detail/detail",
+    "pages/feedback/feedback",
+    "pages/flash-sale/flash-sale",
+    "pages/gift/gift",
+    "pages/gift-order-list/gift-order-list",
+    "pages/list/list",
+    "pages/order-list/order-list",
+    "pages/order-detail/order-detail",
+    "pages/order-refund/order-refund",
+    "pages/pay/pay",
+    "pages/payment-result/payment-result",
+    "pages/search/search",
+    "pages/shopping-cart/shopping-cart",
+    "pages/tracking-info/tracking-info",
+    "pages/user-center/user-center",
+    "pages/user-info/user-info",
+    "pages/venue/venue",
+    "pages/order-refund-state/order-refund-state"
+  ],
+  "window": {
+    "backgroundTextStyle": "black",
+    "backgroundColor": "#efeff4",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTextStyle": "black"
+  },
+  "networkTimeout": {
+    "request": 10000
+  },
+  "tabBar": {
+    "color": "#929292",
+    "selectedColor": "#111111",
+    "backgroundColor": "#ffffff",
+    "list": [{
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/tabbar/home.png",
+        "selectedIconPath": "images/tabbar/home-active.png"
+      },
+      {
+        "pagePath": "pages/category/category",
+        "text": "分类",
+        "iconPath": "images/tabbar/category.png",
+        "selectedIconPath": "images/tabbar/category-active.png"
+      },
+      {
+        "pagePath": "pages/shopping-cart/shopping-cart",
+        "text": "购物车",
+        "iconPath": "images/tabbar/shopping-cart.png",
+        "selectedIconPath": "images/tabbar/shopping-cart-active.png"
+      },
+      {
+        "pagePath": "pages/user-center/user-center",
+        "text": "我的",
+        "iconPath": "images/tabbar/user-center.png",
+        "selectedIconPath": "images/tabbar/user-center-active.png"
+      }
+    ]
+  }
+}

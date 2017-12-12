@@ -1,0 +1,5 @@
+<view  animation="{{animationData}}" class="search-bar {{dark ? 'dark-border' : ''}}" bindtap="navToSearch">
+  <view class="search-bar-btn {{dark ? 'dark-bg' : ''}}">
+    <text class="coolbuy-icon icon-search {{dark ? 'dark-style' : ''}} "></text><text class="search-bar__text {{dark ? 'dark-style' : ''}}">寻找心仪商品</text>
+  </view>
+</view>

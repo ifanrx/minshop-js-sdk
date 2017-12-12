@@ -1,0 +1,46 @@
+pages {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.about-us-container {
+  position: absolute;
+  top: 270rpx;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.brand-logo {
+  width: 184rpx;
+  height: 184rpx;
+  margin:0 auto 40rpx;
+  display: block;
+}
+
+.brand-name {
+  font-family: PingFangSC-Regular;
+  font-size: 38rpx;
+  color: #111;
+  line-height: 52rpx;
+  text-align: center;
+}
+
+.brand-slogan {
+  font-family: PingFangSC-Regular;
+  font-size: 30rpx;
+  color: #959595;
+  line-height: 52rpx;
+  text-align: center;
+}
+
+.brand-websit {
+  font-family: HelveticaNeue;
+  font-size: 22rpx;
+  color: #ccc;
+  letter-spacing: 0;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 48rpx;
+}

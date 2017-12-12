@@ -1,0 +1,14 @@
+<view class="tabBar-hold"></view>
+<view class="tabBar">
+  <view wx:for="{{ tabBar }}" class="tabBar-item {{ item.active ? 'tabBar-item-active' : '' }} {{ item.class }}" catchtap="changeTabBar" data-index="{{ index }}">
+    <view class="tabBar-item-icon {{ item.iconClass }}">
+      <text wx:if="{{ item.link === 'shopping-cart/shopping-cart' && shoppingCart.total_quantity > 0}}" class="shopping-number">{{ shoppingCart.total_quantity }}</text>
+    </view>
+    <!-- <view class="center-icon" wx:if="{{index === 2}}">
+      <view class="{{item.iconClass}}"  style="background-image:url(https://coolbuy-minapp.b0.upaiyun.com/common/tab-bar-center{{item.active ? '-active' : ''}}.png)">
+      </view>
+      <view wx:if="{{index === 2}}" class="tabBar-item-name">{{ item.name }}</view>
+    </view> -->
+    <view class="tabBar-item-name">{{ item.name }}</view>
+  </view>
+</view>

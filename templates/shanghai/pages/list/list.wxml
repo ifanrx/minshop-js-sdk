@@ -1,0 +1,22 @@
+<import src="../../templates/navTab/navTab.wxml" />
+<import src="../../templates/productCard/productCard.wxml" />
+<import src="../../templates/serviceButton/serviceButton.wxml" />
+<scroll-view scroll-y="true" class="product-list-scroll" scroll-top="{{ scrollTop }}" bindscroll="productListScroll" bindscrolltolower="loadMore" enable-back-to-top="true">
+  <image class="shelf-cover" src="{{shelf.background_image}}"></image>
+  <view class="nav-tab {{isFixed === true ? 'fixed' : ''}}">
+    <template is="navTab" data="{{navTabs: navTabs}}" />
+    <view class="border-line"></view>
+  </view>
+  <view class="product-list">
+    <view class="product-item" wx:for="{{ productList }}" wx:for-item="product">
+      <template is="productCard" data="{{ ...product }}" />
+    </view>
+  </view>
+  <navigator url="../index/index" class="btn-load-more" open-type="redirect" hidden="{{ !isNoMoreProductList }}">回到首页</navigator>
+  <view class="bottom">
+    <view class="brand_cn">{{ wxExt.MERCHANT_NAME }}</view>
+    <view class="brand_e">{{ wxExt.MERCHANT_WEBSITE }}</view>
+  </view>
+</scroll-view>
+
+<navigator wx:if="{{ isFromShare }}" open-type="redirect" url="../index/index" class="home-btn">首页</navigator>

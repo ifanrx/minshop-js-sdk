@@ -1,0 +1,245 @@
+<import src="../../templates/navTab/navTab.wxml" />
+<import src="../../templates/couponCard/couponCard.wxml" />
+<import src="../../templates/giftExplainModal/giftExplainModal.wxml" />
+
+<view class="nav-tab" wx:if="{{!virtual}}">
+  <template is="navTab" data="{{ navTabs: navTabs }}" />
+</view>
+
+<view class="payment-page">
+  <view class="payment-item">
+    <block wx:if="{{ currentTabIndex === 0 && !virtual}}">
+      <view class="payment-address" wx:if="{{ currentAddress.id }}">
+        <view class="payment-address-message">
+          <view class="ifanrin ifanrin-beacon-icon address-beacon-icon"></view>
+          <text class="payment-address-message__name">{{ currentAddress.name }}</text>
+          <text class="payment-address-message__phone">{{ currentAddress.phone }}</text>
+          <text class="payment-address-message__detail">{{ currentAddress.province }}{{ currentAddress.city }}{{ currentAddress.district }}{{ currentAddress.address
+            }}</text>
+        </view>
+        <view class="payment-address-options clearfix">
+          <text class="payment-address__change coolbuy-icon icon-reelect" bindtap="changeAddress">重选</text>
+          <text class="payment-address__edit coolbuy-icon icon-edit" bindtap="editAddress" data-id="{{ currentAddress.id }}">编辑</text>
+        </view>
+      </view>
+      <view class="payment-address" wx:else catchtap="addAddress">
+        + 添加收货地址
+      </view>
+    </block>
+
+    <block wx:if="{{ currentTabIndex === 1 }}">
+      <view class="payment-gift-tip">
+        <view class="ifanrin ifanrin-share-icon address-share-icon"></view>
+        <view>支付成功后，将礼物分享给好友。好友填写地址后，即可送出</view>
+      </view>
+    </block>
+  </view>
+
+  <view class="payment-item" wx:if="{{ isShowGiftExplainBtn }}">
+    <view class="etc-gift-title">请选择电子礼盒
+      <text class="etc-gift-title-tip">（收礼人看到的礼品图）</text>
+    </view>
+    <scroll-view class="etc-gift-temp-list" scroll-x>
+      <view class="user-temp">
+        <view class="add-user-temp ifanrin ifanrin-create-icon" bindtap="addUserGiftTemp"></view>
+        <view class="temp-name">上传自定义礼盒图片</view>
+      </view>
+      <block wx:for="{{etcGiftTemps}}" wx:key="{{item.name}}">
+        <view class="etc-gift-temp-item" bindtap="selectGiftTemp">
+          <image src="{{item.img}}" class="temp-img {{item.selected === true ? 'etc-gift-temp-selected' : ''}}" data-index="{{index}}"></image>
+          <view class="temp-name">{{item.name}}</view>
+        </view>
+      </block>
+    </scroll-view>
+    <view class="message">
+      <view class="message-tip">对她／他说：</view>
+      <input class="message-input" type="text" placeholder-class="plchder" placeholder="这段话会被你的好友看到喔" bindinput="messageEnter" />
+    </view>
+    <view class="hide-gift-box">
+      <checkbox-group class="hd-gift-icon" bindchange="hideGiftInfo">
+        <checkbox checked="{{hideGiftInfoBtn.checked}}" />
+      </checkbox-group>
+      <view class="hd-gift-title">隐藏你的礼物信息
+        <text class="hd-gift-tip">（勾选后，需选择电子礼盒）</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="payment-item">
+    <view class="payment-product-list">
+      <block wx:for="{{ productList }}" wx:for-index="index" wx:key="{{item.title}}">
+        <view class="payment-product-item">
+          <view class="product-contianer">
+            <image class="payment-product-image" src="{{ item.sku_image || item.cover_image }}" mode="aspectFill"></image>
+            <view class="payment-product-detail">
+              <view class="payment-product-title">{{ item.title }}</view>
+              <view class="payment-product-spec">{{ item.spec }}</view>
+              <text class="payment-product-price">￥{{ item.unit_price * 100 / 100 }}</text>
+              <text class="payment-product-quantity">x{{ item.quantity }}</text>
+            </view>
+          </view>
+          <view class="payment-user-message-container">
+            <view class="payment-user-message-lable">留言：</view>
+            <input class="payment-user-message-input" placeholder="给商家的留言（45 字以内）" maxlength="45" data-index="{{ index }}" bindblur="userMessageInput" hidden="{{ isShowExplainModal }}" />
+          </view>
+          <block wx:for="{{item.memo_schema}}" wx:for-item="oitem" wx:for-index="oindex" wx:key="{{oitem.display_name}}">
+            <view class="payment-user-message-container" wx:if="{{oitem.format != 'date'}}">
+              <view class="payment-user-message-lable">{{oitem.display_name}} <text wx:if="{{oitem.required == true}}">*</text> ：</view>
+              <input class="payment-user-message-input" value="{{oitem.value}}" maxlength="45" data-index="{{ index }}" data-oIndex="{{oindex}}" data-oitem="{{oitem}}" bindblur="bindChange" hidden="{{ isShowExplainModal }}" placeholder="{{oitem.errMsg}}" placeholder-class="errClass"/>
+            </view>
+            <view class="payment-user-message-container" wx:if="{{oitem.format == 'date'}}">
+              <view class="payment-user-message-lable">{{oitem.display_name}} <text wx:if="{{oitem.required == true}}">*</text> ：</view>
+              <picker class="payment-user-message-input" mode="date" value="{{oitem.value}}" start="09:01" end="21:01" data-oitem="{{oitem}}" data-index="{{ index }}" data-oIndex="{{oindex}}" bindchange="bindChange">
+                <view class="payment-user-message-input">
+                  {{oitem.value}}
+                </view>
+              </picker>
+            </view>
+          </block>
+          <!-- 配送物流  -->
+          <view class="payment-shipping-container" data-item="{{item}}" bindtap="{{shippingInfo.courier[item.product_sku_id].length > 1 ? 'setModalStatus' : ''}}" data-status="1" wx:if="{{!virtual}}" hidden="{{currentTabIndex === 1}}">
+            <text>配送方式</text>
+            <view class="payment-item-right" wx:if="{{shippingInfo.courier[item.product_sku_id].length > 1}}">
+              <view class="express-name">{{currentCouriers[item.product_sku_id].name}}</view>
+              <view class="payment-item-detail--right payment-selected-coupon-face-value shipping-cost">{{currentCouriers[item.product_sku_id].rate}}
+                <text class="coolbuy-icon icon-arrow-r payment-show-coupon-arrow"></text>
+              </view>
+            </view>
+            <view class="payment-item-right" wx:if="{{shippingInfo.courier[item.product_sku_id].length == 1}}">
+              <view class="express-name">{{shippingInfo.courier[item.product_sku_id][0].name}}</view>
+              <view class="payment-item-detail--right payment-selected-coupon-face-value shipping-cost">{{shippingInfo.courier[item.product_sku_id][0].rate}}
+              </view>
+            </view>
+            <view class="payment-item-right" wx:if="{{shippingInfo.courier[item.product_sku_id].length == 0}}">
+              <view class="not-support-address-tip">您的收货地址不在配送范围内</view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="payment-item" wx:if="{{ couponList.length }}">
+    <view class="payment-item-detail" bindtap="showCouponList" wx:if="{{couponList.length}}">
+      <text>优惠券</text>
+      <view class="payment-item-detail--right payment-selected-coupon-face-value" wx:if="{{ selectedCoupon.id }}">{{ selectedCoupon.face_value }}
+        <text class="coolbuy-icon icon-arrow-r payment-show-coupon-arrow"></text>
+      </view>
+      <view bindtap="showCouponList" class="payment-item-detail--right payment-available-coupon" wx:else>有 {{ availableCouponTotalCount }} 张优惠券可用
+        <text class="coolbuy-icon icon-arrow-r payment-show-coupon-arrow"></text>
+      </view>
+    </view>
+  </view>
+
+  <view class="payment-item">
+    <view class="payment-item-detail">
+      <text>支付方式</text>
+      <view class="payment-item-detail--right">
+        <image class="payment-wechat-icon" src="http://ifanr.b0.upaiyun.com/danshui/img/iconfont-weixinzhifu.png"></image>
+        <text class="payment-wechat-text">微信支付</text>
+      </view>
+    </view>
+
+    <!-- <view class="payment-item-detail" wx:if="{{ !selectedCoupon.id }}">
+      <text>总价</text>
+      <text class="payment-item-detail--right payment-order-amount">￥{{ totalPrice }}</text>
+    </view> -->
+
+    <view class="payment-item-detail--hasCoupon">
+      <view class="payment-item-detail__total-price">
+        <text>商品金额</text>
+        <text class="payment-item-detail--right payment-order-amount">￥{{ totalPrice }}</text>
+      </view>
+      <view class="payment-item-detail__total-price" wx:if="{{currentTabIndex === 0}}">
+        <text>组合运费</text>
+        <text class="payment-item-detail--right payment-order-amount">+￥{{ virtual ? 0 : shippingInfo.shipping_rate }}</text>
+      </view>
+      <view wx:if="{{ selectedCoupon.id }}" class="payment-item-detail__couponAmount">
+        <text>优惠券</text>
+        <text class="payment-item-detail--right payment-order-amount">-￥{{ selectedCoupon.face_value }}</text>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="payment-page--foot">
+  <form report-submit="true" bindsubmit="paySubmit" hover-class="payment-submit-btn--active" data-order-type="{{ isShowGiftExplainBtn ? '送礼订单' : '普通订单' }}">
+    <button form-type="submit" class="payment-submit-btn" disabled="{{ paymentLoading }}" loading="{{ paymentLoading }}">支付订单</button>
+  </form>
+  <view  class="payment-total-price">实付款：¥ {{finalCost}}</view>
+</view>
+
+<button bindtap="showExplainModal" hover-class="gift-explain-btn--hover" class="gift-explain-btn" wx:if="{{ isShowGiftExplainBtn }}">礼包说明</button>
+
+<view class="giftExplainModal-mask" wx:if="{{ isShowExplainModal }}">
+  <template is="giftExplainModal" data="{{ isShowExplainModal }}"></template>
+</view>
+
+<view class="address-list__mask" wx:if="{{ isShowAddressList }}" bindtap="cancelSelectAddress"></view>
+<view class="address-list-container {{ isSupportChooseAddress ? 'has-use-wx-address' : '' }}" wx:if="{{ isShowAddressList }}">
+  <view class="address-list">
+    <block wx:for="{{ addressList }}" wx:key="{{item.name}}">
+      <view class="item address-item" data-index="{{ index }}" bindtap="changeAddressHandle">
+        <view class="address-list--header">
+          <text>收货人：{{ item.name }}</text>
+          <text class="pull-right">{{ item.phone }}</text>
+        </view>
+        <view class="address-list--body">
+          收货地址：{{ item.province }}{{ item.city }}{{ item.district }}{{ item.address }}
+        </view>
+      </view>
+    </block>
+  </view>
+</view>
+<view wx:if="{{ isShowAddressList && isSupportChooseAddress }}" class="address-list__useWxAddress" bindtap="useWxAddress">使用微信地址</view>
+<view wx:if="{{ isShowAddressList }}" class="address-list__cancel-btn" bindtap="cancelSelectAddress">取消</view>
+
+<view wx:if="{{ isShowAddressCreateMethod }}" class="address-create-method--mask" catchtap="toggleAddressCreateMethod">
+  <view class="address-create-method">
+    <view class="address-create-method-item" bindtap="useWxAddress">使用微信地址</view>
+    <view class="address-create-method-item" bindtap="addAddressHandle">直接添加</view>
+    <view class="address-create-method-item" catchtap="toggleAddressCreateMethod">取消</view>
+  </view>
+</view>
+
+<block wx:if="{{ isShowCouponList }}">
+  <view class="coupon-list-container" catchtap="hideCouponList">
+    <!-- 优惠券列表 -->
+    <scroll-view class="coupon-list" scroll-y="true">
+      <template is="couponCard" data="{{ item: item, index: index, COUPON_BG: COUPON_BG, isShowCheckbox: true }}" wx:for="{{ couponList }}" />
+    </scroll-view>
+    <!-- /优惠券列表 -->
+  </view>
+  <view class="coupon-select-confirm">
+    <view class="coupon-select-confirm__btn" bindtap="hideCouponList">确定</view>
+  </view>
+</block>
+
+<view class="user-gift-temp-operate-container" wx:if="{{showUploadGift === true}}">
+  <canvas class="cropper" disable-scroll="true" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd" style="width:{{UserGiftdata.width}}rpx;height:{{UserGiftdata.height}}rpx;" canvas-id="cropper">
+  </canvas>
+  <view class="operate-btn">
+    <text bindtap="uploadTap">取消</text>
+    <text bindtap="getCropperImage">完成</text>
+  </view>
+</view>
+
+<!-- 物流弹框 -->
+
+<view class="shipping-modal__cover" bindtap="setModalStatus" data-status="0" wx:if="{{ showModalStatus }}"></view>
+<view animation="{{ animationData }}" class="shipping-modal__box" wx:if="{{ showModalStatus }}">
+  <view class="shipping-type__content">
+    <view class="shipping-type-title">
+      <view>配送方式</view>
+      <view class="close-modal-btn ifanrin-delete-icon ifanrin" bindtap="setModalStatus" data-status="0"></view>
+    </view>
+    <view class="shipping-type-list">
+      <view class="shipping-item" wx:for="{{shippingInfo.courier[currentSkuId]}}" data-index="{{index}}" data-courier="{{item}}" data-courierId="{{item.id}}" data-status="0" catchtap="shippingTypeChange">
+        <view class="item-icon">
+          <view class="item-icon-checked" style="opacity:{{item.id == currentCourierIds[currentSkuId] ? 1: 0}}"></view>
+        </view>
+        <view class="item-text">{{item.name}}：￥{{item.rate}}</view>
+      </view>
+    </view>
+  </view>
+</view>

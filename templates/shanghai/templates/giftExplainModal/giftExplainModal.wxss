@@ -1,0 +1,64 @@
+.gift-explain-modal-mask {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, .65);
+  z-index: 2;
+}
+
+.gift-explain-modal {
+  position: fixed;
+  bottom: 76rpx;
+  left: 55rpx;
+  right: 55rpx;
+  padding: 50rpx;
+  box-shadow: 2rpx 2rpx 26rpx 0 rgba(0,0,0,0.45);
+  border-radius: 8px;
+  background-color: #fff;
+  font-size: 28rpx;
+  color: #3c3b4b;
+  line-height: 48rpx;
+  text-align: justify;
+  z-index: 3;
+}
+
+.gift-explain-modal__content-item {
+  display: flex;
+}
+
+.gift-explain-modal__delete-icon {
+  position: absolute;
+  right: 14rpx;
+  top: 14rpx;
+  color: #87858f;
+}
+
+.gift-explain-modal--header {
+  position: relative;
+  text-align: center;
+}
+
+.gift-explain-modal--header::before {
+  content: '';
+  display: block;
+  position: absolute;
+  height: 10rpx;
+  width: 298rpx;
+  top: 22rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  border-top: 1px solid #3c3b4b;
+  z-index: -1;
+}
+
+.gift-explain-modal__title {
+  display: inline-block;
+  padding: 0 12rpx;
+  line-height: 44rpx;
+  height: 44rpx;
+  background-color: #fff;
+  z-index: 2;
+  margin-bottom: 18rpx;
+}

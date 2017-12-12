@@ -1,0 +1,387 @@
+@import "../../templates/productCard/productCard.wxss";
+
+page {
+  background: #fff;
+  height: 100%;
+}
+
+.shelf-cover {
+  width: 100%;
+  height: 460rpx;
+  display: block;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.nav-tab {
+  /* position: fixed; */
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  z-index: 1;
+  height: 88rpx;
+  padding: 0 48rpx;
+  box-sizing: border-box;
+}
+
+.nav-tab-container {
+  position: relative;
+  height: 80rpx;
+  z-index: 2;
+  border-top: none;
+  justify-content: flex-start !important;
+}
+
+.nav-tab-item {
+  justify-content: center;
+  flex: none;
+  margin-right: 78rpx;
+}
+
+.nav-tab-item__item-name {
+  padding-top: 0;
+  line-height: 80rpx;
+  height: 80rpx;
+  align-self: center;
+  font-size: 26rpx;
+  color: #959595;
+}
+
+.nav-tab-active {
+  color: #111;
+}
+
+.product-list-scroll {
+  height: 100%;
+  background-attachment: scroll;
+  background-size: 750rpx auto;
+  background-position: center 460rpx;
+  background-repeat: repeat-y;
+}
+
+.product-list {
+  box-sizing: border-box;
+  width: 686rpx;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 27rpx;
+  overflow-y: hidden;
+  margin: 0 auto;
+  margin-top: 32rpx;
+  background: #fff;
+}
+
+.product-item {
+  display: inline-block;
+  width: 300rpx;
+  margin-bottom: 20rpx;
+  vertical-align: top;
+  text-align: center;
+}
+
+.home-btn {
+  position: fixed;
+  right: 30rpx;
+  top: 120rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  width: 100rpx;
+  border-radius: 50rpx;
+  font-size: 24rpx;
+  color: #fff;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.45);
+}
+
+.btn-load-more {
+  width: 400rpx;
+  height: 96rpx;
+  margin: 0 auto;
+  font-size: 30rpx;
+  color: #fff;
+  line-height: 96rpx;
+  text-align: center;
+  border: 2rpx solid #fff;
+  margin-top: 104rpx;
+  border-radius: 4rpx;
+}
+
+.bottom {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-bottom: 48rpx;
+  margin-top: 104rpx;
+}
+
+.brand-cn {
+  font-size: 26rpx;
+  color: #fff;
+  letter-spacing: 0;
+  line-height: 37rpx;
+  margin-bottom: 4rpx;
+}
+
+.brand-e {
+  font-size: 22rpx;
+  line-height: 27rpx;
+  color: #fff;
+  letter-spacing: 0;
+}
+
+.hot-title {
+  margin: 0 auto;
+  font-family: PingFangSC-Medium;
+  font-size: 38rpx;
+  line-height: 53rpx;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 48rpx;
+}
+
+.hot-product-list-container {
+  margin: 0 auto;
+  width: 686rpx;
+  box-sizing: border-box;
+  margin-bottom: 96rpx;
+}
+
+.hot-product-list navigator {
+  width: 686rpx;
+  padding: 24rpx 24rpx 36rpx 24rpx;
+  box-sizing: border-box;
+  display: flex;
+  margin-bottom: 32rpx;
+  background: #fff;
+}
+
+.hot-product-list .product-image {
+  width: 300rpx;
+  height: 300rpx;
+  padding: 0;
+  margin: 0;
+  margin-right: 100rpx;
+}
+
+.hot-product-list .product-card-container {
+  padding-top: 40rpx;
+  width: 270rpx;
+}
+
+.card-container {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  padding-left: 32rpx;
+  margin-bottom: 64rpx;
+}
+
+.single-card {
+  width: 654rpx;
+  height: 176rpx;
+  display: flex;
+  position: relative;
+}
+
+.single-card .card-price-cont {
+  padding-left: 71rpx;
+  box-sizing: border-box;
+  line-height: 176rpx;
+  width: 220rpx;
+  height: 100%;
+  border-right: 1rpx dashed #ccc;
+  font-size: 64rpx;
+  color: #e23737;
+  font-family: Helvetica-Bold;
+  position: relative;
+}
+
+.single-card .card-price-cont::before {
+  content: '￥';
+  width: 19rpx;
+  height: 40rpx;
+  font-size: 34rpx;
+  line-height: 40rpx;
+  color: #e23737;
+  position: absolute;
+  left: 44rpx;
+  top: 51rpx;
+  font-family: HelveticaNeue-Bold;
+}
+
+.single-card .card-detail-cont {
+  padding-left: 40rpx;
+  width: 276rpx;
+  box-sizing: border-box;
+}
+
+.single-card .card-tip {
+  margin: 44rpx 0 8rpx;
+  font-family: PingFangSC-Medium;
+  font-size: 30rpx;
+  line-height: 42rpx;
+  color: #111;
+}
+
+.single-card .card-date {
+  font-family: Helvetica-Light;
+  font-size: 20rpx;
+  color: #959595;
+  line-height: 28rpx;
+}
+
+.single-card .get-card {
+  margin-top: 48rpx;
+  border: 2rpx solid #cabd73;
+  font-family: PingFangSC-Regular;
+  font-size: 20rpx;
+  color: #cabd73;
+  width: 112rpx;
+  height: 32rpx;
+  line-height: 32rpx;
+  text-align: center;
+}
+
+.single-card .gotten {
+  margin-top: 48rpx;
+  border: 2rpx solid #ccc;
+  font-family: PingFangSC-Regular;
+  font-size: 20rpx;
+  color: #ccc;
+  width: 112rpx;
+  height: 32rpx;
+  line-height: 32rpx;
+  text-align: center;
+}
+
+.multiple-card {
+  width: 328rpx;
+  height: 176rpx;
+  margin: 0 30rpx 32rpx 0;
+  padding: 0 28rpx 0 20rpx;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.multiple-card:nth-child(2n) {
+  margin-right: 0;
+}
+
+.multiple-card .multiple-card-top {
+  width: 100%;
+  height: 126rpx;
+  border-bottom: 1rpx dashed #ccc;
+  display: flex;
+}
+
+.multiple-card .card-price-cont {
+  width: 155rpx;
+  padding-left: 30rpx;
+  box-sizing: border-box;
+  line-height: 126rpx;
+  height: 100%;
+  font-family: Helvetica-Bold;
+  font-size: 64rpx;
+  color: #e23737;
+  position: relative;
+}
+
+.multiple-card .card-price-cont::before {
+  content: '￥';
+  width: 19rpx;
+  height: 40rpx;
+  font-size: 34rpx;
+  line-height: 40rpx;
+  color: #e23737;
+  position: absolute;
+  left: 0rpx;
+  top: 31rpx;
+  font-family: HelveticaNeue-Bold;
+}
+
+.multiple-card-date {
+  font-family: Helvetica-Light;
+  font-size: 20rpx;
+  color: #959595;
+  line-height: 48rpx;
+  height: 48rpx;
+  padding-left: 4rpx;
+  box-sizing: border-box;
+}
+
+.multiple-card .card-detail-cont {
+  flex: 1;
+}
+
+.multiple-card .card-tip {
+  font-family: PingFangSC-Regular;
+  font-size: 24rpx;
+  color: #111;
+  line-height: 33rpx;
+  margin: 24rpx 0 12rpx 0;
+}
+
+.multiple-card .get-card {
+  border: 2rpx solid #cabd73;
+  font-family: PingFangSC-Regular;
+  font-size: 20rpx;
+  color: #cabd73;
+  width: 112rpx;
+  height: 32rpx;
+  line-height: 32rpx;
+  text-align: center;
+}
+
+.snapped-up-cover-w {
+  position: absolute;
+  width: 100%;
+  height: 176rpx;
+  left: 0;
+  top: 0;
+  opacity: 0.3;
+}
+
+.snapped-up-icon {
+  position: absolute;
+  bottom: 16rpx;
+  right: 16rpx;
+  width: 102rpx;
+  height: 102rpx;
+}
+
+.multiple-card .gotten {
+  border: 2rpx solid #ccc;
+  font-family: PingFangSC-Regular;
+  font-size: 20rpx;
+  color: #ccc;
+  width: 112rpx;
+  height: 32rpx;
+  line-height: 32rpx;
+  text-align: center;
+}
+
+.product-list .product-name {
+  text-align: center;
+}
+
+.product-list .product-desc {
+  text-align: center;
+}
+
+.product-list .price-container {
+  text-align: center;
+}
+
+.product-list .tags {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.product-list .product-card-container {
+  padding: 0 10rpx;
+}

@@ -1,0 +1,17 @@
+<view class="top-line"></view>
+<view wx:if="{{nocollection}}" class="none-collection-tip coolbuy-icon icon-favourite">您还没有收藏</view>
+<view class="collection-list">
+  <navigator url="../detail/detail?id={{item.id}}" class="collection-item" wx:for="{{collectionList}}">
+    <image src="{{item.cover_image}}" class="collection-image"></image>
+    <view class="collection-product-info">
+      <view class="collection-product-name ellipsis-l1">{{item.title}}</view>
+      <view class="collection-product-desc ellipsis-l2">{{item.summary}}</view>
+      <view class="collection-product-price">￥ {{item.price}}</view>
+    </view>
+    <view class="ifanrin ifanrin-delete-icon" data-id="{{item.id}}" bindtap="deleteCollectedProduct"></view>
+  </navigator>
+</view>
+<view class="empty-tip-container" wx:if="{{isEmptyCollectionList}}">
+  <view class="coolbuy-icon icon-favourite"></view>
+  <view class="empty-tip">您还没有收藏</view>
+</view>

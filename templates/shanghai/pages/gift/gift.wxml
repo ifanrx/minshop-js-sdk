@@ -1,0 +1,242 @@
+<import src="../../templates/giftExplainModal/giftExplainModal.wxml" />
+
+<view wx:if="{{ isShowGiftPanel }}" class="gift-container">
+  <image class="gift-cover" src="{{giftInfo.cover === null ? productBanner[currentGift][0] : giftInfo.cover}}"></image>
+
+  <view wx:if="{{ !isUnauthorized }}" class="gift--main">
+    <view class="gift-content">
+      <view wx:if="{{ giftInfo.giver.nickname }}" class="gift-content__name">{{ giftInfo.giver.nickname }}</view>
+       <!-- 未领取  -->
+      <block wx:if="{{giftInfo.beneficiary == null}}">
+        <block wx:if="{{giftInfo.role === 'giver'}}">
+          <view class="gift-status">{{isRedeemed ? '你的礼物已送出' : '你的礼物待领取'}}</view>
+        </block>
+        <block wx:if="{{giftInfo.role === 'passerby'}}">
+          <view class="gift-status">{{isRedeemed ? '送你的礼物，你喜欢吗?' : '用心地为你准备了一份礼物'}}</view>
+        </block>
+      </block>
+      <!-- 已领取  -->
+      <block wx:if="{{giftInfo.beneficiary != null}}">
+        <view wx:if="{{giftInfo.role === 'giver'}}" class="gift-status">你的礼物已送出</view>
+        <view wx:if="{{giftInfo.role === 'passerby'}}" class="gift-status">送出的礼物已被领取</view>
+        <view wx:if="{{giftInfo.role === 'beneficiary'}}" class="gift-status">送你的礼物，你喜欢吗?</view>
+      </block>
+    </view>
+    <image class="gift__header-img" src="{{ giftInfo.giver.avatar }}"></image>
+  </view>
+
+  <view class="giver-message coolbuy-icon icon-db-quotation" wx:if="{{giftInfo.message}}">
+    {{giftInfo.message}}
+  </view>
+
+  <view wx:elif="{{ isUnauthorized}}" class="unauthorized-tip">
+    <view class="unauthorized-tip-item">1. 用户需成功授权才可以正常使用送礼功能；</view>
+    <view class="unauthorized-tip-item">2. 若未成功授权，请回到微信，至发现－小程序，把「{{ wxExt.MERCHANT_NAME }}」删除；</view>
+    <view class="unauthorized-tip-item">3. 再次点击该礼物领取分享页，即可重新授权。</view>
+  </view>
+
+  <view class="gift-list" wx:if="{{productInfo !== null}}">
+    <view class="gift-list-item" wx:for="{{productInfo}}" data-index="{{index}}" bindtap="chooseGift">
+      <image class="gift-item-img {{currentGift === index ? 'choosed' : ''}}" wx:if="{{item.cover_image}}" src="{{item.cover_image}}"></image>
+      <view class="gift-item-content">
+        <view class="gift-item-title ellipsis-l1">{{item.title}}</view>
+        <view class="gift-item-desc ellipsis-l1">{{item.summary}}</view>
+      </view>
+      <view class="get-gift-item-detail" data-index="{{index}}" bindtap="toggleDescriptionShow">查看</view>
+    </view>
+  </view>
+
+  <view class="gift-list" wx:if="{{productInfo === null}}">
+    <view class="gift-list-item">
+      <image class="gift-item-img choosed coolbuy-icon icon-mystery" src=""></image>
+      <view wx:if="{{giftInfo.role === 'giver'}}" class="gift-item-content">
+        <view class="gift-item-title">你将送出一份神秘礼物</view>
+        <view class="gift-item-desc">收礼人拆开后才知道是什么喔</view>
+      </view>
+      <view wx:if="{{giftInfo.role === 'beneficiary'}}" class="gift-item-content">
+        <view class="gift-item-title">你已收到了一份神秘礼物</view>
+        <view class="gift-item-desc">拆开后才知道是什么喔</view>
+      </view>
+      <view wx:if="{{giftInfo.role === 'passerby'}}" class="gift-item-content">
+        <view class="gift-item-title">这是一份神秘礼物</view>
+        <view class="gift-item-desc">就是不给你看</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="description-container--mask" hidden="{{!descriptionStatus}}">
+    <view class="description-container">
+      <swiper class="detail-swiper" indicator-dots="{{false}}" autoplay bindchange="swiperChange">
+        <block wx:for="{{ productBanner[currentProductIndex] }}">
+          <swiper-item>
+            <image src="{{ item }}" class="detail-img" mode="aspectFill" />
+          </swiper-item>
+        </block>
+        <view class="product-image-index" wx:if="{{productBanner[currentProductIndex].length}}">{{currentIndex}}/{{productBanner[currentProductIndex].length}}</view>
+      </swiper>
+      <view class="detail-title-container">
+        <view class="detail-title ellipsis-l1">{{productInfo[currentProductIndex].title}}</view>
+        <view class="detail-summary ellipsis-l1">{{productInfo[currentProductIndex].summary}}</view>
+      </view>
+      <view wx:if="{{ true }}" class="detail-description">
+
+        <block wx:for="{{ productInfo[currentProductIndex].description }}">
+          <image wx:if="{{ item.type === 'image' }}" class="description-images" src="{{ item.content }}" style="width: {{ descriptionImages[index].width || '580' }}rpx; height: {{ descriptionImages[index].height }}rpx" bindload="imageLoad" data-index="{{ index }}">
+          </image>
+          <view wx:elif="{{ item.type === 'text' }}" class="description-text">
+            {{ item.content }}
+          </view>
+        </block>
+      </view>
+    </view>
+    <view data-index="{{currentProductIndex}}" bindtap="toggleDescriptionShow" class="close ifanrin ifanrin-delete-icon"></view>
+  </view>
+
+  <view class="brand">
+    <view class="brand_c">{{ wxExt.MERCHANT_NAME }}</view>
+    <view class="brand_e">{{ wxExt.MERCHANT_WEBSITE }}</view>
+  </view>
+</view>
+
+<template is="giftExplainModal" data="{{ isShowExplainModal }}"></template>
+
+<view wx:if="{{ isShowAddressForm }}" class="address-form" animation="{{ animationData }}">
+  <view class="address-form-product" wx:if="{{productInfo === null}}">
+    <image class="coolbuy-icon icon-mystery" src=""></image>
+    <view class="address-form-product-data">
+      <view class="address-form-product-name ellipsis-l2">这是一份神秘礼物
+      </view>
+      <view class="address-form-product-desc ellipsis-l1">拆开后才知道是什么喔
+      </view>
+    </view>
+  </view>
+
+  <view class="address-form-product" wx:if="{{productInfo !== null}}">
+    <image src="{{ productInfo[0].cover_image}}"></image>
+    <view class="address-form-product-data">
+      <view class="address-form-product-name ellipsis-l1">{{productInfo[0].title}}
+      </view>
+      <view class="address-form-product-desc ellipsis-l1">{{productInfo[0].summary}}
+      </view>
+    </view>
+  </view>
+
+  <view class="address-form-section-container">
+    <view class="address-tips address-form-tips">
+      <view class="address-tips-text">填写收礼地址后，礼物会第一时间发至你填写的地址处；</view>
+      <view class="address-tips-text">送礼人不会看到你填写的收礼地址；</view>
+    </view>
+    <view class="address-form-section add-form-name">
+      <input placeholder="收货人姓名" id="name" value="{{ name }}" bindblur="handleInput" class="address-form-item" />
+    </view>
+    <view class="address-form-section add-form-phone">
+      <input placeholder="电话号码" id="phone" value="{{ phone }}" bindblur="handleInput" class="address-form-item" />
+    </view>
+    <view class="address-form-section">
+      <picker bindchange="bindProvinceChange" bindtap="provincePicker" value="{{ provinceIndex }}" range="{{ provincesName }}">
+        <view class="address-form-item address-picker">
+          选择省份：{{ provincesName[provinceIndex] }}
+        </view>
+      </picker>
+    </view>
+    <view class="address-form-section">
+      <picker bindchange="bindCityChange" value="{{cityIndex}}" range="{{ citiesName }}">
+        <view class="address-form-item address-picker">
+          当前城市：{{ citiesName[cityIndex] }}
+        </view>
+      </picker>
+    </view>
+    <view class="address-form-section">
+      <picker bindchange="bindDistrictChange" value="{{ districtIndex }}" range="{{ districtsName }}">
+        <view class="address-form-item address-picker">
+          当前地区：{{ districtsName[districtIndex] }}
+        </view>
+      </picker>
+    </view>
+    <view class="address-form-section">
+      <input placeholder="详细地址" id="address" value="{{ address }}" bindblur="handleInput" class="address-form-item" />
+    </view>
+  </view>
+
+  <button class="address-form-btn address-form__submit" type="primary" bindtap="handleSubmit">确认领取</button>
+  <button class="address-form-btn address-form__cancel" type="default" bindtap="cancelRedeem">取消</button>
+
+</view>
+
+<view wx:if="{{ isShowGiftShareTip && !isFromShare }}" bindtap="closeGiftShareTip" class="gift-share-tip-mask">
+  <view class="ifanrin ifanrin-delete-icon delete-icon"></view>
+  <view class="gift-share-tip">点击右上角<text class="coolbuy-icon icon-share share-icon "></text>分享给好友，TA就能领礼物啦</view>
+</view>
+
+<view class="address-list__mask" wx:if="{{ isShowAddressList }}" bindtap="hideAddressList">
+
+</view>
+<view class="address-list-container {{ isSupportChooseAddress ? 'has-use-wx-address' : '' }}" wx:if="{{ isShowAddressList }}">
+  <view class="address-tips">
+    <view class="address-tips-text">填写收礼地址后，礼物会第一时间发至你填写的地址处；</view>
+    <view class="address-tips-text">送礼人不会看到你填写的收礼地址；</view>
+  </view>
+  <view class="address-list">
+    <block wx:for="{{ addressList }}">
+      <view class="item address-item" data-index="{{ index }}" bindtap="useAddressList">
+        <view class="address-list--header icon-location coolbuy-icon">
+          <text class="item-name">{{ item.name }}</text>
+          <text class="phone-num">{{ item.phone }}</text>
+        </view>
+        <view class="address-list--body">
+          收货地址：{{ item.province }}{{ item.city }}{{ item.district }}{{ item.address }}
+        </view>
+      </view>
+    </block>
+  </view>
+</view>
+<view wx:if="{{ isShowAddressList && isSupportChooseAddress }}" class="address-list__useWxAddress" bindtap="useWxAddress">使用微信地址</view>
+<view wx:if="{{ isShowAddressList }}" class="address-list__inputAddress" bindtap="showAddressForm">直接输入地址</view>
+<view wx:if="{{ isShowAddressList }}" class="address-list__cancel-btn" bindtap="hideAddressList">取消</view>
+
+
+<view wx:if="{{ isShowAddressCreateMethod }}" class="address-create-method--mask" catchtap="hideAddressCreateMethod">
+  <view class="address-create-method">
+    <view class="address-create-method-item" bindtap="useWxAddress">使用微信地址</view>
+    <view class="address-create-method-item" bindtap="showAddressForm">直接添加地址</view>
+    <view class="address-create-method-item" catchtap="hideAddressCreateMethod">取消</view>
+  </view>
+</view>
+
+<view wx:if="{{!isShowAddressList && !(isShowGiftShareTip && !isFromShare)}}" class="operate-gift-btns">
+  <view bindtap="showExplainModal" class="gift-tips coolbuy-icon icon-explain"></view>
+  <!-- 礼物已领取  -->
+  <block wx:if="{{giftInfo.beneficiary != null}}">
+    <block wx:if="{{giftInfo.role === 'giver'}}">
+      <view class="give-again" bindtap="navToHome">再送一个</view>
+    </block>
+    <block wx:if="{{giftInfo.role === 'passerby'}}">
+      <view class="give-again" bindtap="navToHome">我也要送</view>
+    </block>
+    <block wx:if="{{giftInfo.role === 'beneficiary'}}">
+      <view class="get-back" bindtap="getTrackingInfo">追踪物流</view>
+      <view class="give-again" bindtap="navToHome">回馈礼物</view>
+    </block>
+  </block>
+  <!-- 礼物未领取  -->
+  <block wx:if="{{giftInfo.beneficiary == null}}">
+    <block wx:if="{{giftInfo.role === 'giver'}}">
+      <form wx:if="{{ !isRedeemed}}" report-submit="true" bindsubmit="redeemFormSubmit">
+        <button form-type="submit" class="get-back" >收回礼包</button>
+      </form>
+      <view class="give-again" bindtap="navToHome">再送一个</view>
+    </block>
+    <block wx:if="{{giftInfo.role === 'passerby'}}">
+      <block wx:if="{{isRedeemed}}">
+        <view class="give-again" bindtap="navToHome">回馈礼物</view>
+      </block>
+      <form class="give-again" report-submit="true" bindsubmit="redeemFormSubmit"  wx:if="{{!isRedeemed}}">
+        <button form-type="submit" class="give-again">收下礼物</button>
+      </form>
+    </block>
+    <block wx:if="{{giftInfo.role === 'beneficiary'}}">
+      <view class="get-back" bindtap="getTrackingInfo">追踪物流</view>
+      <view class="give-again" bindtap="navToHome">回馈礼物</view>
+    </block>
+  </block>
+</view>

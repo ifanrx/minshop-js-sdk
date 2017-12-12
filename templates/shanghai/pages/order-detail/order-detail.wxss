@@ -1,0 +1,360 @@
+page {
+  background-color: #efeff4;
+  height: 100%;
+}
+
+.order-detail-page {
+  background: #efeff4;
+  color: #545454;
+  text-align: left;
+}
+
+.order-detail-item {
+  background-color: #fff;
+  margin-bottom: 25rpx;
+  border-top: 0.5px #e5e5e5 solid;
+}
+
+.order-detail-item-detail {
+  display: flex;
+  justify-content: space-between;
+  padding: 30rpx 0;
+  margin:0 30rpx;
+  font-size: 30rpx;
+  line-height: 30rpx;
+  color: #111;
+  border-bottom: 0.5px #e5e5e5 solid;
+}
+
+.order-detail-item-detail__total-price,
+.order-detail-item-detail__couponAmount,
+.order-detail-item-detail__wechatCouponAmount{
+  padding: 30rpx 0;
+  margin:0 30rpx;
+  display: flex;
+  justify-content: space-between;
+  font-size: 30rpx;
+  line-height: 30rpx;
+  border-bottom: 0.5px #e5e5e5 solid;
+}
+
+.order-detail-item--header {
+  margin: 0 30rpx;
+  height: 98rpx;
+  line-height: 98rpx;
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #959595;
+  border-bottom: 0.5rpx solid #ccc;
+}
+
+.order-detail-status {
+  float: right;
+  font-size: 28rpx;
+  color: #87858f;
+}
+
+.order-detail-status--not-paid {
+  color: #fd544a;
+}
+
+.order-detail-fianl-cost {
+  float: right;
+}
+
+.order-detail-product-list {
+  background-color: #fff;
+}
+
+.order-detail-product-item {
+  position: relative;
+  padding: 40rpx 0;
+  margin: 0 40rpx;
+  font-size: 0;
+  border-bottom: 0.5rpx solid #ccc;
+}
+
+.order-detail-product-price {
+  float: left;
+  font-family: PingFangSC-Regular;
+  font-size: 26rpx;
+  color: #111;
+  letter-spacing: 0;
+  line-height: 26rpx;
+  margin-left: 32rpx;
+}
+
+.order-detail-product-status {
+  float:right;
+font-family:PingFangSC-Regular;
+font-size:26rpx;
+color:#e23737;
+letter-spacing:0;
+line-height:26rpx;
+
+}
+
+.order-detail-product-image {
+  float: left;
+  width: 160rpx;
+  height: 160rpx;
+  border: 2rpx solid #ccc;
+}
+
+.order-detail-product-detail {
+  position: relative;
+  padding-left: 20rpx;
+  padding-right: 112rpx;
+  height: 130rpx;
+  overflow: hidden;
+}
+
+.order-detail-product-title {
+  font-size: 28rpx;
+  line-height: 30rpx;
+  max-height: 60rpx;
+  overflow: hidden;
+  color: #2b2b2b;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.order-detail-product-spec {
+  color: #87858f;
+  font-size: 26rpx;
+  line-height: 48rpx;
+}
+
+.order-detail-product-amount {
+  position: absolute;
+  left: 20rpx;
+  bottom: 0;
+  font-size: 28rpx;
+  color: #87858f;
+}
+
+.order-detail-product-right {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 26rpx;
+  color: #87858f;
+  line-height: 30rpx;
+  text-align: right;
+}
+
+.order-detail-product-quantity {
+  line-height: 42rpx;
+}
+
+
+.order-detail-shipped {
+  margin-top: 10rpx;
+}
+
+.order-detail-product-shipped__status {
+  float: right;
+  font-size: 24rpx;
+  line-height: 54rpx;
+  color: #87858f;
+  margin-right: 20rpx;
+}
+
+.order-detail-item--footer {
+  padding: 0 30rpx;
+  font-size: 28rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+}
+
+.order-detail-product-count {
+  float: right;
+  margin-right: 20rpx;
+}
+
+.order-detail-wechat-icon {
+  padding-right: 16rpx;
+  width: 40rpx;
+  height: 40rpx;
+  vertical-align: middle;
+}
+
+.order-detail-wechat-text {
+  line-height: 40rpx;
+  vertical-align: middle;
+}
+
+.order-detail-address {
+  position: relative;
+  background-color: #fff;
+  padding: 16rpx 30rpx 24rpx 88rpx;
+  border-bottom: 0.5px #e5e5e5 solid;
+}
+
+.order-detail-address-message {
+  margin-right: 46rpx;
+  font-size: 32rpx;
+  line-height: 62rpx;
+}
+
+.address-beacon-icon {
+  height: 38rpx;
+  width: 38rpx;
+  text-align: center;
+  margin: 0 20rpx 0 -58rpx;
+  font-size: 26rpx;
+  line-height: 38rpx;
+  display: inline-block;
+  border-radius: 50%;
+  color: #fff;
+  background-color: #f8504f;
+}
+
+.address-share-icon {
+  height: 38rpx;
+  width: 38rpx;
+  text-align: center;
+  margin: 0 20rpx 0 -58rpx;
+  font-size: 26rpx;
+  line-height: 26rpx;
+  display: inline-block;
+  border-radius: 50%;
+  color: #fca515;
+}
+
+.order-detail-address-message__share {
+  display: inline-block;
+  width: 100%;
+  font-size: 30rpx;
+  color: #3c3b4b;
+  vertical-align: top;
+}
+
+.order-detail-address-message__name {
+  font-weight: bold;
+}
+
+.order-detail-address-message__phone {
+  padding-left: 22rpx;
+  font-weight: bold;
+}
+
+.order-detail-address-message__detail {
+  display: block;
+  padding-right: 31rpx;
+  font-size: 28rpx;
+  line-height: 38rpx;
+  text-align: justify;
+}
+
+.order-detail-page .submit-btn {
+  padding: 100rpx 40rpx;
+}
+
+.order-detail-total-price {
+  display: flex;
+  flex: 1;
+  flex-flow: column;
+  align-items: flex-end;
+  color: #3c3b4b;
+  font-size: 30rpx;
+  line-height: 60rpx;
+}
+
+.order-detail-total-price__content {
+  font-size: 36rpx;
+  color: #f8504f;
+}
+
+.order-created-time {
+  font-size: 26rpx;
+  line-height: 1em;
+  color: #c7c7c7;
+}
+
+.order-created-time--not-paid {
+  color: #87858f;
+}
+
+.order-detail--footer {
+  position: fixed;
+  box-sizing: border-box;
+  padding: 0 10rpx;
+  height: 100rpx;
+  font-size: 36rpx;
+  line-height: 100rpx;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  color: #fd544a;
+  background-color: #fff;
+}
+
+.repay-btn, .cancle-order-btn {
+  float: right;
+  font-size: 28rpx;
+  line-height: 64rpx;
+  height: 64rpx;
+  padding: 0 24rpx;
+  margin: 18rpx 20rpx 0 0;
+  background-color: #fd544a;
+  color: #fff;
+  border: 0;
+}
+
+.cancle-order-btn {
+  border: 0.5px solid #87858f;
+  color: #3c3b4b;
+}
+
+.repay-btn::after, .confirm-deliver-btn::after {
+  border: 0;
+}
+
+.order-detail-shipped {
+  padding: 21rpx 0;
+  margin: 0 40rpx;
+  background-color: #fff;
+  border-bottom: 0.5px solid #ccc;
+}
+
+.order-detail-product-confirm-btn {
+  margin-left: 18rpx;
+  float: right;
+  font-size: 26rpx;
+  line-height: 54rpx;
+  height: 54rpx;
+  padding: 0 20rpx;
+  border-color: #87858f;
+  border-width: 0.5px;
+  color: #3c3b4b;
+  background-color: #fff;
+  border: 1px solid #87858f;
+  border-radius: 8rpx;
+}
+
+.order-detail-user-message-container {
+  display: flex;
+  margin-top: 38rpx;
+  border-top: 1px solid #fff;
+  line-height: 40rpx;
+}
+
+.order-detail-user-message-lable {
+  width: 150rpx;
+  padding: 16rpx 0;
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.order-detail-user-message-text {
+  flex: 1;
+  padding: 16rpx 0;
+  font-size: 28rpx;
+}
+
+.pb0 {
+  padding-bottom: 0;
+}

@@ -1,0 +1,5 @@
+<view class="technology-support">
+  <view class="minshop-theme-icon mt-icon-logo technology-support__icon"></view>
+  <view class="technology-support__website">minshop.com</view>
+  <view class="technology-support__desc">由小电商免费创建</view>
+</view>

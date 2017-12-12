@@ -1,0 +1,69 @@
+@import "../../templates/searchBar/searchBar.wxss";
+
+page {
+  background-color: #fff;
+}
+
+.search-bar {
+  box-shadow: inset 0px -1px 1px -1px #c8c7cc;
+}
+
+.shelf-list {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 48rpx 48rpx 0;
+  box-sizing: border-box;
+  margin-top: 92rpx;
+}
+
+.shelf-item {
+  width: 300rpx;
+  box-sizing: border-box;
+  text-align: center;
+  margin-right: 54rpx;
+  position: relative;
+  margin-bottom: 64rpx;
+}
+
+.shelf-item:nth-child(2n) {
+  margin-right: 0;
+}
+
+.cover-image {
+  margin: 0 auto 24rpx;
+  width: 300rpx;
+  height: 224rpx;
+}
+
+.cover {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 300rpx;
+  height: 224rpx;
+  opacity: 0.3;
+  background: #111;
+}
+
+.cover-logo {
+  position: absolute;
+  left: 24rpx;
+  top: 48rpx;
+  width: 80rpx;
+  height: 80rpx;
+  z-index: 2;
+}
+
+.title {
+  font-size: 30rpx;
+  line-height: 42rpx;
+  text-align: left;
+  margin-bottom: 12rpx;
+}
+
+.desc {
+  font-size: 26rpx;
+  color: #959595;
+  text-align: left;
+}

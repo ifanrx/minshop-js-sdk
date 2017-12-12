@@ -1,0 +1,40 @@
+<view class="address-form">
+  <view class="address-form-section">
+    <input placeholder="收货人姓名" data-filed="name" value="{{ addressData.name }}" bindblur="getInputValue" class="address-form-item"/>
+  </view>
+  <view class="address-form-section">
+    <input placeholder="电话号码" data-filed="phone" value="{{ addressData.phone }}" bindblur="getInputValue" class="address-form-item"/>
+  </view>
+  <view class="address-form-section">
+    <picker bindchange="bindProvinceChange" value="{{ provinceIndex }}" range="{{ provincesName }}" >
+      <view class="address-form-item address-picker">
+        选择省份：{{ provincesName[provinceIndex] }}
+      </view>
+    </picker>
+  </view>
+  <view class="address-form-section">
+    <picker bindchange="bindCityChange" value="{{ cityIndex }}" range="{{ citiesName }}">
+      <view class="address-form-item address-picker">
+        当前城市：{{ citiesName[cityIndex] }}
+      </view>
+    </picker>
+  </view>
+  <view class="address-form-section">
+    <picker bindchange="bindDistrictChange" value="{{ districtIndex }}" range="{{ districtsName }}">
+      <view class="address-form-item address-picker">
+        当前地区：{{ districtsName[districtIndex] }}
+      </view>
+    </picker>
+  </view>
+  <view class="address-form-section">
+    <input placeholder="详细地址" data-filed="address" value="{{ addressData.address }}" bindblur="getInputValue" class="address-form-item"/>
+  </view>
+  <view class="address-form-section">
+    <view class="address-default" data-default="{{ addressData.is_default }}" bindtap="toggleDefault">
+      <view class="ifanrin ifanrin-check-icon {{ addressData.is_default ? 'checkbox-active' : 'checkbox' }}"></view>
+      <text>默认地址</text>
+    </view>
+  </view>
+
+  <view class="save-btn {{ addressData.name && addressData.phone && addressData.province && addressData.city && addressData.district && addressData.address ? 'ready' : ''}}" bindtap="handleSubmit">保存地址</view>
+</view>

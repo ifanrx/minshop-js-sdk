@@ -1,0 +1,144 @@
+<view class="top-line"></view>
+<view wx:if="{{ isEmptyShoppingCart }}">
+  <view class="shopping-cart-empty">
+    <view><text>您的购物车没有商品</text></view>
+    <view><text>快去挑选吧</text></view>
+  </view>
+  <button bindtap="navToHome" id="bg-red" class="go-to-home" type="primary">去挑选</button>
+</view>
+
+<view class="shopping-cart" wx:else>
+  <view class="product-list">
+    <view class="product-group" wx:for="{{filterGroup}}">
+      <!-- 小面额 未领取  -->
+      <block wx:if="{{item.current && !item.current.redeemed && item.next}}">
+        <view class="more-discount-tip">
+          <view class="group-btn" data-index="{{index}}" bindtap="toggleCheckAllGroup">
+            <view class="group-checkbox ifanrin {{item.checked == true ? 'ifanrin-check-icon' : ''}}"></view>
+          </view>
+          <view class="more-tip-text">领券后，可享受满<text class="red">{{item.current.minimum_amount}}</text>减<text class="red">{{item.current.face_value}}</text>元优惠</view>
+          <view class="buy-more red" data-index="0" data-group="{{item}}" bindtap="showPreferentialModal">领券 ></view>
+        </view>
+      </block>
+      <block wx:if="{{item.current && item.current.redeemed && item.next}}">
+        <view class="enough-discount-tip" wx:if="{{item.current}}">已满足满{{item.current.minimum_amount}}减{{item.current.face_value}}元优惠</view>
+        <view class="more-discount-tip" wx:if="{{item.next}}">
+          <view class="group-btn" data-index="{{index}}" bindtap="toggleCheckAllGroup">
+            <view class="group-checkbox ifanrin {{item.checked == true ? 'ifanrin-check-icon' : ''}}"></view>
+          </view>
+          <view class="more-tip-text">再加<text class="red">{{item.remain}}</text>元，即可满足满<text class="red">{{item.next.minimum_amount}}</text>减<text class="red">{{item.next.face_value}}</text>元优惠</view>
+          <view class="buy-more red" data-shelf="{{item.next}}" bindtap="navToShelf">去凑单 ></view>
+        </view>
+      </block>
+
+      <block wx:if="{{!item.next && item.current && item.current.redeemed}}">
+        <view class="more-discount-tip">
+          <view class="group-btn" data-index="{{index}}" bindtap="toggleCheckAllGroup">
+            <view class="group-checkbox ifanrin {{item.checked == true ? 'ifanrin-check-icon' : ''}}"></view>
+          </view>
+          <view class="more-tip-text">已满足满<text class="red">{{item.current.minimum_amount}}</text>减<text class="red">{{item.current.face_value}}</text>元优惠</view>
+        </view>
+      </block>
+
+      <block wx:if="{{!item.next && item.current && !item.current.redeemed}}">
+        <view class="more-discount-tip">
+          <view class="group-btn" data-index="{{index}}" bindtap="toggleCheckAllGroup">
+            <view class="group-checkbox ifanrin {{item.checked == true ? 'ifanrin-check-icon' : ''}}"></view>
+          </view>
+          <view class="more-tip-text">领券后，可享受满<text class="red">{{item.current.minimum_amount}}</text>减<text class="red">{{item.current.face_value}}</text>元优惠</view>
+          <view class="buy-more red" data-index="0" data-group="{{item}}" bindtap="showPreferentialModal">领券 ></view>
+        </view>
+      </block>
+
+      <block wx:if="{{!item.current && item.next}}">
+        <view class="more-discount-tip">
+          <view class="group-btn" data-index="{{index}}" bindtap="toggleCheckAllGroup">
+            <view class="group-checkbox ifanrin {{item.checked == true ? 'ifanrin-check-icon' : ''}}"></view>
+          </view>
+          <view class="more-tip-text">再加<text class="red">{{item.remain}}</text>元，即可满足满<text class="red">{{item.next.minimum_amount}}</text>减<text class="red">{{item.next.face_value}}</text>元优惠</view>
+          <view class="buy-more red" data-shelf="{{item.next}}" bindtap="navToShelf">去凑单 ></view>
+        </view>
+      </block>
+
+      <view wx:for="{{ item.sku }}" wx:for-item="product" wx:for-index="i" class="product-item">
+        <view class="group-btn" bindtap="{{ product.isOverInventory || product.product_status != 'in_stock' ? 'showErrorMessage' : 'selectedProcuctChange' }}" data-product="{{product}}" data-index="{{ i }}">
+          <view class="group-checkbox ifanrin {{ product.checked ? 'ifanrin-check-icon' : '' }}"></view>
+        </view>
+        <image class="product-img" mode="aspectFill" src="{{ product.sku_image || product.cover_image }}" bindtap="enterDetail" data-id="{{product.product_id}}"></image>
+        <view class="product-detail">
+          <view class="product-title" bindtap="enterDetail" data-id="{{product.product_id}}">{{ product.title }}</view>
+          <view class="product-spec" bindtap="enterDetail" data-id="{{product.product_id}}">{{ product.spec }}</view>
+          <view wx:if="{{product.purchase_limit && product.quantity > product.permitNum}}" class="product-nomore-inventory">限购 {{product.permitNum}} 件</view>
+          <view wx:elif="{{ product.quantity > product.inventory || product.product_status !== 'in_stock' }}" class="product-nomore-inventory">库存不足</view>
+          <view class="product-select-tool">
+            <view class="product-price">¥ {{ product.unit_price }} </view>
+            <view class="product-select-box">
+              <view class="product-select-box-item ifanrin-minus-icon ifanrin" bindtap="changeQuantity" data-product="{{product}}" data-index="{{ i }}" data-operation="minus"></view>
+              <view class="product-select-box-item product-quantity">{{ product.quantity }}</view>
+              <view class="product-select-box-item ifanrin-add-icon ifanrin" bindtap="changeQuantity" data-product="{{product}}" data-index="{{ i }}" data-operation="add"></view>
+            </view>
+          </view>
+        </view>
+        <view class="product-delete ifanrin-delete-icon ifanrin" data-product="{{product}}" bindtap="deleteProduct" data-index="{{ i }}"></view>
+      </view>
+    </view>
+
+  </view>
+
+  <view hidden="{{ !productList.length }}" class="shopping-cart-foot {{ !isShowTabBar ? 'shopping-cart-foot--not-tab-bar' : '' }}">
+    <view class="shopping-cart-select-all" catchtap="{{ isOverInventory ? 'showErrorMessage' : 'selectAll' }}">
+      <view class="select-all group-checkbox ifanrin {{ isSelectedAll ? 'ifanrin-check-icon' : '' }}"></view>
+      <view class="">全选</view>
+    </view>
+    <button class="shopping-cart-payment" bindtap="payment" hover-class="shopping-cart-payment--active">结算</button>
+    <view class="total-price">合计:
+      <text class="total-price-number">¥ {{ totalPrice }}</text>
+    </view>
+  </view>
+
+  <view class="preferential-modal" wx:if="{{isShowPreferentialModal}}">
+    <view class="preferential-modal-content">
+      <view class="coupon-modal modal-padding" wx:if="{{currentPreferentialIndex == 0}}">
+        <view class="modal-title">
+          <view class="">领券立减</view>
+          <view class="close-modal-btn ifanrin-delete-icon ifanrin" bindtap="closePreferentialModal"></view>
+        </view>
+        <view class="coupon-container">
+          <view class="coupon-item" wx:for="{{currentCoupon}}" data-index="{{ index }}">
+            <view class="coolbuy-icon icon-checkbox-square coupon-item__checkbox {{ item.selected ? 'coupon-item__checkbox--selected' : '' }}" wx:if="{{ isShowCheckbox }}"></view>
+            <view class="coupon-item-content">
+              <view class="coupon-item--left">
+                <view class="coupon__face-value ">{{ item.face_value }}</view>
+              </view>
+
+              <view class="coupon-item--center">
+                <view wx:if="{{item.minimum_amount > 0}}" class="coupon__name">满 {{ item.minimum_amount }} 元可用券</view>
+                <view wx:else class="coupon__name">无门槛使用</view>
+                <view class="coupon__valid-time">截止日期：{{ item.valid_until }}</view>
+              </view>
+
+              <view class="coupon-item--right">
+                <view class="go-use" data-item="{{item}}" data-index="{{index}}" bindtap="getCoupon">领取</view>
+              </view>
+            </view>
+            <view class="coupon-item-bottom coupon__description" style="background-image:url(https://coolbuy-minapp.b0.upaiyun.com/coupon/coupon-bg.png)">
+              {{ item.description }}
+            </view>
+
+            <view class="coupon-over-time" wx:if="{{item.errMeg}}">
+              <view class="coupon-over-time-circle" wx:if="{{item.errMeg === 'out_of_stock'}}">已抢光</view>
+              <view class="coupon-over-time-circle" wx:if="{{item.errMeg === 'reach_limit' || item.errMeg === 'redeemed'}}">已领取</view>
+            </view>
+
+            <view class="cant-use-cover" wx:if="{{item.errMeg}}">
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="toast" wx:if="{{toastModalStatus}}">
+  <text class="toast__text">{{toastModalText}}</text>
+</view>

@@ -1,0 +1,35 @@
+<view class="user-avatar" bindtap="uploadImage">
+    <image class="user-avatar__image" src="{{userInfo.avatar_link}}"></image>
+    <view class="user-avatar__modify-tip">点击修改头像</view>
+</view>
+
+<view class="user-info">
+    <view class="user-info__item">
+        <view class="user-info__item-name">用户ID</view>
+        <view class="user-info__item-value user-info__id">{{userInfo.user_id}}</view>
+    </view>
+    <view class="user-info__item">
+        <view class="user-info__item-name">昵称</view>
+        <input class="user-info__item-value user-info__nickname" placeholder="{{userInfo.nickname}}" bindinput="modifyName">
+        </input>
+    </view>
+    <view class="user-info__item">
+        <view class="user-info__item-name">性别</view>
+        <view class="user-info__item-value user-info__sex">
+            <view class="user-info__male"> <text class="user-info__item-radio  {{userSex === '男' ? 'user-info__item-radio_active' : ''}}" bindtap="chooseSex" data-sex="0"></text> 男</view>
+            <view class="user-info__female"> <text class="user-info__item-radio  {{userSex === '女' ? 'user-info__item-radio_active' : ''}}" bindtap="chooseSex" data-sex="1"></text> 女</view>
+        </view>
+    </view>
+    <view class="user-info__item">
+        <view class="user-info__item-name">生日</view>
+        <view class="user-info__item-value user-info__birthday">
+            <picker mode="date" value="{{date}}" start="1910-01-01" bindchange="bindDateChange">
+                <view class="picker">
+                    {{userInfo.birthday ? userInfo.birthday : date}}
+                </view>
+            </picker>
+        </view>
+    </view>
+</view>
+
+<view class="save-btn" bindtap="saveUserInfo">保存</view>

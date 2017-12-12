@@ -1,0 +1,95 @@
+<import src="../../templates/productCard/productCard.wxml" />
+
+<view class="top-line"></view>
+<scroll-view class="page-scroll" scroll-y="true" bindscrolltolower="loadMoreRecommand" enable-back-to-top="true">
+  <navigator url="../user-info/user-info" class="user-login-box" wx:if="{{hasLogin && userInfo}}">
+    <view class="user-info">
+      <view class="user-name" wx:if="{{userInfo.nickname}}">{{userInfo.nickname}}</view>
+      <view class="user-profile">查看并编辑个人资料</view>
+    </view>
+    <image wx:if="{{userInfo.avatar_link}}" src="{{userInfo.avatar_link}}" class="user-avatar"></image>
+  </navigator>
+
+  <view class="user-login-box" bindtap="login" wx:if="{{!hasLogin}}">
+    <view class="user-info">
+      <view class="user-name">未登录</view>
+      <view class="user-profile">点击登录{{ wxExt.MERCHANT_NAME }}</view>
+    </view>
+    <view class="user-default-avatar coolbuy-icon icon-avatar"></view>
+  </view>
+
+  <!-- 活动入口 banner  -->
+  <!-- <navigator open-type="switchTab"  url="../venue/venue" class="activity-banner background-image" style="background-image:url(https://coolbuy-minapp.b0.upaiyun.com/user-center/user-center-banner.jpg)">
+  </navigator>  -->
+
+  <view class="user-order-box user-center-box">
+    <view class="box__title">
+      <view class="box__title-name">我的订单</view>
+      <navigator url="../order-list/order-list" class="box__title-link">查看全部订单</navigator>
+    </view>
+    <view class="box__floor">
+      <navigator url="../order-list/order-list?orderStatusIndex=1" class="box__floor-item">
+      <view class="item-count" wx:if="{{initiatedOrderCounts}}">{{initiatedOrderCounts >= 99 ? '···' : initiatedOrderCounts}}</view>
+        <view class="item-icon coolbuy-icon icon-initiated"></view>
+        <view class="item-name">待付款</view>
+      </navigator>
+      <navigator url="../order-list/order-list?orderStatusIndex=2" class="box__floor-item">
+        <view class="item-count" wx:if="{{processingOrderCounts}}">{{processingOrderCounts >= 99 ? '···' : processingOrderCounts}}</view>
+        <view class="item-icon coolbuy-icon icon-processing"></view>
+        <view class="item-name">待发货</view>
+      </navigator>
+      <navigator url="../order-list/order-list?orderStatusIndex=3" class="box__floor-item">
+      <view class="item-count" wx:if="{{shippedOrderCounts}}">{{shippedOrderCounts >= 99 ? '···' : shippedOrderCounts}}</view>
+        <view class="item-icon coolbuy-icon icon-shipped"></view>
+        <view class="item-name">待收货</view>
+      </navigator>
+      <navigator url="../order-list/order-list?orderStatusIndex=4" class="box__floor-item">
+      <view class="item-count" wx:if="{{refundingOrderCounts}}">{{refundingOrderCounts >= 99 ? '···' : refundingOrderCounts}}</view>
+        <view class="item-icon coolbuy-icon icon-refunding"></view>
+        <view class="item-name">售后服务</view>
+      </navigator>
+    </view>
+  </view>
+  <view class="user-service-box user-center-box">
+    <view class="box__title">
+      <view class="box__title-name">我的服务</view>
+    </view>
+    <view class="box__floor height-185">
+      <navigator url="../coupon-list/coupon-list" class="box__floor-item">
+        <view class="item-icon coolbuy-icon icon-coupon-linetype"></view>
+        <view class="item-name">优惠券</view>
+        <view class="item-info" wx:if="{{couponCounts}}">{{couponCounts}}张可用</view>
+      </navigator>
+      <navigator url="../gift-order-list/gift-order-list" class="box__floor-item">
+        <view class="item-icon coolbuy-icon icon-gift-box"></view>
+        <view class="item-name">礼物</view>
+        <view class="item-info" wx:if="{{giftCounts}}">{{giftCounts}}个礼物</view>
+      </navigator>
+      <navigator url="../collection/collection" class="box__floor-item">
+        <view class="item-icon coolbuy-icon icon-favourite"></view>
+        <view class="item-name">收藏</view>
+        <view class="item-info" wx:if="{{collectionCounts}}">{{collectionCounts}}个商品</view>
+      </navigator>
+      <navigator url="../address-list/address-list" class="box__floor-item">
+        <view class="item-icon coolbuy-icon icon-marker-linetype"></view>
+        <view class="item-name">地址</view>
+      </navigator>
+    </view>
+    <view class="box__floor height-199">
+      <button class="box__floor-item contact-btn" open-type="contact">
+      <view class="item-icon coolbuy-icon icon-service-headset"></view>
+      <view class="item-name">客服</view>
+    </button>
+      <navigator url="../feedback/feedback" class="box__floor-item">
+        <view class="item-icon coolbuy-icon icon-feedback"></view>
+        <view class="item-name">意见反馈</view>
+      </navigator>
+      <navigator url="../about-us/about-us" class="box__floor-item">
+        <view class="item-icon coolbuy-icon icon-about-us"></view>
+        <view class="item-name">关于我们</view>
+      </navigator>
+    </view>
+  </view>
+
+</scroll-view>
+<include src="../../templates/technology-support/technology-support.wxml"/>

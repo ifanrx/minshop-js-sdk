@@ -1,0 +1,55 @@
+<scroll-view scroll-y="true" class="flash-body-scroll" scroll-top="{{ scrollTop }}" bindscroll="flashBodyScroll" bindscrolltolower="loadMore" enable-back-to-top="true">
+  <!-- 秒杀广告图  -->
+  <image class="flash-banner" src="https://coolbuy-minapp.b0.upaiyun.com/common/seckilling-banner.jpg"></image>
+
+  <!-- 秒杀导航 -->
+  <scroll-view class="flash-nav {{isFixed === true ? 'fixed' : ''}}" scroll-x="true" scroll-with-animation="true" scroll-into-view="view{{currentTabIndex}}">
+    <view id="view{{index}}" wx:for="{{activities}}" class="flash-nav-item {{currentTabIndex == index ? 'current-item' : ''}}" data-id="{{item.activity_id}}"  data-index="{{index}}" bindtap="toggleTab">
+      <view class="flash-time">{{item.valid_from}}</view>
+      <view class="flash-status">{{item.statusStr}}</view>
+    </view>
+  </scroll-view>
+
+  <!-- 秒杀商品列表  -->
+  <view class="flash-product-list">
+    <view class="flash-title">
+      <view class="title">{{currentFlashSale.tip}}</view>
+      <view class="countdown-content" wx:if="{{currentFlashSale.status > 2}}">
+        <view class="countdown-box countdown-hr">--</view>
+        <view class="countdown-colon">:</view>
+        <view class="countdown-box countdown-min">--</view>
+        <view class="countdown-colon">:</view>
+        <view class="countdown-box countdown-sec">--</view>
+      </view>
+      <view class="countdown-content" wx:else>
+        <view class="countdown-box countdown-hr">{{clock.hr}}</view>
+        <view class="countdown-colon">:</view>
+        <view class="countdown-box countdown-min">{{clock.min}}</view>
+        <view class="countdown-colon">:</view>
+        <view class="countdown-box countdown-sec">{{clock.sec}}</view>
+      </view>
+    </view>
+    <view class="flash-sale-list">
+      <navigator class="flash-product" wx:for="{{currentFlashSale.product}}" url="../detail/detail?id={{item.id}}" hover-class="none">
+        <image class="flash-product-image" src="{{item.cover_image}}"></image>
+        <view class="flash-product-content">
+          <view class="flash-product-name ellipsis-l1">
+            {{item.title}}
+          </view>
+          <view class="flash-product-price-content">
+            <view class="flash-product-price">￥{{item.price}}</view>
+            <view class="flash-product-origin-price">原价 <text class="line-slash">￥{{item.original_price}}</text></view>
+          </view>
+          <view class="flash-remain-content">
+            <view class="flash-remain">
+            <text wx:if="{{item.percent == 1}}">抢购进行中</text>
+            <text wx:else>仅剩{{item.percent * 100 + '%'}}</text>
+            <view class="flash-process" style="width: {{208 * item.percent}}rpx"></view>
+            </view>
+            <view class="flash-btn {{item.percent > 0 ? '' : 'flash-out'}}">抢</view>
+          </view>
+        </view>
+      </navigator>
+    </view>
+  </view>
+</scroll-view>

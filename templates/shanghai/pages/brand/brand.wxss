@@ -1,0 +1,378 @@
+@import "../../templates/navTab/navTab.wxss";
+@import "../../templates/productCard/productCard.wxss";
+
+page {
+  background: #fff;
+  height: 100%;
+}
+
+.shelf-cover {
+  width: 100%;
+  height: 560rpx;
+  position: relative;
+}
+
+.shelf-cover-bg {
+   width: 100%;
+  height: 560rpx;
+}
+
+.bg-cover {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0.3;
+  background: #111;
+  width: 100%;
+  height: 560rpx;
+}
+
+.shelf-cover-logo {
+  position: absolute;
+  left: 48rpx;
+  top: 120rpx;
+  width: 144rpx;
+  height: 144rpx;
+  margin-bottom: 32rpx;
+  z-index: 2;
+}
+
+.shelf-cover-title {
+  position: absolute;
+  left: 48rpx;
+  top: 296rpx;
+  width: auto;
+  height: 53rpx;
+  font-family: PingFangSC-Medium;
+font-size: 38rpx;
+color: #FFFFFF;
+  margin-bottom: 24rpx;
+}
+
+.shelf-cover-description {
+  position: absolute;
+  left: 48rpx;
+  top: 373rpx;
+  width: 654rpx;
+  font-family: PingFangSC-Regular;
+  font-size: 26rpx;
+  color: #FFFFFF;
+  line-height: 42rpx;
+}
+
+.nav-tab {
+  /* position: fixed; */
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  z-index: 3;
+  height: 88rpx;
+  padding: 0 48rpx;
+  box-sizing: border-box;
+  margin-top: 21rpx;
+}
+
+.fixed {
+  position: fixed;
+  margin-top:-1rpx;
+}
+
+
+.nav-tab-container {
+  position: relative;
+  height: 80rpx;
+  z-index: 2;
+  border-top: none;
+  justify-content: flex-start !important;
+}
+
+.nav-tab-item {
+  justify-content: center;
+  flex: none;
+  margin-right: 78rpx;
+}
+
+.nav-tab-item__item-name {
+  padding-top: 0;
+  line-height: 80rpx;
+  height: 80rpx;
+  align-self: center;
+  font-size: 26rpx;
+  color: #959595;
+}
+
+.nav-tab-active {
+  color: #111;
+}
+
+.product-list-scroll {
+  height: 100%;
+}
+
+.product-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 48rpx 0;
+  overflow-y: hidden;
+  margin-top: 32rpx;
+}
+
+.product-item {
+  display: inline-block;
+  width: 300rpx;
+  margin-bottom: 48rpx;
+  vertical-align: top;
+  text-align: center;
+}
+
+.home-btn {
+  position: fixed;
+  right: 30rpx;
+  top: 120rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  width: 100rpx;
+  border-radius: 50rpx;
+  font-size: 24rpx;
+  color: #fff;
+  text-align: center;
+  background-color: rgba(0, 0, 0, .45);
+}
+
+.btn-load-more {
+  width: 400rpx;
+  height: 96rpx;
+  margin: 0 auto;
+  font-size: 30rpx;
+  color: #959595;
+  line-height: 96rpx;
+  text-align: center;
+  border: 2rpx solid #959595;
+  margin-top: 105rpx;
+  border-radius: 4rpx;
+}
+
+.bottom {
+  margin-top: 104rpx;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 48rpx;
+}
+
+.brand-cn {
+  font-size: 26rpx;
+  color: #ccc;
+  letter-spacing: 0;
+  line-height: 37rpx;
+  margin-bottom: 4rpx;
+}
+
+.brand-e {
+  font-size: 22rpx;
+  line-height: 27rpx;
+  color: #ccc;
+  letter-spacing: 0;
+}
+
+.card-container {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  padding-left: 32rpx;
+  margin-top: 48rpx;
+}
+
+.single-card {
+  width: 654rpx;
+  height: 176rpx;
+  display: flex;
+  position: relative;
+}
+
+.single-card .card-price-cont {
+  padding-left: 71rpx;
+  box-sizing: border-box;
+  line-height: 176rpx;
+  width: 220rpx;
+  height: 100%;
+  border-right: 1rpx dashed #fff;
+  font-size: 64rpx;
+  color: #fff;
+  font-family: Helvetica-Bold;
+  position: relative;
+}
+
+.single-card .card-price-cont::before {
+  content: '￥';
+  width: 19rpx;
+  height: 40rpx;
+  font-size: 34rpx;
+  line-height: 40rpx;
+  color: #fff;
+  position: absolute;
+  left: 44rpx;
+  top: 51rpx;
+  font-family: HelveticaNeue-Bold;
+}
+
+.single-card .card-detail-cont {
+  padding-left: 40rpx;
+  width: 276rpx;
+  box-sizing: border-box;
+}
+
+.single-card .card-tip {
+  margin: 44rpx 0 8rpx;
+  font-family: PingFangSC-Medium;
+  font-size: 30rpx;
+  line-height: 42rpx;
+  color: #fff;
+}
+
+.single-card .card-date {
+  font-family: Helvetica-Light;
+  font-size: 20rpx;
+  color: #fff;
+  line-height: 28rpx;
+}
+
+.single-card .get-card {
+  margin-top: 48rpx;
+  border: 2rpx solid #fff;
+  font-family: PingFangSC-Regular;
+  font-size: 20rpx;
+  color: #CABD73;
+  width: 112rpx;
+  height: 32rpx;
+  line-height: 32rpx;
+  text-align: center;
+  background: #fff;
+}
+
+.single-card .gotten {
+  margin-top: 48rpx;
+  border: 2rpx solid #fff;
+  font-family: PingFangSC-Regular;
+  font-size: 20rpx;
+  color: #CABD73;
+  width: 112rpx;
+  height: 32rpx;
+  line-height: 32rpx;
+  text-align: center;
+}
+
+.multiple-card {
+  width: 328rpx;
+  height: 176rpx;
+  margin: 0 30rpx 32rpx 0;
+  padding: 0 28rpx 0 20rpx;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.multiple-card:nth-child(2n) {
+  margin-right: 0;
+}
+
+.multiple-card .multiple-card-top {
+  width: 100%;
+  height: 126rpx;
+  border-bottom: 1rpx dashed #fff;
+  display: flex;
+}
+
+.multiple-card .card-price-cont {
+  width: 155rpx;
+  padding-left: 30rpx;
+  box-sizing: border-box;
+  line-height: 126rpx;
+  height: 100%;
+  font-family: Helvetica-Bold;
+  font-size: 64rpx;
+  color: #fff;
+  position: relative;
+}
+
+.multiple-card .card-price-cont::before {
+  content: '￥';
+  width: 19rpx;
+  height: 40rpx;
+  font-size: 34rpx;
+  line-height: 40rpx;
+  color: #fff;
+  position: absolute;
+  left: 0rpx;
+  top: 31rpx;
+  font-family: HelveticaNeue-Bold;
+}
+
+.multiple-card-date {
+  font-family: Helvetica-Light;
+  font-size: 20rpx;
+  color: #fff;
+  line-height: 48rpx;
+  height: 48rpx;
+  padding-left: 4rpx;
+  box-sizing: border-box;
+}
+
+.multiple-card .card-detail-cont {
+  flex: 1;
+}
+
+.multiple-card .card-tip {
+  font-family: PingFangSC-Regular;
+  font-size: 24rpx;
+  color: #fff;
+  line-height: 33rpx;
+  margin: 24rpx 0 12rpx 0;
+}
+
+.multiple-card .get-card {
+  border: 2rpx solid #fff;
+  font-family: PingFangSC-Regular;
+  font-size: 20rpx;
+  color: #CABD73;
+  width: 112rpx;
+  height: 32rpx;
+  line-height: 32rpx;
+  text-align: center;
+  background: #fff;
+}
+
+.snapped-up-cover-w {
+  position: absolute;
+  width: 100%;
+  height: 176rpx;
+  left: 0;
+  top: 0;
+  opacity: 0.3;
+}
+
+.snapped-up-icon {
+  position: absolute;
+ left: 0;
+ top: 0;
+  width: 100%;
+  height: 176rpx;
+}
+
+.multiple-card .gotten {
+  border: 2rpx solid #fff;
+  font-family: PingFangSC-Regular;
+  font-size: 20rpx;
+  color: #fff;
+  width: 112rpx;
+  height: 32rpx;
+  line-height: 32rpx;
+  text-align: center;
+  background: #CABD73;
+}
+
+.product-card-container {
+  padding: 0 10rpx;
+}
+

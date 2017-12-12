@@ -1,0 +1,15 @@
+<template name="navTab">
+  <view class="nav-tab-container">
+    <block wx:for="{{ navTabs.tabs }}" wx:for-item="tab" wx:key="{{navTabs.bindtapName}}">
+      <view class="nav-tab-item" bindtap="{{ navTabs.bindtapName }}" data-index="{{ index }}">
+        <text class="nav-tab-item__item-name  {{ navTabs.status[index] }}">{{ tab }}</text>
+      </view>
+    </block>
+  </view>
+</template>
+
+<template name="detailNavTab">
+  <view class="detail-nav-tab-container">
+    <view class="detail-nav-tab-item {{ navTabs.status[index] }}" bindtap="{{ navTabs.bindtapName }}" data-index="{{ index }}" wx:for="{{ navTabs.tabs }}" wx:for-item="tab">{{ tab }}</view>
+  </view>
+</template>

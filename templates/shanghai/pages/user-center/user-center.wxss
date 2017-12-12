@@ -1,0 +1,233 @@
+@import "../../templates/productCard/productCard.wxss";
+@import "../../templates/technology-support/technology-support.wxss";
+
+page {
+  background-color: #eeeff1;
+  position: relative;
+  min-height: 100%;
+  padding-bottom: 215rpx;
+  box-sizing: border-box;
+}
+
+.top-line {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1rpx;
+  z-index: 3;
+  box-shadow: inset 0 -1px 0 0 #e7e7e7;
+}
+
+.page-scroll {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.user-login-box {
+  padding: 48rpx;
+  display: flex;
+  margin-bottom: 16rpx;
+  background: #fff;
+}
+
+.user-info {
+  flex: 1;
+}
+
+.user-name {
+  font-family: PingFangSC-Medium;
+  font-size: 48rpx;
+  color: #111;
+  letter-spacing: 0;
+  line-height: 67rpx;
+  margin-bottom: 20rpx;
+}
+
+.user-profile {
+  font-family: PingFangSC-Regular;
+  font-size: 26rpx;
+  line-height: 37rpx;
+  color: #959595;
+  letter-spacing: 0;
+}
+
+.user-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  border-radius: 50%;
+}
+
+.user-default-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  font-size: 128rpx;
+  color: #ccc;
+}
+
+.user-center-box {
+  background: #fff;
+  margin-bottom: 16rpx;
+  padding: 0 48rpx;
+  box-sizing: border-box;
+}
+
+.box__title {
+  height: 110rpx;
+  line-height: 110rpx;
+  display: flex;
+  justify-content: space-between;
+}
+
+.box__title-name {
+  font-family: PingFangSC-Regular;
+  font-size: 30rpx;
+  color: #111;
+  letter-spacing: 0;
+}
+
+.box__title-link {
+  font-family: PingFangSC-Regular;
+  font-size: 26rpx;
+  color: #959595;
+  letter-spacing: 0;
+}
+
+.box__floor {
+  border-top: 1rpx solid #ccc;
+  display: flex;
+}
+
+.box__floor-item {
+  width: 96rpx;
+  margin-right: 90rpx;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.box__floor-item:nth-child(4n) {
+  margin-right: 0;
+}
+
+.item-name {
+  font-family: PingFangSC-Regular;
+  font-size: 24rpx;
+  color: #111;
+  letter-spacing: 0;
+  margin-bottom: 5rpx;
+}
+
+.item-icon {
+  font-size: 48rpx;
+  margin: 32rpx 0 10rpx;
+}
+
+.item-info {
+  font-family: PingFangSC-Regular;
+  font-size: 20rpx;
+  color: #959595;
+  line-height: 28rpx;
+}
+
+.user-order-box .item-name {
+  margin-bottom: 34rpx;
+}
+
+.icon-coupon-linetype {
+  color: #f68d08;
+}
+
+.icon-gift-box {
+  color: #e23737;
+}
+
+.icon-favourite {
+  color: #cabd73;
+}
+
+.icon-marker-linetype {
+  color: #f68d08;
+}
+
+.icon-service-headset {
+  color: #e23737;
+}
+
+.icon-feedback {
+  color: #cabd73;
+}
+
+.icon-about-us {
+  color: #f68d08;
+}
+
+.height-185 {
+  height: 185rpx;
+}
+
+.height-199 {
+  height: 199rpx;
+}
+
+.item-count {
+  width: 35rpx;
+  height: 35rpx;
+  background: #e23737;
+  border-radius: 50%;
+  font-family: HelveticaNeue;
+  font-size: 24rpx;
+  color: #fff;
+  letter-spacing: 0;
+  text-align: center;
+  line-height: 35rpx;
+  position: absolute;
+  right: 5rpx;
+  top: 21rpx;
+}
+
+.contact-btn {
+  background: none;
+  margin-left: 0;
+  padding: 0;
+  line-height: initial;
+}
+
+.contact-btn::after {
+  border: none;
+}
+
+.product-list {
+  box-sizing: border-box;
+  width: 686rpx;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 27rpx;
+  overflow-y: hidden;
+  margin: 0 auto;
+  background: #fff;
+}
+
+.product-item {
+  display: inline-block;
+  width: 300rpx;
+  margin-bottom: 20rpx;
+  vertical-align: top;
+  text-align: center;
+}
+
+.activity-banner {
+  height: 280rpx;
+  margin-bottom: 16rpx;
+}
+
+.activity-banner image {
+  width: 100%;
+  height: 280rpx;
+}

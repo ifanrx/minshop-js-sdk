@@ -1,0 +1,19 @@
+<template name="couponCard">
+  <view class="coupon-item" catchtap="{{ isShowCheckbox ? 'selectCoupon' : ''}}" data-index="{{ index }}">
+    <view class="coolbuy-icon icon-checkbox-square coupon-item__checkbox {{ item.selected ? 'coupon-item__checkbox--selected' : '' }}" wx:if="{{ isShowCheckbox }}"></view>
+    <view
+      style="background-image: url({{ COUPON_BG }})"
+      class="coupon-item--left">
+      <view class="coupon__face-value {{ item.status !== 'redeemed' ? 'coupon--inactive' : '' }}">{{ item.face_value }}</view>
+      <text class="{{ item.status !== 'redeemed' ? 'coupon--inactive' : '' }}">优惠券</text>
+    </view>
+
+    <view
+      style="background-image: url({{ COUPON_BG }})"
+      class="coupon-item--right">
+      <view class="coupon__minimum_amount {{ item.status !== 'redeemed' ? 'coupon--inactive' : '' }}">优惠商品总价满 {{ item.minimum_amount }} 元可使用</view>
+      <view class="coupon__description">{{ item.description }}</view>
+      <view class="coupon__valid-time">{{ item.valid_from }} 至 {{ item.valid_until }}</view>
+    </view>
+  </view>
+</template>

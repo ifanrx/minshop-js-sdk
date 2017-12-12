@@ -1,0 +1,16 @@
+<view class="pay-result">
+  <view class="pay-result-header">
+    <icon type="{{ tip.icon }}" size="70" class="icon"></icon>
+    <text class="pay-result-header__inline-text large-text">{{ tip.title }}</text>
+    <text class="pay-result-header__inline-text small-text">{{ tip.content }}</text>
+  </view>
+  <view class="pay-result-nav-button">
+    <button type="primary" size="default" bindtap="{{ tip.primaryBtnBind }}" class="ok-button">{{ tip.primaryBtnName }}</button>
+    <button type="default" size="default" bindtap="{{ tip.defaultBtnBind }}">{{ tip.defaultBtnName }}</button>
+  </view>
+  <view class="corp-info">
+    <text class="corp-info__coolbuy">{{ homeName }}</text>
+    <text class="sep"></text>
+    <text class="corp-info__corpname">{{ corpName }}</text>
+  </view>
+</view>

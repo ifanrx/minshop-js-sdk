@@ -1,0 +1,112 @@
+<import src="../../templates/navTab/navTab.wxml" />
+
+<view class="nav-tab">
+  <template is="navTab" data="{{ navTabs: navTabs }}" />
+  <view class="border-line"></view>
+</view>
+
+<!-- 我的优惠券 Tab -->
+<block>
+  <!-- 优惠券列表容器 -->
+  <view class="coupon-list-container">
+    <!-- 优惠券列表 -->
+    <scroll-view class="coupon-list" scroll-y="true" bindscrolltolower="loadMoreCouponList" scroll-top="{{ couponListScrollTop }}" bindscroll="setCouponListScrollTop">
+
+      <view class="coupon-list--empty" wx:if="{{ isEmptyCouponList }}">
+        <view class="empty-tip">您还没有优惠券</view>
+        <view class="show-coupon-tip" bindtap="showCouponExplainModal">如何获得？</view>
+      </view>
+
+      <block wx:else>
+        <block wx:for="{{couponList}}">
+          <view class="coupon-item {{currentTabIndex === 1 ? 'used-color' : ''}}" data-index="{{ index }}">
+            <view class="coolbuy-icon icon-checkbox-square coupon-item__checkbox {{ item.selected ? 'coupon-item__checkbox--selected' : '' }}" wx:if="{{ isShowCheckbox }}"></view>
+            <view class="coupon-item-content">
+              <view class="coupon-item--left">
+                <view class="coupon__face-value ">{{ item.face_value }}</view>
+              </view>
+
+              <view class="coupon-item--center">
+                <view wx:if="{{item.minimum_amount}}" class="coupon__name">满 {{ item.minimum_amount }} 元可用券</view>
+                <view wx:else class="coupon__name">无门槛使用</view>
+                <view class="coupon__valid-time">截止日期：{{ item.valid_until }}</view>
+              </view>
+
+              <view class="coupon-item--right">
+                <view wx:if="{{currentTabIndex === 0}}" class="go-use" data-item="{{item}}" bindtap="goUse">去使用</view>
+                <view wx:if="{{currentTabIndex === 1}}" class="coupon-used">已使用</view>
+                <view wx:if="{{currentTabIndex === 2}}" class="go-use">去使用</view>
+              </view>
+            </view>
+            <view class="coupon-item-bottom coupon__description" style="background-image:url(https://coolbuy-minapp.b0.upaiyun.com/coupon/coupon-bg.png)">
+               {{ item.description }}
+            </view>
+
+            <view class="coupon-over-time" wx:if="{{currentTabIndex === 2}}">
+              <view class="coupon-over-time-circle">已过期</view>
+            </view>
+
+            <view class="cant-use-cover" wx:if="{{currentTabIndex === 2}}">
+            </view>
+          </view>
+        </block>
+        <view wx:if="{{ isNoMoreCouponList }}" class="coupon-list--no-more">
+          <view class="coupon-list--no-more__tip">没有更多了</view>
+        </view>
+      </block>
+    </scroll-view>
+    <!-- /优惠券列表 -->
+  </view>
+  <!-- /优惠券列表容器 -->
+
+  <!-- 底部优惠券兑换按钮 -->
+  <view bindtap="showRedeemCouponModal" class="redeem-coupon-button">
+    <text>兑换用券</text>
+  </view>
+  <!-- /底部优惠券兑换按钮 -->
+
+  <!-- 优惠券兑换弹框 -->
+  <view class="redeem-coupon-modal-container" wx:if="{{ isShowRedeemCouponModal }}">
+    <view class="redeem-coupon-modal">
+      <view class="close-redeem-btn ifanrin ifanrin-delete-icon" bindtap="hideRedeemCouponModal"></view>
+      <view class="redeem-coupon-modal--header">兑换优惠券</view>
+      <view class="redeem-coupon-modal--body">
+        <view class="redeem-coupon-input-list" wx:if="{{ !isRedeemCouponSuccess && !isRedeemCouponFailed }}">
+          <view class="redeem-coupon-input-item">
+            <input placeholder="请输入兑换码" class="redeem-coupon__input" data-filed="coupon_code" bindinput="redeemCouponInput" value="{{ redeemCouponInputData.coupon_code }}" />
+          </view>
+          <view class="redeem-coupon-input-item">
+            <input placeholder="请输入密码" class="redeem-coupon__input" data-filed="password" bindinput="redeemCouponInput" value="{{ redeemCouponInputData.password }}" />
+          </view>
+        </view>
+        <view class="redeem-coupon--resulet" wx:else>
+          <view wx:if="{{ isRedeemCouponSuccess }}">恭喜您，获得一张面值为<text class="redeem-coupon--success__face-value">{{ redeemedCoupon.face_value }}</text> 元的购物券，赶快去败物吧！</view>
+          <view wx:if="{{ isRedeemCouponFailed }}">{{ redeemCouponErrorMsg }}</view>
+        </view>
+      </view>
+      <view class="redeem-coupon-modal--footer">
+
+        <view class="redeem-coupon__btn" catchtap="redeemCoupon" wx:if="{{ !isRedeemCouponSuccess && !isRedeemCouponFailed }}">兑换</view>
+
+        <view class="redeem-coupon__btn" catchtap="navToHome" wx:elif="{{ isRedeemCouponSuccess }}">去购物</view>
+        <view class="redeem-coupon__btn" catchtap="resetRedeemCoupon" wx:elif="{{ isRedeemCouponFailed }}">确定</view>
+      </view>
+    </view>
+  </view>
+  <!-- /优惠券兑换弹框 -->
+
+  <!-- 优惠券说明弹框 -->
+  <view class="coupon-explain-modal-container" wx:if="{{ isShowCouponExplainModal }}">
+    <view class="coupon-explain-modal">
+      <view class="coupon-explain-list">
+        <view class="coupon-explain-item" wx:for="{{ CouponExplain }}">
+          <text class="coupon-explain__question">{{ item.question }}</text>
+          <text class="coupon-explain__answer">{{ item.answer }}</text>
+        </view>
+      </view>
+    </view>
+    <view class="coupon-explain__confirm" bindtap="hideCouponExplainModal">我知道了</view>
+  </view>
+  <!-- /优惠券说明弹框 -->
+</block>
+<!-- 我的优惠券 Tab -->

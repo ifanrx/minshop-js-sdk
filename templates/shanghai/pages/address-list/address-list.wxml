@@ -1,0 +1,47 @@
+<import src="../../templates/navTab/navTab.wxml"/>
+<view class="top-line"></view>
+<!-- 地址管理 Tab -->
+<block>
+  <view class="address-list-container">
+    <view class="address-list" wx:if="{{ !isEmptyAddressList }}">
+      <view class="address-item" wx:for="{{ addressList }}">
+        <view class="address-message">
+          <view class="ifanrin ifanrin-beacon-icon address-beacon-icon"></view>
+          <text class="address-message-name">{{ item.name }}</text>
+          <text class="address-message-phone">{{ item.phone }}</text>
+          <text class="address-message-detail">{{ item.province }}{{ item.city }}{{ item.district }}{{ item.address }}</text>
+        </view>
+        <view class="address-option-bar">
+          <view class="address-default" bindtap="setDefaultAddress" id="{{ item.id }}">
+            <view class="ifanrin ifanrin-check-icon {{ item.is_default ? 'checkbox-active' : 'checkbox' }}"></view>
+            <text class="{{item.is_default ? 'check-icon-active' : ''}}">{{ item.is_default ? '默认' : '设为默认' }}</text>
+          </view>
+          <view class="address-options">
+            <text class="coolbuy-icon icon-edit"></text>
+            <text class="address-options-edit" bindtap="addressEdit" id="{{ item.id }}">编辑</text>
+            <text class="coolbuy-icon icon-remove"></text>
+            <text class="address-options-delete" bindtap="addressDelete" id="{{ item.id }}">删除</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="address-empty" wx:else>
+      <view class="location-icon  coolbuy-icon icon-marker-linetype"></view>
+      <text>您还没有添加地址</text>
+    </view>
+
+    <view class="address-create" bindtap="addressCreate">
+      新增地址
+    </view>
+  </view>
+
+  <view wx:if="{{ isShowAddressCreateMethod }}" class="address-create-method--mask" catchtap="toggleAddressCreateMethod">
+    <view class="address-create-method">
+      <view class="address-create-method-item" bindtap="useWxAddress">使用微信地址</view>
+      <view class="address-create-method-item" bindtap="addressCreateHandle">直接添加</view>
+      <view class="address-create-method-item" catchtap="toggleAddressCreateMethod">取消</view>
+    </view>
+  </view>
+</block>
+<!-- /地址管理 Tab -->

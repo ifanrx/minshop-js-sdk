@@ -1,0 +1,32 @@
+<view class="feedback clearfix">
+  <view class="top-line"></view>
+  <!-- 用户反馈类型  -->
+  <view class="feedback-modal__cover" bindtap="setModalStatus" data-status="0" wx:if="{{ showModalStatus }}"></view>
+  <view animation="{{ animationData }}" class="feedback-modal__box" wx:if="{{ showModalStatus }}">
+    <view class="feedback-type__content">
+      <view class="feedback-type__item {{ userFeedbackIndex === index ? 'active' : '' }}" wx:for="{{ feedbackTypes }}" catchtap="selectFeedbackType" data-index="{{ index }}" data-status="0">{{ item.str }}</view>
+    </view>
+  </view>
+  <view class="feedback-type__btn coolbuy-icon icon-arrow-r" bindtap="setModalStatus" data-status="1">{{ userFeedbackType || '请选择反馈类型' }}</view>
+
+  <!-- 用户反馈内容 -->
+  <view class="feedback-content">
+    <textarea class="feedback-content__textarea" bindinput="enterFeedbackContents" maxlength="500" placeholder="对于我们网站、商品、服务，你还有什么建议吗？请告诉我们……" placeholder-class="feedback-content__textarea_plchder" />
+    <view class="feedback-content__text-num-box">{{ feedbackContentsLength }}/500</view>
+  </view>
+
+  <!-- 用户联系方式  -->
+  <input class="feedback-telnumber" bindinput="inputPhoneNum" placeholder-class="feedback-telnumber_plchder" placeholder="请填写手机号码，方便我们与您联系" />
+
+  <!-- 上传反馈照片  -->
+
+  <!-- brand  -->
+  <view class="brand">
+    <view class="brand_cn">{{ wxExt.MERCHANT_NAME }}</view>
+    <view class="brand_en">{{ wxExt.MERCHANT_WEBSITE }}</view>
+  </view>
+  <view class="feedback-submit__btn {{ category && content && telephoneNumber ? 'ready-to-submit' : '' }}" bindtap="submitFeedback">提交</view>
+  <view class="toast" wx:if="{{ toastModalStatus }}">
+    <text class="toast__text">{{ toastModalText }}</text>
+  </view>
+</view>

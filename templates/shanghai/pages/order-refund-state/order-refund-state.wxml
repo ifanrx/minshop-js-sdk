@@ -1,0 +1,93 @@
+<view class="refund-state">
+  <view class="item-info-box">
+    <image src="{{refundItem.order_item.cover_image}}"></image>
+    <view class="item-info">
+      <view class="item-title-box">
+        <view class="item-title">
+          <text>{{refundItem.order_item.title}}</text>
+        </view>
+        <view class="item-num-box">
+          <text class="item-num">{{refundItem.order_item.quantity}}</text>
+          <text class="icon-x">x</text>
+          <text class="item-price">{{refundItem.order_item.unit_price}}</text>
+        </view>
+      </view>
+      <view class="item-description">
+        {{refundItem.order_item.spec_str}}
+      </view>
+      <view class="item-price-box">
+        <view class="item-total-price">￥{{refundItem.order_item.final_cost}}</view>
+        <button open-type="contact">联系客服</button>
+      </view>
+    </view>
+  </view>
+  <view class="state-detail box-style">
+    <view class="title">退款单详情</view>
+    <view class="state-detail-content">
+      <view class="state-detail-item">
+        <view class="detail-item-title">退款类型：</view>
+        <view class="detail-item-state">{{refundItem.refund_type}}</view>
+      </view>
+      <view class="state-detail-item">
+        <view class="detail-item-title">退款原因：</view>
+        <view class="detail-item-state">{{refundItem.reason}}</view>
+      </view>
+      <view class="state-detail-item">
+        <view class="detail-item-title">退款金额：</view>
+        <view class="detail-item-state">{{refundItem.refund_amount}}</view>
+      </view>
+      <view class="state-detail-item">
+        <view class="detail-item-title">退款说明：</view>
+        <view class="detail-item-state">{{refundItem.description}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="refund-progress box-style">
+    <view class="title">
+      <view class="tit-bold">退款进度</view>
+      <view class="lately-refund-progress">{{refundItem.progress[refundItem.progress.length - 1].status}}</view>
+    </view>
+    <view class="refund-progress-content">
+      <block wx:for="{{refundItem.progress}}">
+        <view class="process-item">
+          <view class="process-time">{{item.time}}</view>
+          <view class="process-state">{{item.status}}</view>
+        </view>
+      </block>
+    </view>
+    <view class="refund-progress-tip" wx:if="{{refundProgressTip}}">
+      <text>{{refundProgressTip}}</text>
+    </view>
+  </view>
+  <view class="refund-proof box-style" wx:if="{{refundItem.image_urls.length}}">
+    <view class="title">
+      <view class="tit-bold">图片凭证</view>
+    </view>
+    <view class="refund-proof-images">
+      <block wx:for="{{refundItem.image_urls}}">
+        <image src="{{item}}"></image>
+      </block>
+    </view>
+  </view>
+  <block wx:if="{{refundItem.progress[refundItem.progress.length - 1].status === '退回商品待确认' && !refundItem.waybill_number}}">
+    <view class="refund-express">
+      <view class="tit-bold">退货物流</view>
+      <picker bindchange="bindPickerChange" value="{{shipCarrierIndex}}" range="{{shipCarriers}}" class="ifanrin ifanrin-pulldown-icon">
+        <view class="ship-picker {{ shipCarrierIndex == 0 ?'ship-picker-grey':'' }}">
+          {{shipCarriers[shipCarrierIndex]}}
+        </view>
+      </picker>
+      <view class="tit-bold">物流单号</view>
+      <input type="number" bindinput="bindKeyInput" placeholder="请输入退货物流单号" placeholder-class="plchder" />
+    </view>
+  </block>
+</view>
+<view class="submit" wx:if="{{refundItem.progress[refundItem.progress.length - 1].status === '退回商品待确认' && !refundItem.waybill_number}}">
+  <view class="submit-btn" bindtap="setExpress">提交</view>
+</view>
+<view class="submit" wx:if="{{refundItem.progress[refundItem.progress.length - 1].status === '退回商品待确认' && refundItem.waybill_number}}">
+  <view class="submit-btn" bindtap="getTrackingInfo">查看退货物流</view>
+</view>
+<view class="submit" wx:if="{{refundItem.progress[refundItem.progress.length - 1].status === '售后未通过'}}">
+  <view class="modify" bindtap="modify">修改售后申请</view>
+</view>

@@ -1,0 +1,15 @@
+<include src="../../templates/searchBar/searchBar.wxml"/>
+
+<view class="shelf-list">
+  <navigator
+    hover-class="none"
+    wx:for="{{ vendorShelf }}"
+    url="../brand/brand?id={{ item.id }}&name={{ item.name }}"
+    class="shelf-item">
+    <image src="{{ item.background_image }}" class="cover-image"></image>
+    <image class="cover-logo" src="{{item.cover_image}}"></image>
+    <view class="cover"></view>
+    <view class="title ellipsis-l1">{{item.name}}</view>
+    <view class="desc ellipsis-l1">{{item.english_name}}</view>
+  </navigator>
+</view>

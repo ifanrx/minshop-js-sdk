@@ -1,0 +1,73 @@
+.coupon-item {
+  position: relative;
+  display: flex;
+  margin: 0 30rpx 20rpx;
+  height: 214rpx;
+  overflow: hidden;
+  color: #111;
+}
+
+.coupon-item__checkbox {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 44rpx;
+  line-height: 44rpx;
+  color: #b8b8b8;
+}
+
+.coupon-item__checkbox--selected {
+  color: #e23737;
+}
+
+.coupon-item--left,
+.coupon-item--right {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  background-repeat: no-repeat;
+  background-size: auto 214rpx;
+}
+
+.coupon-item--left {
+  align-items: center;
+  padding-right: 12rpx;
+  width: 180rpx;
+  font-size: 34rpx;
+  background-position: left top;
+  box-sizing: border-box;
+}
+
+.coupon__face-value {
+  margin-bottom: 22rpx;
+  font-size: 38rpx;
+  color: #e23737;
+}
+
+.coupon__face-value::before {
+  content: '\00A5';
+  display: inline-block;
+  margin-right: 4rpx;
+  font-size: 34rpx;
+}
+
+.coupon-item--right {
+  flex: 1;
+  padding: 0 24rpx;
+  background-color: #fff;
+  font-size: 24rpx;
+  line-height: 32rpx;
+  color: #b8b8b8;
+  background-position: right top;
+}
+
+.coupon__minimum_amount {
+  padding-bottom: 12rpx;
+  font-size: 28rpx;
+  line-height: 36rpx;
+  color: #111;
+}
+
+.coupon--inactive{
+  color: rgba(84, 84, 84, .7)
+}

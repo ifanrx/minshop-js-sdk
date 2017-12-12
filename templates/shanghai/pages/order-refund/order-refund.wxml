@@ -1,0 +1,59 @@
+<view class="refund">
+  <view class="item-info-box">
+    <image src="{{refundItem.cover_image}}"></image>
+    <view class="item-info">
+      <view class="item-title-box">
+        <view class="item-title">
+          <text>{{refundItem.title}}</text>
+        </view>
+        <view class="item-num-box">
+          <text class="item-num">{{refundItem.quantity}}</text>
+          <text class="icon-x">x</text>
+          <text class="item-price">{{refundItem.unit_price}}</text>
+        </view>
+      </view>
+      <view class="item-description">
+        {{refundItem.spec || ''}}
+      </view>
+      <view class="item-price-box">
+        <view class="item-total-price">￥{{refundItem.final_cost}}</view>
+        <button open-type="contact">联系客服</button>
+      </view>
+    </view>
+  </view>
+  <view class="form-container">
+    <view class="refund-type">退款类型</view>
+    <radio-group class="radio-group" bindchange="radioChange">
+      <label class="refund-type-radio" wx:for="{{refundTypes}}">
+        <radio color="#E23737" value="{{item.name}}" checked="{{item.checked}}" />{{item.value}}
+      </label>
+    </radio-group>
+    <view class="refund-reason">退款原因</view>
+    <view class="section">
+      <picker bindchange="bindPickerChange" value="{{refundReasonIndex}}" range="{{refundReasonList}}" class="ifanrin ifanrin-pulldown-icon">
+        <view class="reason-picker {{ refundReasonIndex == 0 ?'reason-picker-grey':'' }}">
+          {{refundReasonList[refundReasonIndex]}}
+        </view>
+      </picker>
+    </view>
+    <view class="refund-amount">退款金额</view>
+    <input class="refund-amount-input" placeholder-class="plchder" value="{{formData.refund_amount || ''}}" placeholder="{{'退款金额不得超过实付款'}}" bindinput="inputAmountHandler"/>
+    <view class="refund-explain">退款说明</view>
+    <view class="text-box">
+      <textarea class="refund-explain-text" placeholder-class="plchder" placeholder="请输入退款说明" value="{{formData.description }}" bindinput="textNumCompute" max-maxlength="200" />
+      <text class="remian-length">{{remianLength}}</text>
+    </view>
+    <view class="refund-proof">上传凭证</view>
+    <view class="refund-proof-tip">请上传相关的产品照片作为退货凭证，可加快审核进度</view>
+    <view class="refund-proof-tip">最多上传3张，每张不超过5M，支持JPG , PNG</view>
+    <view class="refund-proof-list">
+      <block wx:for="{{formData.image_urls}}">
+        <image bindtap="replaceImage" class="proof-img" src="{{item}}" data-index="{{index}}"></image>
+      </block>
+      <view wx:if="{{formData.image_urls.length < 3}}" class="add-proof ifanrin-add-icon ifanrin" bindtap="uploadImage"></view>
+    </view>
+  </view>
+  <view class="confirm">
+    <view class="confirm-btn" bindtap="comfirmRefund">提交</view>
+  </view>
+</view>

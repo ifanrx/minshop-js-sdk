@@ -1,0 +1,73 @@
+<import src="../../templates/navTab/navTab.wxml" />
+<import src="../../templates/serviceButton/serviceButton.wxml" />
+<import src="../../templates/productCard/productCard.wxml" />
+
+<view class="nav-tab">
+  <template is="navTab" data="{{ navTabs: navTabs }}" />
+  <view class="border-line"></view>
+</view>
+
+<!-- 我的订单 Tab -->
+<block>
+  <view class="order-list-container">
+    <scroll-view scroll-y="true" bindscrolltolower="loadMoreOrder" class="order-list" wx:if="{{ !isEmptyOrderList }}" scroll-top="{{ orderListScrollTop }}" bindscroll="setOrderListScrollTop">
+      <view class="order-list-item" wx:for="{{ orderList }}">
+        <view class="order-item--header">
+          <text>订单编号 {{ item.orderid }}</text>
+          <text class="order-item-status">{{ item.statusStr }}</text>
+        </view>
+        <view class="order-item-product-list">
+          <block wx:for="{{ item.items }}" wx:for-item="oitem" wx:for-index="oindex">
+            <navigator url="../order-detail/order-detail?orderId={{ item.id }}">
+              <view class="order-item-product-item clearfix">
+                <image class="order-item-product-image" src="{{ oitem.sku_image || oitem.cover_image }}"></image>
+                <view class="order-item-product-detail">
+                  <view class="order-item-product-title">{{ oitem.title }}</view>
+                  <view class="order-item-product-spec">{{ oitem.spec }}</view>
+
+                  <view class="order-item-product-right">
+                    <view class="order-item-product-quantity">x{{ oitem.quantity }}</view>
+                  </view>
+                </view>
+                <view class="order-item-product-price">￥{{ oitem.unit_price }}</view>
+                <view class="order-item-product-status">{{ oitem.statusStr }}</view>
+              </view>
+            </navigator>
+            <view class="order-item-shipped clearfix" hidden="{{oitem.status === 'cancelled' || oitem.status === 'initiated'}}">
+              <block wx:if="{{ (oitem.status === 'shipped' || oitem.status === 'delivered') && item.gift_order == null }}">
+
+                <view class="order-item-product-confirm-btn" size="mini" type="default" plain="{{ true }}" catchtap="getTrackingInfo" data-index="{{ index }}" data-oindex="{{ oindex }}" hidden="{{oitem.product_type == 'virtual'}}">物流追踪</view>
+                <view wx:if="{{ oitem.status === 'shipped' }}" class="order-item-product-confirm-btn" size="mini" type="default" plain="{{ true }}" catchtap="confirmDeliver" data-index="{{ index }}" data-oindex="{{ oindex }}">确认收货</view>
+              </block>
+              <block wx:if="{{ oitem.status !== 'initiated' && oitem.status !== 'cancelled' }}">
+                <view wx:if="{{ !oitem.refund_status }}" class="order-item-product-confirm-btn" size="mini" type="default" bindtap="getRefund" data-item="{{ oitem }}">申请售后</view>
+                <view wx:if="{{ oitem.refund_status }}" class="order-item-product-confirm-btn" size="mini" type="default" bindtap="getRefundState" data-item="{{ oitem }}">售后进度</view>
+              </block>
+            </view>
+          </block>
+        </view>
+        <view class="order-item--footer">
+          <view class="order-item-product-count">共 {{ item.productCount }} 件商品</view>
+          <view class="order-item-fianl-cost">合计：￥{{ item.payment_method === 'weixin_weapp' ? item.wechat_info.settlement_total_amount : item.final_cost }}{{item.shipping_rate >= 0 ? '（含运费￥' + item.shipping_rate + '元）' : ''}}</view>
+        </view>
+        <view wx:if="{{ item.status === 'not_paid' }}" class="order-item-control">
+          <view class="repay-btn" bindtap="repayOrder" data-index="{{ index }}">去付款</view>
+          <view class="cancle-order" bindtap="cancelOrder" data-index="{{ index }}">取消订单</view>
+        </view>
+      </view>
+      <view wx:if="{{ isNoMoreOrderList }}" class="coupon-list--no-more">
+        <view class="coupon-list--no-more__tip">没有更多了</view>
+      </view>
+    </scroll-view>
+    <scroll-view scroll-y="true" bindscrolltolower="loadMoreRecommand" class="order-empty" wx:if="{{currentTabIndex === 0 && isEmptyOrderList}}">
+      <view class="order-empty__tips">您还没有订单</view>
+      <navigator open-type="redirect" url="../index/index" class="order-empty__go-shopping">去下单</navigator>
+    </scroll-view>
+    <view class="order-empty" wx:if="{{currentTabIndex !== 0 && isEmptyOrderList}}">
+      <view class="order-empty__tips">还没有相关订单呢</view>
+    </view>
+  </view>
+</block>
+<!-- /我的订单 Tab -->
+
+<template is="serviceButton" />

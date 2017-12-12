@@ -1,0 +1,46 @@
+
+@font-face {font-family: "minshop-theme";
+  src: url('//at.alicdn.com/t/font_482368_dw2hgubkks4f5hfr.eot?t=1503562328887'); /* IE9*/
+  src: url('//at.alicdn.com/t/font_482368_dw2hgubkks4f5hfr.eot?t=1503562328887#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('//at.alicdn.com/t/font_482368_dw2hgubkks4f5hfr.woff?t=1503562328887') format('woff'), /* chrome, firefox */
+  url('//at.alicdn.com/t/font_482368_dw2hgubkks4f5hfr.ttf?t=1503562328887') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('//at.alicdn.com/t/font_482368_dw2hgubkks4f5hfr.svg?t=1503562328887#ifanrin') format('svg'); /* iOS 4.1- */
+}
+
+.minshop-theme-icon {
+  font-family:"minshop-theme" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.mt-icon-logo:before { content: "\e6c0"; }
+
+.mt-icon-initiated:before { content: "\e6d9"; }
+
+.mt-icon-processing:before { content: "\e6db"; }
+
+.mt-icon-shipped:before { content: "\e6dc"; }
+
+.mt-icon-grouping:before { content: "\e6da"; }
+
+.mt-icon-after-sale:before { content: "\e6dd"; }
+
+.mt-icon-gift-box:before { content: "\e6df"; }
+
+.mt-icon-marker-linetype:before { content: "\e6e1"; }
+
+.mt-icon-service-headset:before { content: "\e6e0"; }
+
+.mt-icon-coupon-linetype:before { content: "\e6de"; }
+
+.mt-icon-latest-product:before { content: "\e6cb"; }
+
+.mt-icon-activity:before { content: "\e6ca"; }
+
+.mt-icon-arrow-r:before { content: "\e6d4"; }
+
+.mt-icon-minus:before { content: "\e6d5"; }
+
+.mt-icon-add:before { content: "\e6d6"; }

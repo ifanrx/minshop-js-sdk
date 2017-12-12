@@ -1,0 +1,6 @@
+<view class="about-us-container">
+  <image src="https://coolbuy-minapp.b0.upaiyun.com/common/coolbuy-logo.jpg" class="brand-logo"></image>
+  <view class="brand-name">{{ wxExt.MERCHANT_NAME }}</view>
+  <view class="brand-slogan">{{ wxExt.MERCHANT_DESC }}</view>
+</view>
+<view class="brand-websit">{{ wxExt.MERCHANT_WEBSITE }}</view>

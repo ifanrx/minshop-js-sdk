@@ -1,0 +1,30 @@
+<import src="../../templates/productCard/productCard.wxml"/>
+
+<view class="search-input-container">
+  <view class="coolbuy-icon icon-search"></view>
+  <input class="search-input" placeholder="寻找心怡商品" placeholder-class="search-input--placeholder" bindinput="handleInput" focus="{{true}}"/>
+</view>
+<view class="border-line border-line--fixed"></view>
+<block wx:if="{{ isShowResult }}">
+  <view class="search-list--header">
+    <view class="search-list__count">共为您找到 {{ searchResultCount }} 款商品</view>
+  </view>
+  <scroll-view class="search-list-scroll" scroll-y="true" bindscrolltolower="loadMore" scroll-top="{{ scrollTop }}">
+    <view class="search-list">
+      <view class="search-product-item" wx:for="{{ searchList }}"  wx:for-item="product">
+        <template is="productCard" data="{{ ...product }}"/>
+      </view>
+    </view>
+    <view class="btn-load-more">{{ tipText }}</view>
+  </scroll-view>
+</block>
+
+<block wx:if="{{ isShowNotResult }}">
+  <view class="header-padding">
+    <view class="not-seach-result">
+      <view class="not-seach-result__tip">您搜索的商品尚未上架</view>
+      <button class="not-seach-result__btn" bindtap="navToHome">看看别的</button>
+    </view>
+  </view>
+  <view class="border-line"></view>
+</block>

@@ -1,0 +1,220 @@
+@import "../../templates/navTab/navTab.wxss";
+
+page {
+  height: 100%;
+  min-height: 100%;
+  background-color: #efeff4;
+}
+
+/** 地址管理 Tab **/
+
+.address-list-container {
+  padding-bottom: 98rpx;
+  box-sizing: border-box;
+}
+
+.address-list {
+  overflow-y: auto;
+  box-sizing: border-box;
+  color: #3c3b4b;
+}
+
+.address-item {
+  background-color: #fff;
+  padding: 16rpx 0 0 40rpx;
+  margin-bottom: 25rpx;
+  border-top: 0.5px #e5e5e5 solid;
+  border-bottom: 0.5px #e5e5e5 solid;
+}
+
+.address-item:last-of-type {
+  margin-bottom: 0;
+}
+
+.address-beacon-icon {
+  height: 38rpx;
+  width: 38rpx;
+  text-align: center;
+  margin: 0 20rpx 0 -58rpx;
+  font-size: 26rpx;
+  line-height: 38rpx;
+  display: inline-block;
+  border-radius: 50%;
+  color: #fff;
+  background-color: #f8504f;
+}
+
+.address-message {
+  border-bottom: 0.5px solid #f0f0f4;
+  font-size: 32rpx;
+  line-height: 62rpx;
+  padding: 0 0 25rpx 60rpx;
+}
+
+.address-message-name {
+  font-weight: bold;
+}
+
+.address-message-phone {
+  padding-left: 22rpx;
+  font-weight: bold;
+}
+
+.address-message-detail {
+  font-family: PingFangSC-Regular;
+  font-size: 26rpx;
+  color: #959595;
+  letter-spacing: 0;
+  line-height: 28rpx;
+  display: block;
+  padding-right: 31rpx;
+  text-align: justify;
+}
+
+.address-option-bar {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 31rpx;
+  font-size: 26rpx;
+  line-height: 88rpx;
+  color: #959595;
+}
+
+.address-default-ckecked {
+  margin-right: 10rpx;
+}
+
+.address-options-edit {
+  margin-right: 66rpx;
+  color: #111;
+}
+
+.address-options-delete {
+  color: #111;
+}
+
+.address-create {
+  background-color: #111;
+  width: 750rpx;
+  height: 98rpx;
+  font-family: PingFangSC-Regular;
+  font-size: 30rpx;
+  color: #fff;
+  line-height: 98rpx;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+.order-empty, .address-empty {
+  text-align: center;
+  color: #959595;
+  margin-top: 234rpx;
+}
+
+.address-empty {
+  margin-bottom: 60rpx;
+}
+
+.checkbox, .checkbox-active {
+  display: inline-block;
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+  outline: 0;
+  font-size: 28rpx;
+  background-color: #fff;
+  margin-right: 14rpx;
+}
+
+.check-icon-active{
+  font-family: PingFangSC-Regular;
+font-size: 26rpx;
+color: #E23737;
+}
+
+.icon-edit {
+  font-size: 24rpx;
+  display: inline-block;
+  margin-right: 17rpx;
+  color: #111;
+}
+
+.icon-remove {
+  font-size: 24rpx;
+  display: inline-block;
+  margin-right: 17rpx;
+  color: #111;
+}
+
+.checkbox::before {
+  color: #c7c7c7;
+}
+
+.checkbox-active::before {
+  color: #f8504f;
+}
+
+.address-create-method--mask {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.35);
+  z-index: 3;
+}
+
+.address-create-method {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 80%;
+  background-color: #fff;
+}
+
+.address-create-method-item {
+  text-align: center;
+  font-size: 32rpx;
+  line-height: 88rpx;
+  color: #3c3b4b;
+  border-bottom: 0.5px solid #e5e5e5;
+}
+
+.address-create-method-item:last-of-type {
+  border-bottom: none;
+}
+
+.service-button-container {
+  bottom: 200rpx;
+}
+
+.icon-mystery {
+  position: relative;
+}
+
+.icon-mystery::before {
+  position: absolute;
+  font-size: 83rpx;
+  color: #cabd73;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+ .icon-mystery::before {
+  position: absolute;
+  font-size: 83rpx;
+  color: #cabd73;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.location-icon {
+  font-size: 92rpx;
+  color: #959595;
+  margin-bottom: 50rpx;
+}

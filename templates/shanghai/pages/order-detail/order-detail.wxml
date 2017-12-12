@@ -1,0 +1,115 @@
+<view class="top-line"></view>
+<view class="order-detail-page">
+  <view class="order-detail-item">
+    <view wx:if="{{ !isGiftOrder }}" class="order-detail-address" hidden="{{order.items[0].product_type == 'virtual'}}">
+      <view class="order-detail-address-message">
+        <view class="ifanrin ifanrin-beacon-icon address-beacon-icon"></view>
+        <text class="order-detail-address-message__name">{{ order.contact_info.contact }}</text>
+        <text class="order-detail-address-message__phone">{{ order.contact_info.phone }}</text>
+        <text class="order-detail-address-message__detail">{{ order.contact_info.address }}</text>
+      </view>
+    </view>
+    <view wx:else class="order-detail-address">
+      <view wx:if="{{ isGiftRemeeded }}" class="order-detail-address-message">
+        <view class="ifanrin ifanrin-share-icon address-share-icon"></view>
+        <navigator open-type="redirect" url="../gift/gift?signedId={{ signedId }}" class="order-detail-address-message__share">您的好友{{ gifteeNickname }}已领取</navigator>
+      </view>
+
+      <view wx:else class="order-detail-address-message">
+        <view class="ifanrin ifanrin-share-icon address-share-icon"></view>
+        <text wx:if="{{ isNotPaid }}" class="order-detail-address-message__share">付款后，跳转至领取页，即可分享给您的好友领取礼物</text>
+        <navigator wx:elif="{{ order.items[0].status === 'pending_redemption' }}" open-type="redirect" url="../gift/gift?signedId={{ signedId }}" class="order-detail-address-message__share">点击进入领取页，即可分享给您的好友领取礼物</navigator>
+      </view>
+    </view>
+  </view>
+
+  <view class="order-detail-item">
+    <view class="order-detail-item--header">
+      <text>订单编号 {{ order.orderid }}</text>
+      <text class="order-detail-status {{ order.status == 'not_paid' ? 'order-detail-status--not-paid' : '' }}">{{ order.statusStr }}</text>
+    </view>
+    <view class="order-detail-product-list">
+      <block wx:for="{{ order.items }}">
+        <view class="order-detail-product-item clearfix {{ item.user_message ? 'pb0' : '' }}" catchtap="navToDetail" data-id="{{ item.product_id }}">
+          <image class="order-detail-product-image" src="{{ item.cover_image }}"></image>
+          <view class="order-detail-product-detail">
+            <view class="order-detail-product-title">{{ item.title }}</view>
+            <view class="order-detail-product-spec">{{ item.spec }}</view>
+            <view class="order-detail-product-right">
+              <view class="order-detail-product-quantity">x{{ item.quantity }}</view>
+            </view>
+          </view>
+          <view class="order-detail-product-price">￥{{ item.unit_price }}</view>
+          <view class="order-detail-product-status">{{ item.statusStr }}</view>
+          <view class="order-detail-user-message-container" wx:if="{{ item.user_message }}">
+            <view class="order-detail-user-message-lable" wx:if="{{ item.user_message }}">留言：</view>
+            <view class="order-detail-user-message-text" wx:if="{{ item.user_message }}">{{ item.user_message }}</view>
+          </view>
+
+        </view>
+        <view class="order-detail-shipped clearfix" wx:if="{{order.status !== 'cancelled'}}" hidden="{{order.status === 'not_paid'}}">
+          <block wx:if="{{ (item.status === 'shipped' || item.status === 'delivered') && !isGiftOrder }}">
+            <view class="order-detail-product-confirm-btn" size="mini" type="default" plain="{{ true }}" bindtap="getTrackingInfo" data-index="{{ index }}" hidden="{{order.items[0].product_type == 'virtual'}}">物流追踪</view>
+            <view wx:if="{{ item.status === 'shipped' }}" class="order-detail-product-confirm-btn" size="mini" type="default" plain="{{ true }}" catchtap="confirmDeliver" data-index="{{ index }}">确认收货</view>
+          </block>
+          <block wx:if="{{ item.status !== 'initiated' && item.status !== 'cancelled' }}">
+            <view wx:if="{{ !item.refund_status }}" class="order-detail-product-confirm-btn" size="mini" type="default" bindtap="getRefund" data-item="{{ item }}">申请售后</view>
+            <view wx:if="{{ item.refund_status }}" class="order-detail-product-confirm-btn" size="mini" type="default" bindtap="getRefundState" data-item="{{ item }}">售后进度</view>
+          </block>
+        </view>
+
+      </block>
+    </view>
+    <view class="order-detail-item--footer">
+      <view class="order-detail-product-count">共 {{ productCount }} 件商品</view>
+    </view>
+  </view>
+  <view wx:if="{{ order.status !== 'cancelled' }}" class="order-detail-item">
+    <view class="order-detail-item-detail">
+      <text>支付方式</text>
+      <view class="order-detail-item-detail--right">
+        <image class="order-detail-wechat-icon" src="http://ifanr.b0.upaiyun.com/danshui/img/iconfont-weixinzhifu.png"></image>
+        <text class="order-detail-wechat-text">微信支付</text>
+      </view>
+    </view>
+
+    <!-- <view class="order-detail-item-detail" wx:if="{{ !order.coupon_amount }}">
+      <text>总价</text>
+      <text class="order-detail-item-detail--right">￥{{ order.order_amount }}</text>
+    </view> -->
+
+
+    <view class="order-detail-item-detail--hasCoupon">
+      <view class="order-detail-item-detail__total-price">
+        <text>支付金额</text>
+        <text class="order-detail-item-detail--right">￥{{ order.order_amount }}</text>
+      </view>
+      <view class="order-detail-item-detail__total-price">
+        <text>运费</text>
+        <text class="order-detail-item-detail--right">+￥{{ order.shipping_rate }}</text>
+      </view>
+      <view wx:if="{{ order.coupon_amount }}" class="order-detail-item-detail__couponAmount">
+        <text>优惠券</text>
+        <text class="order-detail-item-detail--right">-￥{{ order.coupon_amount }}</text>
+      </view>
+      <view wx:if="{{ order.wechat_info.wechat_coupon_amount > 0 }}" class="order-detail-item-detail__wechatCouponAmount">
+        <text>立减金</text>
+        <text class="order-detail-item-detail--right">-￥{{ order.wechat_info.wechat_coupon_amount }}</text>
+      </view>
+    </view>
+
+
+    <view class="order-detail-item-detail">
+      <view class="order-detail-total-price">
+        <view>{{ order.status == 'not_paid' ? '需付款' : '实付款' }}：
+          <text class="order-detail-total-price__content">￥{{payment_method === 'weixin_weapp' ? order.wechat_info.settlement_total_amount : order.final_cost}} </text>
+        </view>
+        <view class="order-created-time {{ order.status === 'not_paid' ? 'order-created-time--not-paid' : '' }}">下单时间：{{ order.created_at }}</view>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{ order.status === 'not_paid' }}" class="order-detail--footer">
+    <button wx:if="{{ order.status === 'not_paid' }}" class="repay-btn" disabled="{{ paymentLoading }}" loading="{{ paymentLoading }}" bindtap="repay" hover-class="payment-submit-btn--active">支付订单</button>
+    <button wx:if="{{ order.status === 'not_paid' }}" class="cancle-order-btn" plain="{{ true }}" bindtap="cancelOrder" data-index="{{ index }}">取消订单</button>
+  </view>
+</view>

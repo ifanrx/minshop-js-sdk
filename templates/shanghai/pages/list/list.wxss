@@ -1,0 +1,131 @@
+@import "../../templates/navTab/navTab.wxss";
+@import "../../templates/serviceButton/serviceButton.wxss";
+@import "../../templates/productCard/productCard.wxss";
+
+page {
+  background: #fff;
+  height: 100%;
+}
+
+.shelf-cover {
+  width: 100%;
+  height: 400rpx;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.nav-tab {
+  /* position: fixed; */
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  z-index: 1;
+  height: 88rpx;
+  padding: 0 48rpx;
+  box-sizing: border-box;
+}
+
+.nav-tab-container {
+  position: relative;
+  height: 80rpx;
+  z-index: 2;
+  border-top: none;
+  justify-content: flex-start !important;
+}
+
+.nav-tab-item {
+  justify-content: center;
+  flex: none;
+  margin-right: 78rpx;
+}
+
+.nav-tab-item__item-name {
+  padding-top: 0;
+  line-height: 80rpx;
+  height: 80rpx;
+  align-self: center;
+  font-size: 26rpx;
+  color: #959595;
+}
+
+.nav-tab-active {
+  color: #111;
+}
+
+.product-list-scroll {
+  height: 100%;
+}
+
+.product-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 48rpx 0;
+  overflow-y: hidden;
+  margin-top: 32rpx;
+}
+
+.product-item {
+  display: inline-block;
+  width: 300rpx;
+  margin-bottom: 20rpx;
+  vertical-align: top;
+  text-align: center;
+}
+
+.home-btn {
+  position: fixed;
+  right: 30rpx;
+  top: 120rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  width: 100rpx;
+  border-radius: 50rpx;
+  font-size: 24rpx;
+  color: #fff;
+  text-align: center;
+  background-color: rgba(0, 0, 0, .45);
+}
+
+.btn-load-more {
+  width: 400rpx;
+  height: 96rpx;
+  margin: 0 auto;
+  font-size: 30rpx;
+  color: #959595;
+  line-height: 96rpx;
+  text-align: center;
+  border: 2rpx solid #959595;
+  margin-top: 152rpx;
+  margin-bottom: 104rpx;
+  border-radius: 4rpx;
+}
+
+.bottom {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 48rpx 0;
+}
+
+.brand-cn {
+  font-size: 26rpx;
+  color: #ccc;
+  letter-spacing: 0;
+  line-height: 37rpx;
+  margin-bottom: 4rpx;
+}
+
+.brand-e {
+  font-size: 22rpx;
+  line-height: 27rpx;
+  color: #ccc;
+  letter-spacing: 0;
+}
+
+.product-card-container {
+  padding: 0 10rpx;
+}

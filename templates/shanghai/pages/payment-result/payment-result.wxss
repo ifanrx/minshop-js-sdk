@@ -1,0 +1,56 @@
+.pay-result {
+  width: 100%;
+  height: 100%;
+}
+
+.pay-result-header {
+  color: #333;
+  text-align: center;
+}
+
+.icon {
+  margin-top: 100rpx;
+}
+
+.large-text {
+  font-size: 40rpx;
+  margin-top: 50rpx;
+}
+
+.small-text {
+  font-size: 28rpx;
+  margin-top: 30rpx;
+  color: #888;
+  font-weight: 100;
+}
+
+.pay-result-header__inline-text {
+  display: block;
+}
+
+.pay-result-nav-button {
+  margin-top: 59rpx;
+  padding: 0 40rpx;
+}
+
+.ok-button {
+  margin-bottom: 30rpx;
+}
+
+.corp-info {
+  width: 100%;
+  position: fixed;
+  bottom: 20px;
+  text-align: center;
+  font-size: 26rpx;
+  color: #576B95
+}
+
+.sep {
+  width: 1px;
+  height: 20rpx;
+  background: #576B95;
+  display: inline-block;
+  margin-left: 16rpx;
+  margin-right: 16rpx;
+}

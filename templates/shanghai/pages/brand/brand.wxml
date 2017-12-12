@@ -1,0 +1,56 @@
+<import src="../../templates/navTab/navTab.wxml" />
+<import src="../../templates/productCard/productCard.wxml" />
+<scroll-view scroll-y="true" class="product-list-scroll" scroll-top="{{ scrollTop }}" bindscroll="productListScroll" bindscrolltolower="loadMore" enable-back-to-top="true">
+  <view wx:if="{{shelf}}" class="shelf-cover">
+    <image class="shelf-cover-bg" src="{{shelf.background_image}}"></image>
+    <view class="bg-cover"></view>
+    <image class="shelf-cover-logo" src="{{shelf.cover_image}}"></image>
+    <view class="shelf-cover-title">{{shelf.name}}</view>
+    <view class="shelf-cover-description ellipsis-l3">{{shelf.description}}</view>
+  </view>
+  <view class="card-container" hidden="{{!couponSeqs.length}}">
+    <view wx:if="{{couponSeqs.length === 1}}" class="single-card background-image" style="background-image:url(https://coolbuy-minapp.b0.upaiyun.com/images/single-coupon-g.png)" >
+      <view class="card-price-cont">{{couponSeqs[0].face_value}}</view>
+      <view class="card-detail-cont">
+        <view class="card-tip">{{couponSeqs[0].minimum_amount}}</view>
+        <view class="card-date">截止日期：{{couponSeqs[0].valid_until}}</view>
+      </view>
+      <view wx:if="{{couponSeqs[0].errData !== 'reach_limit' && !couponSeqs[0].resCode && !couponSeqs[0].redeemed}}" class="get-card" bindtap="getCoupon" data-index="{{0}}" data-item="{{couponSeqs[0]}}">
+        点击领取
+      </view>
+      <view wx:if="{{couponSeqs[0].errData === 'reach_limit' || couponSeqs[0].resCode == 200 || couponSeqs[0].redeemed}}" class="gotten" bindtap="getCoupon" data-index="{{0}}"  data-item="{{couponSeqs[0]}}">
+        已领取
+      </view>
+      <view wx:if="{{couponSeqs[0].status === 'out_of_stock'}}" class="snapped-up-icon background-image" style="background-image:url(https://coolbuy-minapp.b0.upaiyun.com/images/single-out-of-stock-cover.png)"></view>
+    </view>
+    <block wx:for="{{couponSeqs}}" wx:if="{{couponSeqs.length > 1}}">
+    <view class="multiple-card background-image" style="background-image:url(https://coolbuy-minapp.b0.upaiyun.com/images/multiple-coupon-g.png)">
+      <view class="multiple-card-top">
+        <view class="card-price-cont">{{item.face_value}}</view>
+        <view class="card-detail-cont">
+          <view class="card-tip">{{item.minimum_amount}}</view>
+          <view wx:if="{{item.errData !== 'reach_limit' && !item.resCode && !item.redeemed}}" class="get-card" data-index="{{index}}" data-item="{{item}}" bindtap="getCoupon">点击领取</view>
+          <view wx:if="{{item.errData === 'reach_limit' || item.resCode == 200 || item.redeemed}}" class="gotten">已领取</view>
+        </view>
+      </view>
+      <view class="multiple-card-date">截止日期：{{item.valid_until}}</view>
+      <view wx:if="{{item.status === 'out_of_stock'}}" class="snapped-up-icon background-image" style="background-image:url(https://coolbuy-minapp.b0.upaiyun.com/images/multiple-out-of-stock-cover.png)"></view>
+    </view>
+    </block>
+  </view>
+  <view class="nav-tab {{isFixed === true ? 'fixed' : ''}}">
+    <template is="navTab" data="{{navTabs: navTabs}}" />
+    <view class="border-line"></view>
+  </view>
+  <view class="product-list">
+    <view class="product-item" wx:for="{{ productList }}" wx:for-item="product">
+      <template is="productCard" data="{{ ...product }}" />
+    </view>
+  </view>
+  <navigator url="../index/index" class="btn-load-more" open-type="switchTab" >回到首页</navigator>
+  <view class="bottom">
+    <view class="brand-cn">{{ wxExt.MERCHANT_NAME }}</view>
+    <view class="brand-e">{{ wxExt.MERCHANT_WEBSITE }}</view>
+  </view>
+</scroll-view>
+

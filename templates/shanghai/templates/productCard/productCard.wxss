@@ -1,0 +1,144 @@
+.product-image {
+  width: 100%;
+  padding-bottom: 100%;
+  margin-bottom: 24rpx;
+  position: relative;
+}
+
+.product-name {
+  text-align: left;
+  font-size: 30rpx;
+  line-height: 42rpx;
+  color: #111;
+  margin-bottom: 17rpx;
+}
+
+.product-desc {
+  text-align: left;
+  font-size: 26rpx;
+  color: #f68d08;
+  letter-spacing: 0;
+  line-height: 34rpx;
+  margin-bottom: 6rpx;
+}
+
+.price-container {
+  text-align: left;
+}
+
+.product-price {
+  display: inline-block;
+  font-size: 30rpx;
+  line-height: 36rpx;
+  color: #e23737;
+  font-weight: bold;
+}
+
+.discount-price {
+  color: #e23737;
+}
+
+.original-price {
+  display: inline-block;
+  padding: 0 4rpx;
+  margin-left: 10rpx;
+  font-size: 26rpx;
+  line-height: 32rpx;
+  color: #959595;
+}
+
+.product-price::before, .original-price::before {
+  content: "\00A5";
+}
+
+.tags {
+  display: flex;
+  margin-top: 20rpx;
+}
+
+.price-tag {
+  font-size: 20rpx;
+  color: #fff;
+  padding: 0 16rpx;
+  height: 30rpx;
+  line-height: 30rpx;
+  background: #f68d08;
+  margin-right: 12rpx;
+  border-radius: 4rpx;
+}
+
+.special-tag {
+  font-size: 20rpx;
+  color: #fff;
+  padding: 0 16rpx;
+  height: 30rpx;
+  line-height: 30rpx;
+  background: #cabd73;
+  border-radius: 4rpx;
+}
+
+.activity-tag {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 74rpx;
+  height: 74rpx;
+  border-radius: 50%;
+  background: #cabd73;
+  font-size: 20rpx;
+  color: #fff;
+  letter-spacing: 1rpx;
+  line-height: 24rpx;
+  text-align: center;
+  padding: 13rpx 16rpx;
+  box-sizing: border-box;
+  white-space: normal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-novelty {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.novelty-content {
+  position: relative;
+}
+
+.novelty-content-bottom {
+  color: #ccc;
+  font-size: 20rpx;
+  display: flex;
+}
+
+.novelty-content-active {
+  font-size: 20rpx;
+  overflow: hidden;
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #e23737;
+}
+
+.product-novelty-score {
+  font-size: 22rpx;
+  color: #959595;
+  letter-spacing: 0;
+}
+
+.novelty-star {
+  line-height: 20rpx;
+  display:flex;
+  align-items:center;
+}
+
+.novelty-star::before {
+  font-size: 20rpx !important;
+  width: 20rpx;
+  height: 20rpx;
+  line-height: 20rpx;
+}

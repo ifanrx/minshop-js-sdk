@@ -1,0 +1,53 @@
+<template name="productCard">
+  <navigator
+    url="../detail/detail?id={{ id }}{{ isFromShare ? '&share=true' : '' }}&title={{ title }}&summary={{summary}}&original_price={{original_price}}&price={{price}}"
+    open-type="{{ redirect === 'redirect' ? 'redirect' : 'navigate' }}" hover-class="none">
+    <view style="background-image: url({{ cover_image }})" class="product-image background-image">
+      <view wx:if="{{tags.activity}}" class="activity-tag">{{tags.activity}}</view>
+    </view>
+    <view class="product-card-container" hover-class="none">
+      <view class="product-desc ellipsis-l1">{{ description || summary }}</view>
+      <view class="product-name ellipsis-l1">{{ title }}</view>
+      <view class="price-container">
+        <view class="product-price {{ hasDiscount ? 'discount-price' : ''}}"> {{ price }}</view>
+        <view class="original-price line-slash" wx:if="{{ hasDiscount }}"> {{ original_price }}</view>
+      </view>
+      <view class="tags" hidden="{{tags === null}}">
+        <view wx:if="{{tags.price}}" class="price-tag">{{tags.price}}</view>
+        <view wx:if="{{tags.special}}" class="special-tag">{{tags.special}}</view>
+      </view>
+    </view>
+  </navigator>
+</template>
+
+<template name="productCardWithStar">
+  <navigator
+    url="../detail/detail?id={{ id }}{{ isFromShare ? '&share=true' : '' }}&title={{ title }}&summary={{summary}}&original_price={{original_price}}&price={{price}}"
+    open-type="{{ redirect === 'redirect' ? 'redirect' : 'navigate' }}" hover-class="none">
+    <view style="background-image: url({{ cover_image }})" class="product-image background-image">
+      <view wx:if="{{tags.activity}}" class="activity-tag">{{tags.activity}}</view>
+    </view>
+    <view class="product-card-container" hover-class="none">
+      <view class="product-name ellipsis-l1">{{ title }}</view>
+      <view class="product-novelty">
+        <view class="novelty-content" wx:if="{{novelty_index}}">
+          <view class="novelty-content-bottom">
+            <view wx:for="[0,1]" class="novelty-star coolbuy-icon icon-collected"></view>
+          </view>
+          <view class="novelty-content-active" style="width: {{novelty_index * 10}}%">
+            <view wx:for="[0,1]" class="novelty-star coolbuy-icon icon-collected"></view>
+          </view>
+        </view> 
+        <view class="product-novelty-score" wx:if="{{novelty_index}}">（新奇{{novelty_index}}）</view>
+      </view>
+      <view class="price-container">
+        <view class="product-price {{ hasDiscount ? 'discount-price' : ''}}"> {{ price }}</view>
+        <view class="original-price line-slash" wx:if="{{ hasDiscount }}"> {{ original_price }}</view>
+      </view>
+      <view class="tags" hidden="{{tags === null}}">
+        <view wx:if="{{tags.price}}" class="price-tag">{{tags.price}}</view>
+        <view wx:if="{{tags.special}}" class="special-tag">{{tags.special}}</view>
+      </view>
+    </view>
+  </navigator>
+</template>

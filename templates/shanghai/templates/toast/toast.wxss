@@ -1,0 +1,22 @@
+.toast {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 701rpx;
+  width: 320rpx;
+  height: 98rpx;
+  background: #111;
+  opacity: 0.5;
+  border-radius: 4rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+}
+
+.toast__text {
+  font-size: 30rpx;
+  color: #fff;
+  line-height: 30rpx;
+  text-align: center;
+}

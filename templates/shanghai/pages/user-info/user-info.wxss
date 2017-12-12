@@ -1,0 +1,118 @@
+page {
+  background-color: #eeeff1;
+}
+
+.user-avatar {
+  width: 100%;
+  height: 360rpx;
+  background: #fff;
+  margin-bottom: 16rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-avatar__image {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  background: #ccc;
+  margin: 64rpx 0 26rpx;
+}
+
+.user-avatar__modify-tip {
+  font-family: PingFangSC-Regular;
+font-size: 26rpx;
+color: #CCCCCC;
+letter-spacing: 0;
+line-height: 37rpx;
+}
+
+.user-info {
+  width: 100%;
+  background: #fff;
+  margin-bottom: 16rpx;
+  padding: 0 48rpx;
+  box-sizing: border-box;
+}
+
+.user-info__item {
+  height: 110rpx;
+  line-height: 110rpx;
+  display: flex;
+  border-bottom: 1rpx solid #ccc;
+}
+
+.user-info__item:last-child {
+  border-bottom: none;
+}
+
+.user-info__item-name {
+  width: 176rpx;
+  height: 100%;
+  font-family: PingFangSC-Regular;
+  font-size: 30rpx;
+  color: #111;
+}
+
+.user-info__item-value {
+  flex: 1;
+  font-family: HelveticaNeue;
+  font-size: 30rpx;
+  color: #707070;
+}
+
+.user-info__item-radio {
+  display: block;
+  width: 32rpx;
+  height: 32rpx;
+  border-radius: 50%;
+  border: 2rpx solid #ccc;
+  margin-right: 12rpx;
+}
+
+.user-info__item-radio_active {
+  position: relative;
+}
+
+.user-info__item-radio_active::before{
+  position: absolute;
+  width: 16rpx;
+  height: 16rpx;
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  background: #E23737;
+  display: block;
+  content: '';
+}
+
+.save-btn {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 110rpx;
+  background: #e23737;
+  text-align: center;
+  line-height: 110rpx;
+  font-family: PingFangSC-Regular;
+  font-size: 30rpx;
+  color: #fff;
+}
+
+.user-info__sex {
+  display: flex;
+}
+
+.user-info__male,
+.user-info__female {
+  margin-right: 88rpx;
+  display: flex;
+  align-items: center;
+}
+
+.user-info__nickname {
+  height: 110rpx;
+  line-height: 110rpx;
+}

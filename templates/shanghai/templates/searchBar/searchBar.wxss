@@ -1,0 +1,40 @@
+.search-bar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 24rpx;
+  background-color: #fff;
+  z-index: 3;
+  box-sizing: border-box;
+}
+
+.search-bar-btn {
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  color: #959595;
+  border-radius: 8rpx;
+  background-color: #eeeff1;
+}
+
+.icon-search {
+  margin-left: 16rpx;
+  margin-right: 12rpx;
+  font-size: 24rpx;
+}
+
+.search-bar__text {
+  vertical-align: middle
+}
+
+.dark-style {
+  color: #959595;
+}
+
+.dark-style::before {
+  color: #959595 !important;
+}
+
+.dark-bg {
+  background: #EEEFF1;
+}

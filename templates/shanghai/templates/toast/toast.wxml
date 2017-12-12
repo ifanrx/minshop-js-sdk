@@ -1,0 +1,5 @@
+<template name='toast'>
+  <view  class="toast" wx:if="{{toastModalStatus}}">
+    <text class="toast__text">{{toastModalText}}</text>
+  </view>
+</template>

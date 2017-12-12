@@ -1,0 +1,243 @@
+<import src="../../templates/productCard/productCard.wxml" />
+
+<scroll-view class="venue-nav {{showNav ? 'show' : ''}}" scroll-x="true" scroll-left="{{scrollLef}}" scroll-with-animation="true">
+  <view class="venue-module {{currentModule == index ? 'venue-module-active' : ''}}" wx:for="{{venueModule}}" data-index="{{index}}" bindtap="selectActiveView">{{item}}</view>
+</scroll-view>
+
+<scroll-view class="venue-container {{showNav ? 'margin-top-70' : ''}} {{showTipModal ? 'noscroll' : ''}}" scroll-y="true" scroll-with-animation="true" scroll-into-view="{{'module' + activeVenueModule}}" bindscroll="venueScroll">
+  <!-- 头图  -->
+  <view class="banner-image background-image" style="background-image:url(https://coolbuy-minapp.b0.upaiyun.com/venue/main-fair-header.jpg)">
+    <view class="venue-countdown-content" wx:if="{{isShowVenueClock}}">
+      <text class="venue-countdown-text">{{venueCountdownText}}</text>
+      <view class="venue-countdown">
+        <view class="countdown-remain-text">仅剩</view>
+        <view class="countdown-box countdown-hr">{{venueClock.hr}}</view>
+        <view class="countdown-colon">:</view>
+        <view class="countdown-box countdown-min">{{venueClock.min}}</view>
+        <view class="countdown-colon">:</view>
+        <view class="countdown-box countdown-sec">{{venueClock.sec}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 优惠券  -->
+  <view class="card-container" hidden="{{!couponSeqs.length}}">
+    <view wx:if="{{couponSeqs.length === 1}}" class="single-card background-image" style="background-image:url(https://coolbuy-minapp.b0.upaiyun.com/images/single-coupon-pink.png)" bindtap="getCoupon" data-index="{{0}}" data-item="{{couponSeqs[0]}}">
+      <view class="card-price-cont">{{couponSeqs[0].face_value}}</view>
+      <view class="card-detail-cont">
+        <view class="card-tip">{{couponSeqs[0].minimum_amount}}</view>
+        <view class="card-date">截止日期：{{couponSeqs[0].valid_until}}</view>
+      </view>
+      <view wx:if="{{couponSeqs[0].errData !== 'reach_limit' && !couponSeqs[0].resCode && !couponSeqs[0].redeemed}}" class="get-card">
+        点击领取
+      </view>
+      <view wx:if="{{couponSeqs[0].errData === 'reach_limit' || couponSeqs[0].resCode == 200 && !couponSeqs[0].redeemed}}" class="gotten">
+        已领取
+      </view>
+      <view wx:if="{{couponSeqs[0].status === 'out_of_stock'}}" class="snapped-up-icon background-image" style="background-image:url(https://coolbuy-minapp.b0.upaiyun.com/images/single-out-of-stock-cover.png)"></view>
+    </view>
+    <block wx:for="{{couponSeqs}}" wx:if="{{couponSeqs.length > 1}}">
+      <view class="multiple-card background-image" style="background-image:url(https://coolbuy-minapp.b0.upaiyun.com/venue/fair-multiple-coupon.png)" data-index="{{index}}" data-item="{{item}}" catchtap="getCoupon">
+        <view class="multiple-card-top">
+          <view class="card-price-cont">{{item.face_value}}</view>
+          <view class="card-detail-cont">
+            <view class="card-tip">{{item.minimum_amount}}</view>
+            <view wx:if="{{item.errData !== 'reach_limit' && !item.resCode && !item.redeemed}}" class="get-card">点击领取</view>
+            <view wx:if="{{item.errData === 'reach_limit' || item.resCode == 200 || item.redeemed}}" class="gotten">已领取</view>
+          </view>
+        </view>
+        <view class="multiple-card-date">截止日期：{{item.valid_until}}</view>
+        <view wx:if="{{item.status === 'out_of_stock'}}" class="snapped-up-icon background-image" style="background-image:url(https://coolbuy-minapp.b0.upaiyun.com/images/multiple-out-of-stock-cover.png)"></view>
+      </view>
+    </block>
+  </view>
+
+  <!-- 领取流程  -->
+  <view class="coupon-process background-image" style="background-image:url(https://coolbuy-minapp.b0.upaiyun.com/venue/flow-path.png)">
+    <view class="venue-guide-btn" bindtap="toggleTipModal" data-type="{{true}}">
+      活动攻略 >
+    </view>
+  </view>
+
+  <!-- 玩物秒杀 -->
+  <view class="flash-sale" id="module0" hidden="{{isNoFlash}}">
+    <view class="flash-sale-banner background-image" style="background-image:url(https://coolbuy-minapp.b0.upaiyun.com/venue/seckilling-top-bg.jpg)"></view>
+
+    <scroll-view class="flash-nav" scroll-x="true" scroll-with-animation="true" scroll-into-view="view{{currentTabIndex}}">
+      <view id="view{{index}}" wx:for="{{activities}}" class="flash-nav-item {{currentTabIndex == index ? 'current-item' : ''}}" data-id="{{item.activity_id}}" data-index="{{index}}" bindtap="toggleTab">
+        <view class="flash-time">{{item.valid_from}}</view>
+        <view class="flash-status">{{item.statusStr}}</view>
+      </view>
+    </scroll-view>
+
+    <!-- 秒杀商品列表  -->
+    <view class="flash-product-list">
+      <view class="flash-title">
+        <view class="countdown-content">
+          <view class="countdown-box countdown-hr">{{clock.hr}}</view>
+          <view class="countdown-colon">:</view>
+          <view class="countdown-box countdown-min">{{clock.min}}</view>
+          <view class="countdown-colon">:</view>
+          <view class="countdown-box countdown-sec">{{clock.sec}}</view>
+        </view>
+      </view>
+      <view class="flash-sale-list">
+        <navigator class="flash-product" wx:for="{{currentFlashSale.product}}" url="../detail/detail?id={{item.id}}" hover-class="none">
+          <image class="flash-product-image" src="{{item.cover_image}}"></image>
+          <view class="flash-product-content">
+            <view class="flash-product-name ellipsis-l1">
+              {{item.title}}
+            </view>
+            <view class="flash-product-price-content">
+              <view class="flash-product-price">￥{{item.price}}</view>
+              <view class="flash-product-origin-price">原价 <text class="line-slash">￥{{item.original_price}}</text></view>
+            </view>
+            <view class="flash-remain-content">
+              <view class="flash-remain">
+                <text wx:if="{{item.percent == 1}}">抢购进行中</text>
+                <text wx:else>仅剩{{item.percent * 100 + '%'}}</text>
+                <view class="flash-process" style="width: {{208 * item.percent}}rpx"></view>
+              </view>
+              <view class="flash-btn {{item.percent > 0 ? '' : 'flash-out'}}">抢</view>
+            </view>
+          </view>
+        </navigator>
+      </view>
+    </view>
+  </view>
+
+  <!-- 新奇榜单  -->
+  <!-- <view id="module0" class="hot-shelf shelf-container" hidden="{{ !hotProductList.length }}">
+    <image class="hot-shelf-top-img" src="{{ hotShelf.cover_image }}"></image>
+    <view class="hot-shelf-contianer">
+      <block wx:for="{{ hotProductList }}">
+        <navigator class="hot-shelf-product-item" url="../detail/detail?id={{ item.id }}{{ isFromShare ? '&share=true' : '' }}&title={{ item.name }}">
+          <view class="activity-icon" wx:if="{{item.tags && item.tags.activity}}" style="background-image:url(https://coolbuy-minapp.b0.upaiyun.com/venue/activity-label-icon.png)">{{item.tags.activity}}</view>
+          <view class="hot-shelf-product-info">
+            <view class="hot-product-top">
+              <view class="hot-product-title ellipsis-l1">{{item.title}}</view>
+              <view class="hot-product-summary ellipsis-l1">{{item.summary}}</view>
+            </view>
+            <view class="hot-product-price-cont">
+              <text class="hot-product-price">￥{{item.price}}</text><text class="hot-product-original-price line-slash">￥{{item.original_price}}</text>
+            </view>
+            <view class="hot-buy-now">立即抢购 ></view>
+          </view>
+          <image class="hot-shelf-product-img" src="{{item.cover_image}}"></image>
+        </navigator>
+      </block>
+    </view>
+  </view> -->
+
+  <view id="module1" class="hot-shelf shelf-container" hidden="{{ !hotProductList.length }}">
+    <navigator url="../list/list?id=266&name=新奇榜单" class="hot-shelf-top-img background-image" style="background-image:url(https://coolbuy-minapp.b0.upaiyun.com/venue/novelty-top-banner.jpg)"></navigator>
+    <view class="hot-shelf-contianer">
+      <block wx:for="{{ hotProductList }}">
+        <navigator class="hot-shelf-product-item" url="../detail/detail?id={{ item.id }}{{ isFromShare ? '&share=true' : '' }}&title={{ item.name }}">
+          <view class="activity-icon" wx:if="{{item.tags && item.tags.activity}}" style="background-image:url(https://coolbuy-minapp.b0.upaiyun.com/venue/activity-label-icon.png)">直降100</view>
+          <view class="hot-shelf-product-info">
+            <view class="hot-product-top">
+              <view class="hot-product-title ellipsis-l1">{{item.title}}</view>
+              <view class="hot-product-summary ellipsis-l1">{{item.summary}}</view>
+            </view>
+            <view class="product-novelty">
+              <view class="novelty-content">
+                <view class="novelty-content-bottom">
+                  <view wx:for="[0,1]" class="novelty-star coolbuy-icon icon-collected"></view>
+                </view>
+                <view class="novelty-content-active" style="width: {{item.novelty_index * 10}}%">
+                  <view wx:for="[0,1]" class="novelty-star coolbuy-icon icon-collected"></view>
+                </view>
+              </view>
+              <view class="product-novelty-score">（新奇{{item.novelty_index}}）</view>
+            </view>
+            <view class="hot-product-price-cont">
+              <text class="hot-product-price">￥{{item.price}}</text><text class="hot-product-original-price line-slash">￥{{item.original_price}}</text>
+            </view>
+            <view class="hot-buy-now">立即抢购 ></view>
+          </view>
+          <image class="hot-shelf-product-img" src="{{item.cover_image}}"></image>
+        </navigator>
+      </block>
+    </view>
+  </view>
+
+  <!-- 潮牌特惠  -->
+  <view id="module2" class="brand">
+    <navigator class="brand-top-bg background-image" style="background-image:url(https://coolbuy-minapp.b0.upaiyun.com/venue/brand-top-banner.jpg)" url="../brand-list/brand-list"></navigator>
+    <view class="brand-list">
+      <navigator url="../brand/brand?id={{item.id}}" class="brand-item" wx:for="{{brandShelf}}">
+        <image class="brand-img" src="{{item.background_image}}"></image>
+        <image class="brand-icon" src="{{item.cover_image}}"></image>
+        <view class="brand-name ellipsis-l1">{{item.name}}</view>
+        <view class="brand-desc ellipsis-l1">{{item.english_name}}</view>
+      </navigator>
+    </view>
+  </view>
+
+  <!-- 礼盒模块  -->
+  <!-- <view id="module1" class="gift background-image" style="background-image:url(https://coolbuy-minapp.b0.upaiyun.com/venue/gift-box-banner.jpg)"></view>
+  <view class="gift-product-content">
+    <block wx:for="{{ giftBoxList }}" wx:for-item="giftBox">
+      <navigator url="../detail/detail?id={{ giftBox.id }}{{ isFromShare ? '&share=true' : '' }}&title={{ giftBox.name }}" class="gift-box background-image" style="background-image:url(https://coolbuy-minapp.b0.upaiyun.com/venue/gift-box-{{ index + 1 }}-0928.jpg)"></navigator>
+    </block>
+  </view> -->
+
+  <!-- 特色会场  -->
+  <view id="module3" class="special-categories background-image" style="background-image:url(https://coolbuy-minapp.b0.upaiyun.com/venue/category-nav-bg.png)">
+    <view class="special-categories-title"></view>
+    <view class="special-categories-nav-content">
+      <view wx:for="{{categoriesMap}}" class="special-category-item background-image" style="background-image:url(https://coolbuy-minapp.b0.upaiyun.com/venue/{{item.bgName}}.jpg)" data-index="{{index + 4}}" bindtap="selectActiveView"></view>
+    </view>
+  </view>
+
+  <view wx:for="{{ categoriesMap }}" wx:for-item="shelf" id="module{{ index + 4 }}" class="girls activity-container" style="background-image: {{shelf.backgroundImage}}">
+    <navigator url="../category-detail/category-detail?id={{ shelf.categoryId }}{{ isFromShare ? '&share=true' : '' }}" class="top-shelf-nav background-image" style="background-image:url({{ shelf.images.header_image }})">
+      <view class="category-name" style="color: {{shelf.color}}">/ /{{shelf.title}}/ /</view>
+      <view class="see-more" style="background-color: {{shelf.color}}">查看更多 ></view>
+    </navigator>
+    <view class="activity-product-list">
+      <view class="activity-product-item" wx:for="{{ shelfProductList[shelf.id] }}" wx:for-item="product">
+        <template is="productCard" data="{{ ...product }}" />
+      </view>
+      <navigator url="../category-detail/category-detail?id={{ shelf.categoryId }}{{ isFromShare ? '&share=true' : '' }}" class="activity-product-item get-more">
+        <view class="get-more-box" style="border-color: {{shelf.color}}; color: {{shelf.color}}">
+          <view class="get-more-cn">查看更多</view>
+          <view class="get-more-e">more</view>
+        </view>
+        <view class="get-more-title">{{ shelf.title }}</view>
+      </navigator>
+    </view>
+  </view>
+</scroll-view>
+
+<view class="tip-modal" hidden="{{!showTipModal}}">
+  <view class="tip-container">
+    <view class="tip-title">活动攻略</view>
+    <view class="tip-content">
+      <view class="tip-paragraph">1. 活动时间：2017 年 11 月 1 日- 11 月 11 日
+      </view>
+      <view class="tip-paragraph">2. 下单获无门槛优惠券：2017 年 10 月 25 日 00:00:00 到 11 月 9 日 23:59:59 期间，用户在玩物志下单支付完成 2 笔可以获 20 元双十一无门槛优惠券（仅限 11 月 10 号到 11 月 11 号两天使用），下单支付完成 4 笔可以获 50 元双十一无门槛优惠券（仅限 11 月 10 号到 11 月 11 号两天使用）。
+        <view class="">（1）无门槛优惠券统一于 2017 年 11 月 10 号 00:00:00 下发到用户的玩物志卡券包；</view>
+        <view class="">（2）每个用户在整个活动周期内最多只可以获得 1 张无门槛优惠券；</view>
+        <view class="">（3）秒杀产品／一元补拍不计入活动订单。</view>
+      </view>
+      <view class="tip-paragraph">3. 全店满减：玩物志「双 11 焕新狂欢节」活动期间，可直接领取双 11 专属大礼包，包括满 99 减 5，满 199 减 10，满 299 减 20，满 399 减 30，满 499 减 40，满 599 减 50，满 699 减 70，满 799 减 80，满 899 减 100，满 999 减 120，满 1199 减 140，满 1499 减 180，满 1999 减 250，满 2499 减 300，满 2999 减 400 共 15 档满减优惠券。优惠券全店通用。
+      </view>
+      <view class="tip-paragraph">4. 玩物秒杀：11 月 1 日 - 11 月 11 日期间，玩物双 11 焕新狂欢节专属会场每天 4 场限时秒杀活动，最低 9.9 元即可秒得精选商品。秒杀活动时间为每天的 12:00／15:00 / 18:00 / 20:00 。
+      </view>
+      <view class="tip-paragraph">5. 精选会场：除了「双 11 焕新狂欢节」活动主会场外，玩物志还设置了多个主题分会场。每个不同的场馆均设有专属的特色优惠和精美产品，一起来逛逛吧。</view>
+      <view class="tip-paragraph">6. 优惠券使用规则为：
+        <view class="">（1）单笔订单限使用 1 张优惠券，不可叠加；</view>
+        <view class="">（2）请在有效期内使用（2017 年 11 月 1 日- 11 月 11 日）。未使用的现金券过期后，将自动作废；
+        </view>
+      </view>
+      <view class="tip-paragraph">7. 其它未竟事宜，请联系客服；
+      </view>
+      <view class="tip-paragraph">8. 本活动最终解释权归玩物志所有。
+      </view>
+    </view>
+
+    <view class="close-tip ifanrin-delete-icon ifanrin" bindtap="toggleTipModal" data-type="{{false}}"></view>
+  </view>
+</view>

@@ -1,0 +1,66 @@
+<view class="top-line"></view>
+<!-- 我的礼物 Tab -->
+<block>
+   <view class="order-list-container">
+    <scroll-view scroll-y="true" bindscrolltolower="loadMoreGiftOrder" class="order-list" wx:if="{{ !isEmptyGiftOrderList }}" scroll-top="{{ giftOrderListScrollTop }}" bindscroll="setOrderListScrollTop">
+      <view class="order-list-item" wx:for="{{ giftOrders }}">
+        <view class="order-item--header">
+          <text>订单编号 {{ item.orderid }}</text>
+          <text class="order-item-status">{{ '已领取' }}</text>
+        </view>
+        <view class="order-item-product-list">
+          <block wx:if="{{item.is_mysterious === false}}" wx:for="{{ item.items }}" wx:for-item="oitem" wx:for-index="oindex">
+            <navigator url="../gift/gift?signedId={{ item.signed_id }}">
+              <view class="order-item-product-item clearfix">
+                <image class="order-item-product-image" src="{{ oitem.sku_image || oitem.cover_image }}"></image>
+                <view class="order-item-product-detail">
+                  <view class="order-item-product-title">{{ oitem.title }}</view>
+                  <view class="order-item-product-spec">{{ oitem.spec }}</view>
+                  <view class="order-item-product-right">
+                    <view class="order-item-product-quantity">x{{ oitem.quantity }}</view>
+                  </view>
+                </view>
+                <view class="order-item-product-status">{{ oitem.statusStr }}</view>
+              </view>
+            </navigator>
+            <view class="order-item-shipped clearfix">
+              <block wx:if="{{ oitem.status === 'shipped' || oitem.status === 'delivered' }}" hidden="{{oitem.status === 'refunding'}}" >
+            　　<view class="order-item-product-confirm-btn" size="mini" type="default" plain="{{ true }}" catchtap="getGiftTrackingInfo" data-index="{{ index }}" data-oindex="{{ oindex }}">物流追踪</view>
+              <view  wx:if="{{ oitem.status === 'shipped'}}" class="order-item-product-confirm-btn" size="mini" type="default" plain="{{ true }}" catchtap="confirmReceived" data-index="{{ index }}" data-oindex="{{ oindex }}">确认收货</view>
+              </block>
+            </view>
+          </block>
+          <block wx:if="{{item.is_mysterious === true}}">
+            <navigator url="../gift/gift?signedId={{ item.signed_id }}">
+              <view class="order-item-product-item clearfix">
+                <image class="gift-item-img coolbuy-icon icon-mystery" src="{{}}"></image>
+                <view class="order-item-product-detail">
+                  <view class="order-item-product-title">你收到的神秘礼物</view>
+                  <view class="order-item-product-spec">拆开后才知道是什么喔</view>
+                  <view class="order-item-product-right">
+                    <view class="order-item-product-price">{{''  }}</view>
+                    <view class="order-item-product-quantity">{{ '' }}</view>
+                  </view>
+                </view>
+                <view class="order-item-product-status">{{ item.items[0].statusStr }}</view>
+              </view>
+            </navigator>
+            <view class="order-item-shipped clearfix">
+              <block wx:if="{{ item.items[0].status === 'shipped' || item.items[0].status === 'delivered' }}" hidden="{{item.items[0].status === 'refunding'}}">
+            　　<view class="order-item-product-confirm-btn" size="mini" type="default" plain="{{ true }}" catchtap="getGiftTrackingInfo" data-index="{{ index }}" data-oindex="{{ 0 }}">物流追踪</view>
+              <view  wx:if="{{ item.items[0].status === 'shipped' && item.is_mysterious === true}}" class="order-item-product-confirm-btn" size="mini" type="default" plain="{{ true }}" catchtap="confirmAllReceived" data-index="{{ index }}">确认收货</view>
+              </block>
+            </view>
+          </block>
+        </view>
+      </view>
+      <view wx:if="{{ isNoMoreOrderList }}" class="coupon-list--no-more">
+        <view class="coupon-list--no-more__tip">没有更多了</view>
+      </view>
+    </scroll-view>
+    <view class="order-empty" wx:else>
+      <view class="order-empty__tips">您还没有礼物</view>
+    </view>
+  </view>
+</block>
+<!-- /我的礼物 Tab -->

@@ -1,0 +1,360 @@
+<import src="../../templates/navTab/navTab.wxml" />
+<import src="../../templates/productCard/productCard.wxml" />
+<view class="top-line"></view>
+<!-- 商品轮播图 -->
+<swiper class="banner-swiper" bindchange="swiperChange" circular="{{ bannerSwiper.circular }}" autoplay="{{ bannerSwiper.autoplay }}" interval="{{ bannerSwiper.interval }}" duration="{{ bannerSwiper.duration }}" indicator-dots="{{ false }}" indicator-color="{{ bannerSwiper.indicatorColor }}"
+  indicator-active-color="{{ bannerSwiper.indicatorActiveColor }}">
+  <swiper-item wx:for="{{ detail.images }}">
+    <image src="{{ item }}" class="banner-slide-image" mode="aspectFill"></image>
+  </swiper-item>
+  <view class="product-image-index" wx:if="{{detail.images.length}}">{{currentIndex}}/{{detail.images.length}}</view>
+  <view class="detail-collection coolbuy-icon {{collected ? 'icon-collected detail-collection_active' : 'icon-favourite'}}" bindtap="toggleCollect"></view>
+</swiper>
+
+<!-- flash-row -->
+<view class="flash-row {{instantDeal.status == 1 ? 'started' : ''}}" wx:if="{{isShowFlashSale && instantDeal}}">
+  <view class="flash-status">{{instantDeal.status == 1 ? '秒杀中' : '即将开抢'}}</view>
+  <view class="flash-content">
+    <view class="countdown-title">{{instantDeal.status == 1 ? '距离结束' : '离开抢还有'}}</view>
+    <view class="countdown-content">
+      <view class="countdown-box countdown-hr">{{clock.hr}}</view>
+      <view class="countdown-colon">:</view>
+      <view class="countdown-box countdown-min">{{clock.min}}</view>
+      <view class="countdown-colon">:</view>
+      <view class="countdown-box countdown-sec">{{clock.sec}}</view>
+    </view>
+  </view>
+</view>
+
+<!-- 商品简介、价格 -->
+<view class="floor detail--header">
+  <view class="detail-info-container">
+    <view class="detail-info">
+      <text class="detail-title ellipsis-l2">{{ detail.title }}</text>
+      <view class="detail-sum">
+        <view class="detail-sum-left">
+          <view class="detail-summary ellipsis-l2">{{ detail.summary }}</view>
+
+          <view class="detail__price clearfix">
+            <view wx:if="{{ detail.price && (!isMultipleSku || !hasDiscountPriceArea) }}" class="detail__discount-price">
+              <i class="detail__discount-price-icon coolbuy-icon icon-price"></i> {{ detail.price * 100 / 100 }}
+            </view>
+            <view wx:if="{{ isMultipleSku && hasDiscountPriceArea }}" class="detail__discount-price">
+              <text class="detail__discount-price-icon coolbuy-icon icon-price"></text> {{ minDiscountPrice }} ~ {{ maxDiscountPrice }}
+            </view>
+            <view class="detail__original-price">
+              <view wx:if="{{ isOriginalPriceShow && (!isMultipleSku || !hasOriginalPriceArea) }}" class="line-slash line-slash--has-padding">
+                <text class="detail__original-price-icon coolbuy-icon icon-price"></text> {{ detail.original_price * 100 / 100 }}
+              </view>
+              <view wx:if="{{ isOriginalPriceShow && isMultipleSku && hasOriginalPriceArea }}" class="line-slash line-slash--has-padding">
+                <text class="detail__original-price-icon coolbuy-icon icon-price"></text> {{ minOriginalPrice }} ~ {{ maxOriginalPrice}}
+              </view>
+            </view>
+          </view>
+
+          <view class="detail-shipping-cost" hidden="{{detail.product_type === 'virtual'}}">
+            <block wx:if="{{detail.shipping_rate.length > 1}}">
+            <view class="shipping-cost-title">运费：</view>
+            <view class="shipping-cost-value">￥{{detail.shipping_rate[0]}} ~ {{detail.shipping_rate[1]}}</view>
+            </block>
+            <block wx:if="{{detail.shipping_rate.length == 1 && detail.shipping_rate[0] >= 0}}">
+            <view class="shipping-cost-title">运费：</view>
+            <view class="shipping-cost-value">￥{{detail.shipping_rate[0]}}</view>
+            </block>
+          </view>
+
+          <view class="detail-tags" wx:if="{{detail.tags}}">
+            <view wx:if="{{detail.tags && detail.tags.price}}" class="tag">{{detail.tags.price}}</view>
+            <view wx:if="{{detail.tags && detail.tags.special}}" class="tag">{{detail.tags.special}}</view>
+            <view wx:if="{{detail.tags && detail.tags.activity}}" class="tag">{{detail.tags.activity}}</view>
+          </view>
+        </view>
+        <view class="detail-sum-right" data-index="3" wx:if="{{detail.novelty_index}}">
+          <view class="novel-score">{{detail.novelty_index}}</view>
+          <view class="novel-star">
+            <view class="novelty-content">
+              <view class="novelty-content-bottom">
+                <view wx:for="[0,1]" class="novelty-star coolbuy-icon icon-collected"></view>
+              </view>
+              <view class="novelty-content-active" style="width: {{detail.novelty_index * 10}}%">
+                <view wx:for="[0,1]" class="novelty-star coolbuy-icon icon-collected"></view>
+              </view>
+            </view>
+          </view>
+          <view class="novel-name">
+            <text>新奇指数</text>
+            <text class="novelty-tip-icon coolbuy-icon icon-about-us"></text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>
+<!-- /商品简介、价格 -->
+
+<view class="preferential-tabs">
+  <view wx:if="{{coupons.length}}" class="preferential-tab coupon-tab" data-index="0" bindtap="showPreferentialModal">
+    <view class="tab-name ">领券</view>
+    <view class="tab-text ellipsis-l1">{{displayCoupons}}</view>
+    <view class="arrow-icon ifanrin ifanrin-right-icon"></view>
+  </view>
+  <view wx:if="{{detail.discount_info && detail.discount_info.length}}" class="preferential-tab present-tab" data-index="1" bindtap="showPreferentialModal">
+    <view class="tab-name">买赠</view>
+    <view class="tab-text ellipsis-l1">{{detail.discount_info[0].key}}</view>
+    <view class="arrow-icon ifanrin ifanrin-right-icon"></view>
+  </view>
+   <view wx:if="{{detail.activites && detail.activites.length}}" class="preferential-tab specail-tab" data-index="2" data-i="0" bindtap="{{detail.activites.length > 1 ? 'showPreferentialModal' : 'navToShelf'}}">
+    <view class="tab-name">促销</view>
+    <view class="tab-text">该商品正在参与「{{detail.activites[0].name}}」促销</view>
+    <view class="arrow-icon ifanrin ifanrin-right-icon"></view>
+  </view>
+  <!-- <view class="preferential-tab specail-tab" data-index="2" data-i="0" bindtap="showPreferentialModal">
+    <view class="tab-name">促销</view>
+    <view class="tab-text">该商品正在参与「 双 11 」促销活动</view>
+    <view class="arrow-icon ifanrin ifanrin-right-icon"></view>
+  </view> -->
+</view>
+
+<template is="detailNavTab" data="{{ navTabs: navTabs }}" />
+
+<view class="floor detail-more">
+  <view wx:if="{{ currentTab == 0 }}" class="detail-description">
+    <block wx:for="{{ description }}">
+      <image wx:if="{{ item.type === 'image' }}" class="description-images" src="{{ item.content }}" style="width: {{ descriptionImages[index].width }}rpx; height: {{ descriptionImages[index].height }}rpx" bindload="imageLoad" data-index="{{ index }}">
+      </image>
+      <view wx:elif="{{ item.type === 'text' }}" class="description-text">
+        {{ item.content }}
+      </view>
+    </block>
+  </view>
+
+  <view wx:elif="{{ currentTab == 1 }}" class="detail-attributes">
+    <view class="attributes-item" wx:for="{{ detail.attributes }}">
+      <text class="attributes-key">{{ item.key }}：</text>
+      <text class="attributes-value">{{ item.value }}</text>
+    </view>
+  </view>
+
+  <view wx:elif="{{ currentTab == 2 }}" class="detail-vendor">
+    <image class="vendor-logo" mode="aspectFill" src="{{ detail.vendor.logo }}"></image>
+    <view class="vendor-name">{{ detail.vendor.name }}</view>
+    <view class="vendor-description">{{ detail.vendor.description }}</view>
+  </view>
+</view>
+
+<!-- 售前须知  -->
+<view class="floor presale" wx:if="{{detail.notice && detail.notice.length}}">
+  <view class="presale-title">售前须知</view>
+  <view class="presale-item" wx:for="{{detail.notice}}">
+    <text class="presale-item-name">{{item.key}}：</text>
+    <text class="presale-item-text">{{item.value}}</text>
+  </view>
+</view>
+
+<!-- 底部栏 -->
+<view class="shopping-bar">
+  <view class="offshelf-tip" wx:if="{{detail.status === 'off_shelf'}}"> 商品已经被抢光啦！</view>
+  <view class="shopping-bar-item service-icon">
+    <button wx:if="{{ isSupportContactButton }}" class="user-contact-button" open-type="contact">
+      <view class="coolbuy-icon icon-service"></view>
+      <view>客服</view>
+    </button>
+    <view wx:else>
+      <contact-button type="default-light" size="20" session-from="weapp">
+      </contact-button>
+      <view>客服</view>
+    </view>
+  </view>
+
+  <view class="shopping-bar-item cart-icon" catchtap="navToShoppingCart">
+    <view class="coolbuy-icon icon-shopping-cart-linetype">
+      <text wx:if="{{ shoppingCart.total_quantity > 0 }}" class="shopping-cart-count">{{ shoppingCart.total_quantity }}</text>
+    </view>
+    <view>购物车</view>
+  </view>
+
+  <view class="shopping-bar-item gift-icon {{!canOp && 'disabled'}}" catchtap="showShoppingBox" data-buy-method="{{ BUY_METHOD.GIFT_GIVING }}" hidden="{{detail.product_type == 'virtual'}}">
+    <view class="coolbuy-icon icon-gift"></view>
+    <view>送礼</view>
+  </view>
+  <view class="icon-line"></view>
+  <view class="shopping-bar-item button-add {{!canOp && 'disabled'}}" catchtap="showShoppingBox" data-buy-method="{{ BUY_METHOD.ADD_TO_SHOPPING_CART }}" hidden="{{detail.product_type == 'virtual'}}">加入购物车</view>
+  <view class="shopping-bar-item button-buy {{!canOp && 'disabled'}}" catchtap="showShoppingBox" data-buy-method="{{ BUY_METHOD.BUY_NOW }}">马上购买</view>
+</view>
+<!-- /底部栏 -->
+
+<!-- 遮罩 -->
+<view class="detail-mask {{ isShowBox || isShowQandA ? 'detail-mask--active' : '' }}" catchtap="hideShoppingBox" />
+<!-- /遮罩 -->
+
+<view wx:if="{{ isShowBox }}" class="shopping-box">
+  <!-- 弹框头部，商品名称、价格 -->
+  <view class="shopping-box--header">
+    <image class="shopping-box__image" mode="aspectFill" src="{{ currentSku.sku_image || detail.cover_image }}"></image>
+    <view class="tips-content">
+      <view class="flash-tip" wx:if="{{isShowFlashSale}}">限时抢购</view>
+      <view class="price-box">
+        <view class="shopping-box__discount-price" hidden="{{ currentSku.hidePrice }}">
+          <i class="detail__discount-price-icon shopping-box__discount-price-icon coolbuy-icon icon-price"></i> {{ currentSku.discount_price }}
+        </view>
+
+        <view wx:if="{{ currentSku.original_price > currentSku.discount_price }}" class="shopping-box__original-price" hidden="{{ currentSku.hidePrice }}">
+          <view class="line-slash line-slash--has-padding">
+            <text class="detail__original-price-icon coolbuy-icon icon-price"></text> {{ currentSku.original_price }}
+          </view>
+        </view>
+      </view>
+      <view class="standard-title">请选择规格</view>
+    </view>
+
+    <view class="shopping-box__close-container" catchtap="hideShoppingBox">
+      <view class="shopping-box__close ifanrin-delete-icon ifanrin"></view>
+    </view>
+  </view>
+  <!-- /弹框头部，商品名称、价格 -->
+
+  <!-- SKU 选择 -->
+  <view class="shopping-sku-list">
+    <block wx:for="{{ inUseSpecs }}" wx:for-index="keyId">
+      <text class="spec__title">{{ item.spec_key_name }}</text>
+      <view class="spec-list">
+        <block wx:for="{{ item.spec_values }}" wx:for-item="oitem" wx:for-index="valueId">
+          <block wx:if="{{!skuStatusList.status[keyId][valueId][1]}}">
+            <view class="spec-item {{skuStatusList.status[keyId][valueId][0] ? 'spec-item--active' : '' }}"  data-key-id="{{ keyId }}" data-value-id="{{ valueId }}" catchtap="setSelectedSku">{{ oitem }}</view>
+          </block>
+          <view wx:else class="spec-item disabled"  data-key-id="{{ keyId }}" data-value-id="{{ valueId }}" catchtap="setSelectedSku">{{ oitem }}</view>
+        </block>
+      </view>
+    </block>
+  </view>
+
+  <!-- 选择购买数量 -->
+  <view class="shopping-amount">
+    <view>
+      <text class="shopping-amount__title">数量</text>
+      <text class="purchase-limit-tip" wx:if="{{detail.purchase_limit > 0}}">（每人限购{{detail.purchase_limit}}件）</text>
+    </view>
+    <view class="shopping-select-box">
+      <text class="shopping-select-box-item ifanrin-minus-icon ifanrin" catchtap="changeQuantity" data-order="minus"></text>
+      <text class="shopping-select-box-item shopping-quantity">{{ amount }}</text>
+      <text class="shopping-select-box-item ifanrin-add-icon ifanrin" catchtap="{{(amount < (detail.purchase_limit - detail.purchase_number) || detail.purchase_limit === 0 ) ? 'changeQuantity' : 'showPurchaseLimit' }}" data-order="add"></text>
+    </view>
+  </view>
+  <!-- /选择购买数量 -->
+
+  <view class="shopping-box-foot">
+    <view class="shopping-submit {{ buyMethod && currentSku.inventory <  amount ? 'nomore-inventory': '' }} {{currentSku.purchase_limit && amount > (currentSku.purchase_limit - currentSku.purchase_number) ? 'nomore-inventory' : ''}}" catchtap="shoppingSubmit"
+      data-buy-method="{{ buyMethod }}">
+      <block wx:if="{{ currentSku.inventory == 0 }}">卖光了</block>
+      <block wx:elif="{{ currentSku.inventory <  amount }}">库存不足</block>
+      <block wx:elif="{{currentSku.purchase_limit && amount > (currentSku.purchase_limit - currentSku.purchase_number) }}">每人限购 {{currentSku.purchase_limit - currentSku.purchase_number}} 件</block>
+      <block wx:else>
+        <block wx:if="{{ buyMethod === BUY_METHOD.BUY_NOW }}">马上购买</block>
+        <block wx:elif="{{ buyMethod === BUY_METHOD.ADD_TO_SHOPPING_CART }}">加入购物车</block>
+        <block wx:elif="{{ buyMethod === BUY_METHOD.GIFT_GIVING }}">送礼</block>
+      </block>
+    </view>
+  </view>
+</view>
+
+<!-- 问答弹框 -->
+<view wx:if="{{ isShowQandA }}" class="QandA-container">
+
+  <view class="QandA__close" bindtap="hideQandA">
+    <text class="QandA__close-icon ifanrin ifanrin-delete-icon"></text>
+  </view>
+
+  <view class="QandA-list">
+    <text class="QandA__question">正品保证</text>
+    <text class="QandA__answer"> 本网站所售商品全部由品牌制造商和授权经销商直接提供，100% 正品行货，享受品牌正品行货全国及联保服务，欢迎广大顾客进行监督。</text>
+
+    <text class="QandA__question">七天退换</text>
+    <text class="QandA__answer">消费者在收到商品七天内：商品及包装配件完好全新，无人为的使用痕迹污渍破损等情况下，不影响2次销售范围内，可提出[七天无理由退换货]的申请。（生鲜食品／虚拟产品／定制产品／私密贴身用品／除外不享受此项服务）</text>
+
+    <text class="QandA__question">极速退款</text>
+    <text class="QandA__answer">收到退货包裹并确认无误后，将在 48 小时内办理退款，退款将按原路返回。不同银行处理时间不同，预计 1-5 个工作日到账。</text>
+
+    <text class="QandA__question">全场包邮</text>
+    <text class="QandA__answer">如无特殊说明，全场商品均支持全国包邮（暂不支持港澳台），具体可以查看商品详情页的售前须知模块。</text>
+
+    <text class="QandA__question">支持开票</text>
+    <text class="QandA__answer">收到商品后，联系在线客服，提供订单信息和相关开票信息，我们即会为你开具发票。一般在 7－10 个工作日内发出，请耐心等候。</text>
+  </view>
+
+  <view class="QandA__confirm" bindtap="hideQandA">确定</view>
+</view>
+
+<view class="preferential-modal" wx:if="{{isShowPreferentialModal}}">
+  <view class="preferential-modal-content">
+    <view class="close-modal-btn ifanrin-delete-icon ifanrin" bindtap="closePreferentialModal"></view>
+    <view class="coupon-modal modal-padding" wx:if="{{currentPreferentialIndex == 0}}">
+      <view class="modal-title">领券立减</view>
+      <view class="coupon-list">
+        <view class="coupon-item" wx:for="{{coupons}}" data-index="{{ index }}">
+          <view class="coolbuy-icon icon-checkbox-square coupon-item__checkbox {{ item.selected ? 'coupon-item__checkbox--selected' : '' }}" wx:if="{{ isShowCheckbox }}"></view>
+          <view class="coupon-item-content">
+            <view class="coupon-item--left">
+              <view class="coupon__face-value ">{{ item.face_value }}</view>
+            </view>
+
+            <view class="coupon-item--center">
+              <view wx:if="{{item.minimum_amount > 0}}" class="coupon__name">满 {{ item.minimum_amount }} 元可用券</view>
+              <view wx:else class="coupon__name">无门槛使用</view>
+              <view class="coupon__valid-time">截止日期：{{ item.valid_until }}</view>
+            </view>
+
+            <view class="coupon-item--right">
+              <view class="go-use" data-item="{{item}}" data-index="{{index}}" bindtap="getCoupon">领取</view>
+            </view>
+          </view>
+          <view class="coupon-item-bottom coupon__description" style="background-image:url(https://coolbuy-minapp.b0.upaiyun.com/coupon/coupon-bg.png)">
+            {{ item.description }}
+          </view>
+
+          <view class="coupon-over-time" wx:if="{{item.errMeg}}">
+            <view class="coupon-over-time-circle" wx:if="{{item.errMeg === 'out_of_stock'}}">已抢光</view>
+            <view class="coupon-over-time-circle" wx:if="{{item.errMeg === 'reach_limit' || item.errMeg === 'redeemed'}}">已领取</view>
+          </view>
+
+          <view class="cant-use-cover" wx:if="{{item.errMeg}}"></view>
+        </view>
+      </view>
+    </view>
+
+    <view class="present-modal modal-padding" wx:if="{{currentPreferentialIndex == 1}}">
+      <view class="modal-title">买赠活动</view>
+      <view class="present-list">
+        <view class="present-text" wx:for="{{detail.discount_info}}" style="{{index == 0 ? 'border-top: 1rpx solid #ccc;' : ''}}">{{item.value}}
+        </view>
+      </view>
+    </view>
+
+    <view class="special-modal modal-padding" wx:if="{{currentPreferentialIndex == 2}}">
+      <view class="modal-title">促销活动</view>
+      <view class="special-list">
+        <!-- <navigator open-type="switchTab" url="../venue/venue" class="special-item" style="border-top: 1rpx solid #ccc;">
+          <view class="special-text ellipsis-l1">该商品正则参加「 双 11 」优惠活动，点击查看更多</view>
+          <view class="arrow-icon ifanrin ifanrin-right-icon"></view>
+        </navigator>
+        <view class="special-item" wx:for="{{detail.activites}}" data-i="{{index}}" bindtap="navToShelf">
+          <view class="special-text ellipsis-l1">该商品正则参加「{{item.name}}」优惠活动，点击查看更多</view>
+          <view class="arrow-icon ifanrin ifanrin-right-icon"></view>
+        </view> -->
+         <view class="special-item" wx:for="{{detail.activites}}" style="{{index == 0 ? 'border-top: 1rpx solid #ccc;' : ''}}" data-i="{{index}}" bindtap="navToShelf">
+          <view class="special-text ellipsis-l1">该商品正则参加「{{item.name}}」优惠活动，点击查看更多</view>
+          <view class="arrow-icon ifanrin ifanrin-right-icon"></view>
+        </view>
+      </view>
+    </view>
+
+    <view class="novelty-modal modal-padding" wx:if="{{currentPreferentialIndex == 3}}">
+      <view class="modal-title novel-title">新奇指数</view>
+      <view class="novel-modal-body">新奇指数是由玩物志推出的商品评分指数，初期由玩物志鉴定团评价得出。玩物鉴定团由资深时尚买手 / 资深时尚编辑 / 资深商品开发等组成，以渠道覆盖率 / 产品普及率 / 品牌认知度等为核心参考要素进行评审，为用户提供购物参考。</view>
+    </view>
+  </view>
+</view>
+
+<view class="toast" wx:if="{{toastModalStatus}}">
+  <text class="toast__text">{{toastModalText}}</text>
+</view>

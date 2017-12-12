@@ -1,0 +1,20 @@
+<import src="../../templates/productCard/productCard.wxml" />
+<scroll-view scroll-y="true" class="product-list-scroll" scroll-top="{{ scrollTop }}" bindscroll="productListScroll" bindscrolltolower="loadMore" enable-back-to-top="true">
+  <scroll-view class="category-nav-tab" scroll-x="true" scroll-into-view="{{'toView' + currentTabIndex}}" scroll-with-animation="true" scroll-left="">
+     <view id="toView{{index}}" class="category-nav-item {{currentTabIndex == index ? 'active' : ''}}" wx:for="{{category.shelves}}" data-index="{{index}}" bindtap="toggleTab">
+      {{item.name}}
+    </view>
+  </scroll-view>
+  <view class="product-list">
+    <view class="product-item" wx:for="{{ productList }}" wx:for-item="product">
+      <template is="productCard" data="{{ ...product }}" />
+    </view>
+  </view>
+  <navigator url="../index/index" class="btn-load-more" open-type="switchTab" hidden="{{ !isNoMoreProductList }}">回到首页</navigator>
+  <view class="bottom">
+    <view class="brand-cn">{{ wxExt.MERCHANT_NAME }}</view>
+    <view class="brand-e">{{ wxExt.MERCHANT_WEBSITE }}</view>
+  </view>
+</scroll-view>
+
+<navigator wx:if="{{ isFromShare }}" open-type="redirect" url="../index/index" class="home-btn">首页</navigator>

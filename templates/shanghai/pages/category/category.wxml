@@ -1,0 +1,17 @@
+<include src="../../templates/searchBar/searchBar.wxml"/>
+<view class="top-line"></view>
+<view class="category-container">
+  <view class="category-name-list">
+    <view wx:for="{{categories}}" class="category-name-wrap" data-index="{{index}}" bindtap="toggleCategory"><text class="category-name {{activeCategoryIndex === index ? 'active' : ''}}">{{item.name}}</text></view>
+  </view>
+  <view class="category-content">
+    <image wx:if="{{categories[activeCategoryIndex].campaign_banner.image}}" src="{{categories[activeCategoryIndex].campaign_banner.image}}" class="category-banner" data-url="{{categories[activeCategoryIndex].campaign_banner.target_url}}" bindtap="getUrl"></image>
+    <view class="sub-category-name">{{categories[activeCategoryIndex].name}}</view>
+    <view class="sub-category-list">
+      <view class="sub-category-item" wx:for="{{categories[activeCategoryIndex].shelves}}" data-index="{{index}}" bindtap="enterCategoryDetail">
+        <image class="product-image" src="{{item.cover_image}}"></image>
+        <view class="product-name ellipsis-l1">{{item.name}}</view>
+      </view>
+    </view>
+  </view>
+</view>

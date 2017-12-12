@@ -1,0 +1,25 @@
+.line-through::before{
+  position: absolute;
+  content: "";
+  border-bottom: 1px solid;
+  width: 100%;
+  height: 1px;
+  transform: rotate(4deg);
+  top: 40%;
+  left: 0;
+}
+
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both
+}
+
+.clearfix::before {
+  content: " ";
+  display: table;
+}
+
+#bg-red {
+  background-color: #fd544a;
+}
